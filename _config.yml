@@ -1,5 +1,6 @@
-encoding: nil
-title: 博客名字 # 你的博客名字，可以定义修订
+---
+encoding: "UTF-8"
+title: "静能生慧" # 你的博客名字，可以定义修订
 header-img: "img/green.jpg"
 tagline: "cn"  
 description: "学无止境"  # 一句话描述你的博客
