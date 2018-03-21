@@ -1,70 +1,52 @@
-source:      .
-destination: ./_site
-plugins:     ./_plugins
-layouts:     ./_layouts
-include:     ['.htaccess']
-exclude:     []
-keep_files:  ['.git','.svn']
-gems:        []
-timezone:    nil
-encoding:    nil
+encoding: nil
+title: 博客名字 # 你的博客名字，可以定义修订
+header-img: "img/green.jpg"
+tagline: "cn"  
+description: "学无止境"  # 一句话描述你的博客
+baseurl: ""
+url: "http://wsxq2.55555.io", "http://wsxq2.github.io"  # 此处填写你的博客地址 
 
-future:      true
-show_drafts: nil
-limit_posts: 0
-highlighter: pygments
+owner: 
+  name: "wsxq2" # 填写作者信息：名字
+  email: "wsxq2@qq.com"# 填写作者信息：邮箱
+  bio: "一只倔强的小强。" # 填写作者信息：博客描述
 
-relative_permalinks: true
+gavatar: img/favicon.png # 浏览器地址栏小图标，可自定义更改
+favicon: img/favicon.png # 浏览器地址栏小图标，可自定义更改
 
-permalink:     date
-paginate_path: 'page:num'
-paginate:      nil
+douban_username:  # 你的豆瓣id
+twitter_username: 
+github_username: wsxq2
+facebook_username: 
+weibo_username: 
+zhihu_username: 
 
-markdown:      maruku
-markdown_ext:  markdown,mkd,mkdn,md
-textile_ext:   textile
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+paginate: 8
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 
-excerpt_separator: "\n\n"
+timezone: Asia/Shanghai
 
-safe:        false
-watch:       false    # deprecated
-server:      false    # deprecated
-host:        0.0.0.0
-port:        4000
-baseurl:     /
-url:         http://localhost:4000
-lsi:         false
+defaults:
+  -
+    scope: 
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "wsxq2" # 你的名字
+      header-img: "img/green.jpg" # We don't want posts without a header image, that whould mean white on white
 
-maruku:
-  use_tex:    false
-  use_divs:   false
-  png_engine: blahtex
-  png_dir:    images/latex
-  png_url:    /images/latex
-  fenced_code_blocks: true
+comments :
+  provider : disqus # 使用 disqus 评论模块，读者翻墙才能看见
+  duoshuo :
+    short_name :  # 填写你的 disqus id
+  disqus :
+      short_name :  # 填写你的 disqus id
 
-rdiscount:
-  extensions: []
-
-redcarpet:
-  extensions: []
-
-kramdown:
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  smart_quotes: lsquo,rsquo,ldquo,rdquo
-  use_coderay: false
-
-  coderay:
-    coderay_wrap: div
-    coderay_line_numbers: inline
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: style
-
-redcloth:
-  hard_breaks: true
+google_analytics:  # 填写你  google_analytics id
+google_verify:
+bing_verify:
 
