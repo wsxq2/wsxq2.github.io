@@ -1,4 +1,5 @@
 # Site settings
+encoding: utf-8
 title: 博客名字 # 你的博客名字，可以定义修订
 header-img: "img/green.jpg"
 tagline: "cn"  
