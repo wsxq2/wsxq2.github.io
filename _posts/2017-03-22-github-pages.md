@@ -66,6 +66,7 @@ bundle exec jekyll serve #启动环境
 ### 其它
 1. [用Jekyll搭建的Github Pages个人博客](https://www.jianshu.com/p/88c9e72978b4)
 2. [一步步在GitHub上创建博客主页-最新版](http://www.pchou.info/ssgithubPage/2014-07-04-build-github-blog-page-08.html)
+3. [利用GitHubPages+jekyll+Markdown搭建个人博客](https://juejin.im/post/5a266dfc51882578da0dba52)
 
 ## Github Pages 模版
 ### 官方
