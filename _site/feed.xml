@@ -5,9 +5,542 @@
     <description>学无止境</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 22 Mar 2018 16:17:44 +0800</pubDate>
-    <lastBuildDate>Thu, 22 Mar 2018 16:17:44 +0800</lastBuildDate>
+    <pubDate>Thu, 22 Mar 2018 17:14:12 +0800</pubDate>
+    <lastBuildDate>Thu, 22 Mar 2018 17:14:12 +0800</lastBuildDate>
     <generator>Jekyll v3.6.2</generator>
+    
+      <item>
+        <title>Github Pages</title>
+        <description>&lt;hr /&gt;
+
+&lt;h1 id=&quot;jekyll本地环境搭建&quot;&gt;jekyll本地环境搭建&lt;/h1&gt;
+
+&lt;h2 id=&quot;简介&quot;&gt;简介&lt;/h2&gt;
+&lt;p&gt;GitHub Pages为了提供对HTML内容的支持，选择了Jekyll作为模板系统，Jekyll是一个强大的静态模板系统，作为个人博客使用，基本上可以满足要求，也能保持管理的方便。&lt;/p&gt;
+
+&lt;p&gt;Jekyll是一种简单的、适用于博客的、静态网站生成引擎。它使用一个模板目录作为网站布局的基础框架，支持Markdown、Textile等标记语言的解析，提供了模板、变量、插件等功能，最终生成一个完整的静态Web站点。说白了就是，只要安装Jekyll的规范和结构，不用写html，就可以生成网站。&lt;/p&gt;
+
+&lt;h2 id=&quot;基本结构&quot;&gt;基本结构&lt;/h2&gt;
+
+&lt;p&gt;Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标记语言写文档，可以是Markdown、Textile或者HTML等等，再通过layout将文档拼装起来，根据你设置的URL规则来展现，这些都是通过严格的配置文件来定义，最终的产出就是web页面。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;|-- _config.yml
+|-- _includes
+|-- _layouts
+|   |-- default.html
+|    -- post.html
+|-- _posts
+|   |-- 2007-10-29-why-every-programmer-should-play-nethack.textile
+|    -- 2009-04-26-barcamp-boston-4-roundup.textile
+|-- _site
+ -- index.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;安装步骤&quot;&gt;安装步骤&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;将主题&lt;a href=&quot;https://github.com/onevcat/vno-jekyll&quot;&gt;Vno-Jekyll&lt;/a&gt;下载到本地: &lt;code class=&quot;highlighter-rouge&quot;&gt;git clone https://github.com/onevcat/vno-jekyll.git&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.ruby-lang.org/zh_cn/documentation/installation/&quot;&gt;安装ruby&lt;/a&gt;(Debian: &lt;code class=&quot;highlighter-rouge&quot;&gt;# apt install ruby-full&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;打开终端，执行:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem install bundle &lt;span class=&quot;c&quot;&gt;#安装bundle&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;vno-jekyll &lt;span class=&quot;c&quot;&gt;#进入Git pages目录&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' #编辑Gemfile文件
+source '&lt;/span&gt;http://gems.ruby-china.org/&lt;span class=&quot;s1&quot;&gt;'
+gem '&lt;/span&gt;github-pages&lt;span class=&quot;s1&quot;&gt;'
+'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;Gemfile
+bundle install &lt;span class=&quot;c&quot;&gt;#命令会根据当前目录下的Gemfile，安装所需要的所有软件(使其和github环境一致)&lt;/span&gt;
+bundle update &lt;span class=&quot;c&quot;&gt;#更新环境&lt;/span&gt;
+bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;jekyll serve &lt;span class=&quot;c&quot;&gt;#启动环境&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;其它可能用到的命令：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem source -r https://rubygems.org/ (移除镜像)
+gem source -a http://gems.ruby-china.org/ (添加新镜像)
+gem source
+
+4. 在浏览器输入`http://127.0.0.1:4000/`，即可看见刚刚从网上下载的**vno-jekyll**主体技术博客了
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;参考链接&quot;&gt;参考链接：&lt;/h2&gt;
+&lt;h3 id=&quot;官方&quot;&gt;官方&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jekyllcn.com/&quot;&gt;Jekyll中文指导手册&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://wiki.jikexueyuan.com/project/github-pages-basics/&quot;&gt;Github Pages Basics中文版(极客学院翻译)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://help.github.com/categories/github-pages-basics/&quot;&gt;Github Pages Basics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://help.github.com/categories/customizing-github-pages/&quot;&gt;Customizing Github Pages&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;其它&quot;&gt;其它&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.jianshu.com/p/88c9e72978b4&quot;&gt;用Jekyll搭建的Github Pages个人博客&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.pchou.info/ssgithubPage/2014-07-04-build-github-blog-page-08.html&quot;&gt;一步步在GitHub上创建博客主页-最新版&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;github-pages-模版&quot;&gt;Github Pages 模版&lt;/h2&gt;
+&lt;h3 id=&quot;官方-1&quot;&gt;官方&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jekyllthemes.org/&quot;&gt;http://jekyllthemes.org/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/wsxq2/wsxq2.github.io/settings/pages/themes?utf8=%E2%9C%93&amp;amp;source=master&quot;&gt;https://github.com/wsxq2/wsxq2.github.io/settings/pages/themes?utf8=%E2%9C%93&amp;amp;source=master&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;其它-1&quot;&gt;其它&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/onevcat/vno-jekyll&quot;&gt;https://github.com/onevcat/vno-jekyll&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/cnfeat/blog.io&quot;&gt;https://github.com/cnfeat/blog.io&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+</description>
+        <pubDate>Wed, 22 Mar 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/blog/2017/03/22/github-pages/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2017/03/22/github-pages/</guid>
+        
+        <category>jekyll</category>
+        
+        <category>GitPages</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>Cmd Markdown 简明语法手册</title>
+        <description>&lt;p&gt;&lt;strong&gt;注&lt;/strong&gt;：本文转自&lt;a href=&quot;https://www.zybuluo.com/mdeditor?url=https%3A%2F%2Fwww.zybuluo.com%2Fstatic%2Feditor%2Fmd-help.markdown&quot;&gt;作业部落&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.zybuluo.com/mdeditor&quot; title=&quot;作业部落旗下 Cmd 在线 Markdown 编辑阅读器&quot;&gt;『Cmd 技术渲染的沙箱页面，点击此处编写自己的文档』&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;cmd-markdown-简明语法手册&quot;&gt;Cmd Markdown 简明语法手册&lt;/h1&gt;
+
+&lt;p&gt;标签： Cmd-Markdown&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;1-斜体和粗体&quot;&gt;1. 斜体和粗体&lt;/h3&gt;
+
+&lt;p&gt;使用 * 和 ** 表示斜体和粗体。&lt;/p&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;p&gt;这是 &lt;em&gt;斜体&lt;/em&gt;，这是 &lt;strong&gt;粗体&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;2-分级标题&quot;&gt;2. 分级标题&lt;/h3&gt;
+
+&lt;p&gt;使用 === 表示一级标题，使用 — 表示二级标题。&lt;/p&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;这是一个一级标题
+============================
+
+这是一个二级标题
+--------------------------------------------------
+
+### 这是一个三级标题
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;你也可以选择在行首加井号表示不同级别的标题 (H1-H6)，例如：# H1, ## H2, ### H3，#### H4。&lt;/p&gt;
+
+&lt;h3 id=&quot;3-外链接&quot;&gt;3. 外链接&lt;/h3&gt;
+
+&lt;p&gt;使用 [描述](链接地址) 为文字增加外链接。&lt;/p&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;p&gt;这是去往 &lt;a href=&quot;http://ghosertblog.github.com&quot;&gt;本人博客&lt;/a&gt; 的链接。&lt;/p&gt;
+
+&lt;h3 id=&quot;4-无序列表&quot;&gt;4. 无序列表&lt;/h3&gt;
+
+&lt;p&gt;使用 *，+，- 表示无序列表。&lt;/p&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;无序列表项 一&lt;/li&gt;
+  &lt;li&gt;无序列表项 二&lt;/li&gt;
+  &lt;li&gt;无序列表项 三&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;5-有序列表&quot;&gt;5. 有序列表&lt;/h3&gt;
+
+&lt;p&gt;使用数字和点表示有序列表。&lt;/p&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;有序列表项 一&lt;/li&gt;
+  &lt;li&gt;有序列表项 二&lt;/li&gt;
+  &lt;li&gt;有序列表项 三&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;6-文字引用&quot;&gt;6. 文字引用&lt;/h3&gt;
+
+&lt;p&gt;使用 &amp;gt; 表示文字引用。&lt;/p&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;野火烧不尽，春风吹又生。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;7-行内代码块&quot;&gt;7. 行内代码块&lt;/h3&gt;
+
+&lt;p&gt;使用 `代码` 表示行内代码块。&lt;/p&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;p&gt;让我们聊聊 &lt;code class=&quot;highlighter-rouge&quot;&gt;html&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;8--代码块&quot;&gt;8.  代码块&lt;/h3&gt;
+
+&lt;p&gt;使用 四个缩进空格 表示代码块。&lt;/p&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;这是一个代码块，此行左侧有四个不可见的空格。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;9--插入图像&quot;&gt;9.  插入图像&lt;/h3&gt;
+
+&lt;p&gt;使用 ![描述](图片链接地址) 插入图像。&lt;/p&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://www.zybuluo.com/static/img/my_head.jpg&quot; alt=&quot;我的头像&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;cmd-markdown-高阶语法手册&quot;&gt;Cmd Markdown 高阶语法手册&lt;/h1&gt;
+
+&lt;h3 id=&quot;1-内容目录&quot;&gt;1. 内容目录&lt;/h3&gt;
+
+&lt;p&gt;在段落中填写 &lt;code class=&quot;highlighter-rouge&quot;&gt;[TOC]&lt;/code&gt; 以显示全文内容的目录结构。&lt;/p&gt;
+
+&lt;p&gt;[TOC]&lt;/p&gt;
+
+&lt;h3 id=&quot;2-标签分类&quot;&gt;2. 标签分类&lt;/h3&gt;
+
+&lt;p&gt;在编辑区任意行的列首位置输入以下代码给文稿标签：&lt;/p&gt;
+
+&lt;p&gt;标签： 数学 英语 Markdown&lt;/p&gt;
+
+&lt;p&gt;或者&lt;/p&gt;
+
+&lt;p&gt;Tags： 数学 英语 Markdown&lt;/p&gt;
+
+&lt;h3 id=&quot;3-删除线&quot;&gt;3. 删除线&lt;/h3&gt;
+
+&lt;p&gt;使用 ~~ 表示删除线。&lt;/p&gt;
+
+&lt;p&gt;&lt;del&gt;这是一段错误的文本。&lt;/del&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;4-注脚&quot;&gt;4. 注脚&lt;/h3&gt;
+
+&lt;p&gt;使用 [^keyword] 表示注脚。&lt;/p&gt;
+
+&lt;p&gt;这是一个注脚&lt;sup id=&quot;fnref:footnote&quot;&gt;&lt;a href=&quot;#fn:footnote&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;的样例。&lt;/p&gt;
+
+&lt;p&gt;这是第二个注脚&lt;sup id=&quot;fnref:footnote2&quot;&gt;&lt;a href=&quot;#fn:footnote2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;的样例。&lt;/p&gt;
+
+&lt;h3 id=&quot;5-latex-公式&quot;&gt;5. LaTeX 公式&lt;/h3&gt;
+
+&lt;p&gt;$ 表示行内公式：&lt;/p&gt;
+
+&lt;p&gt;质能守恒方程可以用一个很简洁的方程式 $E=mc^2$ 来表达。&lt;/p&gt;
+
+&lt;p&gt;$$ 表示整行公式：&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\sum_{i=1}^n a_i=0&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\sum^{j-1}_{k=0}{\widehat{\gamma}_{kj} z_k}&lt;/script&gt;
+
+&lt;p&gt;访问 &lt;a href=&quot;http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference&quot;&gt;MathJax&lt;/a&gt; 参考更多使用方法。&lt;/p&gt;
+
+&lt;h3 id=&quot;6-加强的代码块&quot;&gt;6. 加强的代码块&lt;/h3&gt;
+
+&lt;p&gt;支持四十一种编程语言的语法高亮的显示，行号显示。&lt;/p&gt;
+
+&lt;p&gt;非代码示例：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo apt-get install vim-gnome
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Python 示例：&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@requires_authorization&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;somefunc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;param1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;'''A docstring'''&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# interesting&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Greater'&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;param2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SomeClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'''interpreter
+... prompt'''&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;JavaScript 示例：&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/**
+* nth element in the fibonacci series.
+* @param n &amp;gt;= 0
+* @return the nth element, &amp;gt;= 0.
+*/&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;tmp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;7-流程图&quot;&gt;7. 流程图&lt;/h3&gt;
+
+&lt;h4 id=&quot;示例&quot;&gt;示例&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-flow&quot;&gt;st=&amp;gt;start: Start:&amp;gt;https://www.zybuluo.com
+io=&amp;gt;inputoutput: verification
+op=&amp;gt;operation: Your Operation
+cond=&amp;gt;condition: Yes or No?
+sub=&amp;gt;subroutine: Your Subroutine
+e=&amp;gt;end
+
+st-&amp;gt;io-&amp;gt;op-&amp;gt;cond
+cond(yes)-&amp;gt;e
+cond(no)-&amp;gt;sub-&amp;gt;io
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;更多语法参考流程图语法参考&quot;&gt;更多语法参考：&lt;a href=&quot;http://adrai.github.io/flowchart.js/&quot;&gt;流程图语法参考&lt;/a&gt;&lt;/h4&gt;
+
+&lt;h3 id=&quot;8-序列图&quot;&gt;8. 序列图&lt;/h3&gt;
+
+&lt;h4 id=&quot;示例-1&quot;&gt;示例 1&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-seq&quot;&gt;Alice-&amp;gt;Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob--&amp;gt;Alice: I am good thanks!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;示例-2&quot;&gt;示例 2&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-seq&quot;&gt;Title: Here is a title
+A-&amp;gt;B: Normal line
+B--&amp;gt;C: Dashed line
+C-&amp;gt;&amp;gt;D: Open arrow
+D--&amp;gt;&amp;gt;A: Dashed open arrow
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;更多语法参考序列图语法参考&quot;&gt;更多语法参考：&lt;a href=&quot;http://bramp.github.io/js-sequence-diagrams/&quot;&gt;序列图语法参考&lt;/a&gt;&lt;/h4&gt;
+
+&lt;h3 id=&quot;9-甘特图&quot;&gt;9. 甘特图&lt;/h3&gt;
+
+&lt;p&gt;甘特图内在思想简单。基本是一条线条图，横轴表示时间，纵轴表示活动（项目），线条表示在整个期间上计划和实际的活动完成情况。它直观地表明任务计划在什么时候进行，及实际进展与计划要求的对比。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-gantt&quot;&gt;    title 项目开发流程
+    section 项目确定
+        需求分析       :a1, 2016-06-22, 3d
+        可行性报告     :after a1, 5d
+        概念验证       : 5d
+    section 项目实施
+        概要设计      :2016-07-05  , 5d
+        详细设计      :2016-07-08, 10d
+        编码          :2016-07-15, 10d
+        测试          :2016-07-22, 5d
+    section 发布验收
+        发布: 2d
+        验收: 3d
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;更多语法参考甘特图语法参考&quot;&gt;更多语法参考：&lt;a href=&quot;https://knsv.github.io/mermaid/#gant-diagrams&quot;&gt;甘特图语法参考&lt;/a&gt;&lt;/h4&gt;
+
+&lt;h3 id=&quot;10-mermaid-流程图&quot;&gt;10. Mermaid 流程图&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-graphLR&quot;&gt;    A[Hard edge] --&amp;gt;|Link text| B(Round edge)
+    B --&amp;gt; C{Decision}
+    C --&amp;gt;|One| D[Result one]
+    C --&amp;gt;|Two| E[Result two]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;更多语法参考mermaid-流程图语法参考&quot;&gt;更多语法参考：&lt;a href=&quot;https://knsv.github.io/mermaid/#flowcharts-basic-syntax&quot;&gt;Mermaid 流程图语法参考&lt;/a&gt;&lt;/h4&gt;
+
+&lt;h3 id=&quot;11-mermaid-序列图&quot;&gt;11. Mermaid 序列图&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-sequence&quot;&gt;    Alice-&amp;gt;John: Hello John, how are you?
+    loop every minute
+        John--&amp;gt;Alice: Great!
+    end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;更多语法参考mermaid-序列图语法参考&quot;&gt;更多语法参考：&lt;a href=&quot;https://knsv.github.io/mermaid/#sequence-diagrams&quot;&gt;Mermaid 序列图语法参考&lt;/a&gt;&lt;/h4&gt;
+
+&lt;h3 id=&quot;12-表格支持&quot;&gt;12. 表格支持&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;项目&lt;/th&gt;
+      &lt;th style=&quot;text-align: right&quot;&gt;价格&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;数量&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;计算机&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;$1600&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;手机&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;$12&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;12&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;管线&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;$1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;234&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;13-定义型列表&quot;&gt;13. 定义型列表&lt;/h3&gt;
+
+&lt;dl&gt;
+  &lt;dt&gt;名词 1&lt;/dt&gt;
+  &lt;dd&gt;定义 1（左侧有一个可见的冒号和四个不可见的空格）&lt;/dd&gt;
+  &lt;dt&gt;代码块 2&lt;/dt&gt;
+  &lt;dd&gt;这是代码块的定义（左侧有一个可见的冒号和四个不可见的空格）
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;代码块（左侧有八个不可见的空格）
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;h3 id=&quot;14-html-标签&quot;&gt;14. Html 标签&lt;/h3&gt;
+
+&lt;p&gt;本站支持在 Markdown 语法中嵌套 Html 标签，譬如，你可以用 Html 写一个纵跨两行的表格：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;table&amp;gt;
+    &amp;lt;tr&amp;gt;
+        &amp;lt;th rowspan=&quot;2&quot;&amp;gt;值班人员&amp;lt;/th&amp;gt;
+        &amp;lt;th&amp;gt;星期一&amp;lt;/th&amp;gt;
+        &amp;lt;th&amp;gt;星期二&amp;lt;/th&amp;gt;
+        &amp;lt;th&amp;gt;星期三&amp;lt;/th&amp;gt;
+    &amp;lt;/tr&amp;gt;
+    &amp;lt;tr&amp;gt;
+        &amp;lt;td&amp;gt;李强&amp;lt;/td&amp;gt;
+        &amp;lt;td&amp;gt;张明&amp;lt;/td&amp;gt;
+        &amp;lt;td&amp;gt;王平&amp;lt;/td&amp;gt;
+    &amp;lt;/tr&amp;gt;
+&amp;lt;/table&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th rowspan=&quot;2&quot;&gt;值班人员&lt;/th&gt;
+        &lt;th&gt;星期一&lt;/th&gt;
+        &lt;th&gt;星期二&lt;/th&gt;
+        &lt;th&gt;星期三&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;李强&lt;/td&gt;
+        &lt;td&gt;张明&lt;/td&gt;
+        &lt;td&gt;王平&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;15-内嵌图标&quot;&gt;15. 内嵌图标&lt;/h3&gt;
+
+&lt;p&gt;本站的图标系统对外开放，在文档中输入&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;i class=&quot;icon-weibo&quot;&amp;gt;&amp;lt;/i&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;即显示微博的图标： &lt;i class=&quot;icon-weibo icon-2x&quot;&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;替换 上述 &lt;code class=&quot;highlighter-rouge&quot;&gt;i 标签&lt;/code&gt; 内的 &lt;code class=&quot;highlighter-rouge&quot;&gt;icon-weibo&lt;/code&gt; 以显示不同的图标，例如：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;i class=&quot;icon-renren&quot;&amp;gt;&amp;lt;/i&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;即显示人人的图标： &lt;i class=&quot;icon-renren icon-2x&quot;&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;更多的图标和玩法可以参看 &lt;a href=&quot;http://fortawesome.github.io/Font-Awesome/3.2.1/icons/&quot;&gt;font-awesome&lt;/a&gt; 官方网站。&lt;/p&gt;
+
+&lt;h3 id=&quot;16-待办事宜-todo-列表&quot;&gt;16. 待办事宜 Todo 列表&lt;/h3&gt;
+
+&lt;p&gt;使用带有 [ ] 或 [x] （未完成或已完成）项的列表语法撰写一个待办事宜列表，并且支持子列表嵌套以及混用Markdown语法，例如：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;- [ ] **Cmd Markdown 开发**
+    - [ ] 改进 Cmd 渲染算法，使用局部渲染技术提高渲染效率
+    - [ ] 支持以 PDF 格式导出文稿
+    - [x] 新增Todo列表功能 [语法参考](https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments)
+    - [x] 改进 LaTex 功能
+        - [x] 修复 LaTex 公式渲染问题
+        - [x] 新增 LaTex 公式编号功能 [语法参考](http://docs.mathjax.org/en/latest/tex.html#tex-eq-numbers)
+- [ ] **七月旅行准备**
+    - [ ] 准备邮轮上需要携带的物品
+    - [ ] 浏览日本免税店的物品
+    - [x] 购买蓝宝石公主号七月一日的船票
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;对应显示如下待办事宜 Todo 列表：&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;strong&gt;Cmd Markdown 开发&lt;/strong&gt;
+    &lt;ul class=&quot;task-list&quot;&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;改进 Cmd 渲染算法，使用局部渲染技术提高渲染效率&lt;/li&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;支持以 PDF 格式导出文稿&lt;/li&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;新增Todo列表功能 &lt;a href=&quot;https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments&quot;&gt;语法参考&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;改进 LaTex 功能
+        &lt;ul class=&quot;task-list&quot;&gt;
+          &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;修复 LaTex 公式渲染问题&lt;/li&gt;
+          &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;新增 LaTex 公式编号功能 &lt;a href=&quot;http://docs.mathjax.org/en/latest/tex.html#tex-eq-numbers&quot;&gt;语法参考&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;strong&gt;七月旅行准备&lt;/strong&gt;
+    &lt;ul class=&quot;task-list&quot;&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;准备邮轮上需要携带的物品&lt;/li&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;浏览日本免税店的物品&lt;/li&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;购买蓝宝石公主号七月一日的船票&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:footnote&quot;&gt;
+      &lt;p&gt;这是一个 &lt;em&gt;注脚&lt;/em&gt; 的 &lt;strong&gt;文本&lt;/strong&gt;。 &lt;a href=&quot;#fnref:footnote&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:footnote2&quot;&gt;
+      &lt;p&gt;这是另一个 &lt;em&gt;注脚&lt;/em&gt; 的 &lt;strong&gt;文本&lt;/strong&gt;。 &lt;a href=&quot;#fnref:footnote2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Wed, 22 Mar 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/blog/2017/03/22/Cmd-Markdown-%E7%AE%80%E6%98%8E%E8%AF%AD%E6%B3%95%E6%89%8B%E5%86%8C/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2017/03/22/Cmd-Markdown-%E7%AE%80%E6%98%8E%E8%AF%AD%E6%B3%95%E6%89%8B%E5%86%8C/</guid>
+        
+        <category>Cmd-Markdown</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
     
       <item>
         <title>这是一篇博客文章模板</title>
