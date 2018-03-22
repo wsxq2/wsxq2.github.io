@@ -110,7 +110,7 @@ Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标�
 
 1. **Fork** 一个模版到你的github，比如: [https://github.com/cnfeat/blog.io][other_template_1]
 2. 在你的github中将其重命名为`yourname.github.io`(如果已经有了该名字的**repository**, 将其名字改为其它名字)
-3. 克隆到本地: `git clone git@github.com:wsxq2/wsxq2.github.io.git`, 此处用的是**SSH**的克隆方法([How to Clone with SSH](http://wsxq2.55555.io/blog/2017/03/22/git))
+3. 克隆到本地: `git clone git@github.com:wsxq2/wsxq2.github.io.git`, 此处用的是**SSH**的克隆方法([How to Clone with SSH](http://wsxq2.55555.io/blog/2017/03/22/Git/))
 2. [安装ruby](https://www.ruby-lang.org/zh_cn/documentation/installation/)(Debian: `# apt install ruby-full`)
 3. 打开终端，执行:
 
