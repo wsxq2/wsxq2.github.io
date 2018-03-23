@@ -8,6 +8,11 @@ description: null.
 # GitHub Pages 独立博客搭建教程
 ---
 
+**注意**: 
+
+1. 平台： Kali Linux (Debian Linux)
+2. 本文适合对象：对Git有一定了解，对GitHub Pages几乎完全不了解的**有强烈愿望**（因为需要非常耐心）搭建独立博客的人
+
 GitHub 简介: 
 >GitHub is a **code hosting platform** for **version control and collaboration(合作)**. It lets you and others work together on projects from **anywhere**.
 
@@ -59,6 +64,7 @@ Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标�
 	├── .jekyll-metadata
 	└── index.html //也可以用index.md代替
 
+
 <table>
 <thead>
 <tr>
@@ -106,25 +112,36 @@ Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标�
 </tbody>
 <div></div></table>
 
-### 安装步骤
+### 使用步骤
 
-1. **Fork** 一个模版到你的github，比如: [https://github.com/cnfeat/blog.io][other_template_1]
-2. 在你的github中将其重命名为`yourname.github.io`(如果已经有了该名字的**repository**, 将其名字改为其它名字)
-3. 克隆到本地: `git clone git@github.com:wsxq2/wsxq2.github.io.git`, 此处用的是**SSH**的克隆方法([How to Clone with SSH](http://wsxq2.55555.io/blog/2017/03/22/Git/))
-2. [安装ruby](https://www.ruby-lang.org/zh_cn/documentation/installation/)(Debian: `# apt install ruby-full`)
-3. 打开终端，执行:
+以下步骤讲解如何使用别人的模版：
 
-```bash
-gem install bundle #安装bundle
-cd vno-jekyll #进入Git pages目录
-echo ' #编辑Gemfile文件
-source 'http://gems.ruby-china.org/'
-gem 'github-pages'
-' >Gemfile
-bundle install #命令会根据当前目录下的Gemfile，安装所需要的所有软件(使其和github环境一致)
-bundle update #更新环境
-bundle exec jekyll serve #启动环境
-```
+1. **Fork** 一个模版到你的github，比如: [https://github.com/cnfeat/blog.io][other_template_1], **注意**认真看它的README.md文件
+2. 在你的github中将其重命名为`username.github.io`(如果已经有了该名字的**repository**, 将其名字改为其它名字)。现在再打开`https://username.github.io`, 就会发现其模版的效果了
+3. 为方便修改及完成后续步骤将其克隆到本地: `git clone git@github.com:username/username.github.io.git`, 此处用的是**SSH**的克隆方法([How to Clone with SSH](http://wsxq2.55555.io/blog/2017/03/22/Git/)), 也可以使用**HTTPS**方式：`git clone https://github.com/username/username.github.io.git`
+
+以下步骤搭建本地Jekyll环境：
+
+1. [安装ruby](https://www.ruby-lang.org/zh_cn/documentation/installation/)(Debian: `# apt install ruby-full`)
+2. 安装bundle: `gem install bundle`
+3. 进入之前克隆到本地的`username.github.io`目录：`cd username.github.io`
+4. 创建`Gemfile`文件, 往其中加入以下内容：
+
+		source 'http://gems.ruby-china.org/'
+		gem 'github-pages'
+
+可以直接使用如下代码：
+
+	echo '
+	source 'http://gems.ruby-china.org/'
+	gem 'github-pages'
+	' >Gemfile
+
+5.安装和github一样的Jekyll环境：`bundle install`。该命令会根据当前目录下的Gemfile，安装所需要的所有软件(使其和github环境一致), 这样可以方便本地调试博客目录以确保它正确，然后直接提交正确的目录到github
+
+6.更新本地Jekyll环境（使其和github一致）：`bundle update`
+
+7.启动环境：`bundle exec jekyll serve`
 
 其它可能用到的命令：
 
@@ -132,7 +149,13 @@ bundle exec jekyll serve #启动环境
     gem source -a http://gems.ruby-china.org/ (添加新镜像)
     gem source
 
-4.在浏览器输入`http://127.0.0.1:4000/`，即可看见刚刚从网上下载的**vno-jekyll**主体技术博客了
+4.在浏览器输入`http://127.0.0.1:4000/`，即可看见和`https://username.github.io`一样的内容
+
+现在你便可以在你的Linux Terminal中修改(根据模版的README.md修改)和在浏览器中调试(查看效果)你的博客目录了, 确保无误后便可以使用如下命令提交到github：
+	
+	git add .
+	git commit -m 'a'
+	git push
 
 ### 参考链接：
 #### 官方
