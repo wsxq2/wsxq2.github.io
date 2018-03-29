@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Archive"
-description: "文章归档"
+description: "简单的事情重复做，重复的事情用心做"
 header-img: "img/orange.jpg"
 ---
 
