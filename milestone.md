@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "milestone"
-description: "代表作"
+description: "人生最大的破产是自弃"
 header-img: "img/zhihu.jpg"
 ---
 
