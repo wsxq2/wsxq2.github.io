@@ -2,6 +2,10 @@
 layout: default
 ---
 
+<style type="text/css">
+a.no2 {background-color: Gainsboro; padding: 2px;}
+</style>
+
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
@@ -22,7 +26,7 @@ layout: default
                     <div class="Tags">
 						TAGS:&ensp;
                         {% for tag in page.tags %}
-                        <a class="tag" href="/Tags/#{{ tag }}" title="{{ tag }}">{{ tag }}</a>
+                        <a class="tag no2" href="/Tags/#{{ tag }}" title="{{ tag }}">{{ tag }}</a>
 						&ensp;
                         {% endfor %}
                     </div>
@@ -141,6 +145,7 @@ var duoshuoQuery = {short_name:"cnfeat"};
         anchors.add().remove('.intro-header h1').remove('.subheading');
     })
 </script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <style>
     /* place left on bigger screen */
     @media all and (min-width: 800px) {

@@ -1,3 +1,9 @@
+---
+layout: post
+tags: [GitHub Pages]
+categories: blog
+---
+
 # 让GitHub Pages上的博客被搜索引擎搜索到
 ## 百度
 使用百度搜索"site:yoursite.com"(比如我的是wsxq2.55555.io)

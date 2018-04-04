@@ -1,8 +1,7 @@
 ---
 layout: post
-tags: [GitPages]
+tags: [GitHub Pages]
 categories: blog
-description: null.
 ---
 
 # GitHub Pages 独立博客搭建教程
@@ -46,24 +45,25 @@ Jekyll是一种简单的、适用于博客的、静态网站生成引擎。它�
 
 Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标记语言写文档，可以是Markdown、Textile或者HTML等等，再通过layout将文档拼装起来，根据你设置的URL规则来展现，这些都是通过严格的配置文件来定义，最终的产出就是web页面。
 
-	.
-	├── _config.yml
-	├── _drafts
-	|   ├── begin-with-the-crazy-ideas.textile
-	|   └── on-simplicity-in-technology.markdown
-	├── _includes
-	|   ├── footer.html
-	|   └── header.html
-	├── _layouts
-	|   ├── default.html
-	|   └── post.html
-	├── _posts
-	|   ├── 2007-10-29-why-every-programmer-should-play-nethack.textile
-	|   └── 2009-04-26-barcamp-boston-4-roundup.textile
-	├── _site
-	├── .jekyll-metadata
-	└── index.html //也可以用index.md代替
-
+<pre>
+.
+├── _config.yml
+├── _drafts
+|   ├── begin-with-the-crazy-ideas.textile
+|   └── on-simplicity-in-technology.markdown
+├── _includes
+|   ├── footer.html
+|   └── header.html
+├── _layouts
+|   ├── default.html
+|   └── post.html
+├── _posts
+|   ├── 2007-10-29-why-every-programmer-should-play-nethack.textile
+|   └── 2009-04-26-barcamp-boston-4-roundup.textile
+├── _site
+├── .jekyll-metadata
+└── index.html //也可以用index.md代替
+</pre>
 
 <table>
 <thead>
@@ -118,7 +118,7 @@ Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标�
 
 1. **Fork** 一个模版到你的github，比如: [https://github.com/cnfeat/blog.io][other_template_1], **注意**认真看它的README.md文件
 2. 在你的github中将其重命名为`username.github.io`(如果已经有了该名字的**repository**, 将其名字改为其它名字)。现在再打开`https://username.github.io`, 就会发现其模版的效果了
-3. 为方便修改及完成后续步骤将其克隆到本地: `git clone git@github.com:username/username.github.io.git`, 此处用的是**SSH**的克隆方法([How to Clone with SSH](http://wsxq2.55555.io/blog/2017/03/22/Git/)), 也可以使用**HTTPS**方式：`git clone https://github.com/username/username.github.io.git`
+3. 为方便修改及完成后续步骤将其克隆到本地: `git clone git@github.com:username/username.github.io.git`, 此处用的是**SSH**的克隆方法([How to Clone with SSH](/blog/2017/04/02/Git教程笔记/#clone-with-ssh)), 也可以使用**HTTPS**方式：`git clone https://github.com/username/username.github.io.git`
 
 以下步骤搭建本地Jekyll环境：
 
@@ -130,32 +130,29 @@ Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标�
 		source 'http://gems.ruby-china.org/'
 		gem 'github-pages'
 
-可以直接使用如下代码：
-
-	echo '
-	source 'http://gems.ruby-china.org/'
-	gem 'github-pages'
-	' >Gemfile
-
-5.安装和github一样的Jekyll环境：`bundle install`。该命令会根据当前目录下的Gemfile，安装所需要的所有软件(使其和github环境一致), 这样可以方便本地调试博客目录以确保它正确，然后直接提交正确的目录到github
-
-6.更新本地Jekyll环境（使其和github一致）：`bundle update`
-
-7.启动环境：`bundle exec jekyll serve`
-
-其它可能用到的命令：
-
-    gem source -r https://rubygems.org/ (移除镜像)
-    gem source -a http://gems.ruby-china.org/ (添加新镜像)
-    gem source
-
-4.在浏览器输入`http://127.0.0.1:4000/`，即可看见和`https://username.github.io`一样的内容
+   可以直接使用如下代码：
+   
+       echo '
+       source 'http://gems.ruby-china.org/'
+       gem 'github-pages'
+       ' >Gemfile
+   
+5. 安装和github一样的Jekyll环境：`bundle install`。该命令会根据当前目录下的Gemfile，安装所需要的所有软件(使其和github环境一致), 这样可以方便本地调试博客目录以确保它正确，然后直接提交正确的目录到github
+6. 更新本地Jekyll环境（使其和github一致）：`bundle update`
+7. 启动环境：`bundle exec jekyll serve`
+8. 在浏览器输入`http://127.0.0.1:4000/`，即可看见和`https://username.github.io`一样的内容
 
 现在你便可以在你的Linux Terminal中修改(根据模版的README.md修改)和在浏览器中调试(查看效果)你的博客目录了, 确保无误后便可以使用如下命令提交到github：
 	
 	git add .
 	git commit -m 'a'
 	git push
+
+其它可能用到的命令：
+
+    gem source -r https://rubygems.org/ (移除镜像)
+    gem source -a http://gems.ruby-china.org/ (添加新镜像)
+    gem source
 
 ### 参考链接：
 #### 官方

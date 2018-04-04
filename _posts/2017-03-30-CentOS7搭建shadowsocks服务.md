@@ -1,3 +1,9 @@
+---
+layout: post
+tags: [CentOS,shadowsocks]
+categories: blog
+---
+
 **版权相关**: 本文截取自[在 CentOS 7 下安装配置 shadowsocks](https://morning.work/page/2015-12/install-shadowsocks-on-centos-7.html)
 , 原作品由 [老雷](http://ucdok.com/) 创作，采用 [知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh) 进行许可。
 

@@ -1,3 +1,9 @@
+---
+layout: post
+tags: [CentOS,sftp]
+categories: blog
+---
+
 **注意**：此教程是在网站的根目录（`/var/www/html/`）下搭建sftp
 ## 搭建
 A. 创建一个用户组`sftp`和用户`website`，并设置密码:

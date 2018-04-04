@@ -1,3 +1,9 @@
+---
+layout: post
+tags: [CentOS,LAMP]
+categories: blog
+---
+
 ## 一、安装Apache
 `yum install httpd #根据提示，输入Y安装即可成功安装`
 
