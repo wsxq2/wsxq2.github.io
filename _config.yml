@@ -1,5 +1,5 @@
 title: "静能生慧" # 你的博客名字，可以定义修订
-header-img: "/img/green.jpg"
+header-img: "img/green.jpg"
 tagline: "cn"  
 description: "学无止境"  # 一句话描述你的博客
 baseurl: ""
@@ -36,7 +36,7 @@ defaults:
     values:
       layout: "post"
       author: "wsxq2" # 你的名字
-      header-img: "/img/green.jpg" # We don't want posts without a header image, that whould mean white on white
+      header-img: "img/green.jpg" # We don't want posts without a header image, that whould mean white on white
 
 comments :
   provider : disqus # 使用 disqus 评论模块，读者翻墙才能看见
