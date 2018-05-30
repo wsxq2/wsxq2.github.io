@@ -48,4 +48,6 @@ comments :
 google_analytics:  # 填写你  google_analytics id
 google_verify:
 bing_verify:
-plugins: [jekyll-paginate]
+    # plugins: [jekyll-paginate]
+plugins:
+  - jemoji
