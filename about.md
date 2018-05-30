@@ -9,8 +9,7 @@ header-img: "img/green.jpg"
 
 ## 联系方式
 * QQ：2667184828
-* 邮箱：wsxq2@qq.com, wsxq222222@gmail.com
-* 电话：+8613883603792
+* 邮箱：<wsxq2@qq.com>
 
 
 

@@ -1,11 +1,9 @@
 ---
 layout: post
-tags: [GitHub Pages]
+tags: [GitHub Pages,TODO]
 categories: blog
 ---
 
-# GitHub Pages 独立博客搭建教程
----
 
 **注意**: 
 
