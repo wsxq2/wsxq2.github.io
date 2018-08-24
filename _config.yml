@@ -51,3 +51,4 @@ bing_verify:
     # plugins: [jekyll-paginate]
 plugins:
   - jemoji
+  - jekyll-paginate
