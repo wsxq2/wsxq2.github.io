@@ -16,6 +16,7 @@ categories: blog
 	* [5.2 程序控制语句](#52-程序控制语句)
 	* [5.3 运算符](#53-运算符)
 	* [5.4 变量](#54-变量)
+* [6 我写的脚本](#6-我写的脚本)
 
 <!-- vim-markdown-toc -->
 
@@ -24,11 +25,13 @@ categories: blog
 [Awesome Adb]: https://github.com/mzlogin/awesome-adb
 [adb命令模拟按键事件 KeyCode]: https://blog.csdn.net/jlminghui/article/details/39268419
 [触动精灵脚本开发Lua简明教程]: http://www.touchsprite.com/helpdoc#/doc?id=1734
+[【雷电命令】雷电安卓模拟器修改信息及常用adb命令整理贴]: http://www.ldmnq.com/bbs/thread-32-1-1.html
+[【新手指导】夜神安卓模拟器adb命令详解]: https://www.yeshen.com/faqs/H15tDZ6YW
 
 ## 1 学习路线
 1. 连接安卓模拟器：
-   1. 夜神：<https://www.yeshen.com/faqs/H15tDZ6YW>
-   2. 雷电：<http://www.ldmnq.com/bbs/thread-32-1-1.html>
+   1. 夜神：[【新手指导】夜神安卓模拟器adb命令详解]
+   2. 雷电：[【雷电命令】雷电安卓模拟器修改信息及常用adb命令整理贴]
 2. ADB命令：[Awesome Adb]
 3. lua语言：[触动精灵脚本开发Lua简明教程]
 4. 触动精灵相关知识：
@@ -43,15 +46,24 @@ categories: blog
    9. [触动精灵 Lua 脚本开发常用英文词汇大全](http://www.touchsprite.com/helpdoc#/doc?id=1805)
 
 ## 2 常用链接
-1. ADB:
+1. 安卓模拟器：
+   1. 雷电：
+      1. 官网：<http://www.ldmnq.com>
+      2. [【雷电命令】雷电安卓模拟器修改信息及常用adb命令整理贴]
+
+   2. 夜神：
+      1. 官网：<https://www.yeshen.com>
+      2. [【新手指导】夜神安卓模拟器adb命令详解]
+
+2. ADB:
 	1. ADB参考手册：[Awesome Adb]
     2. [adb命令模拟按键事件 KeyCode]
-2. lua:
+3. lua:
 	1. [触动精灵脚本开发Lua简明教程]
 	2. lua语言官方手册(英文)：<https://www.lua.org/manual/5.2/>
 	3. [Programming in Lua (first edition)](https://www.lua.org/pil/contents.html)
 	4. lua语言中文手册：<http://manual.luaer.cn/>
-3. TS:
+4. TS:
 	1. 触动精灵官网：<http://www.touchsprite.com/>
 	2. 触动精灵论坛：<http://bbs.touchsprite.com/forum.php>
 	3. 触动精灵开发手册大全：<http://www.touchsprite.com/helpdoc#/doc?id=1625>
@@ -395,3 +407,7 @@ categories: blog
   end
   </code>
   </pre>
+
+## 6 我写的脚本
+全民k歌刷鲜花脚本：<https://github.com/wsxq2/WeSingFlowers>
+微信跳一跳自动运行脚本：<https://github.com/wsxq2/jump>
