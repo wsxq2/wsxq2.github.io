@@ -409,5 +409,5 @@ categories: blog
   </pre>
 
 ## 6 我写的脚本
-全民k歌刷鲜花脚本：<https://github.com/wsxq2/WeSingFlowers>
-微信跳一跳自动运行脚本：<https://github.com/wsxq2/jump>
+* 全民k歌刷鲜花脚本：<https://github.com/wsxq2/WeSingFlowers>
+* 微信跳一跳自动运行脚本：<https://github.com/wsxq2/jump>
