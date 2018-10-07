@@ -125,13 +125,13 @@ Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标�
 3. 进入之前克隆到本地的`username.github.io`目录：`cd username.github.io`
 4. 创建`Gemfile`文件, 往其中加入以下内容：
 
-		source 'http://gems.ruby-china.org/'
+		source 'http://gems.ruby-china.com/'
 		gem 'github-pages'
 
    可以直接使用如下代码：
    
        echo '
-       source 'http://gems.ruby-china.org/'
+       source 'http://gems.ruby-china.com/'
        gem 'github-pages'
        ' >Gemfile
    
@@ -149,7 +149,7 @@ Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标�
 其它可能用到的命令：
 
     gem source -r https://rubygems.org/ (移除镜像)
-    gem source -a http://gems.ruby-china.org/ (添加新镜像)
+    gem source -a http://gems.ruby-china.com/ (添加新镜像)
     gem source
 
 ### 参考链接：
