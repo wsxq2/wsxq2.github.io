@@ -13,7 +13,10 @@ categories: blog
 * [1 安装 Python](#1-安装-python)
 * [2 安装 Vim](#2-安装-vim)
 * [3 通过安装 vim-plug 安装 YouCompleteMe](#3-通过安装-vim-plug-安装-youcompleteme)
-* [4 安装 YouCompleteMe 并配置 JavaScript 支持](#4-安装-youcompleteme-并配置-javascript-支持)
+* [4 安装并配置 YouCompleteMe](#4-安装并配置-youcompleteme)
+  * [4.1 安装 YouCompleteMe](#41-安装-youcompleteme)
+  * [4.2 配置 C 支持](#42-配置-c-支持)
+  * [4.3 配置 JavaScript 支持](#43-配置-javascript-支持)
 * [5 参考链接](#5-参考链接)
 
 <!-- vim-markdown-toc -->
@@ -108,29 +111,86 @@ categories: blog
 
 2. 进入Vim后输入`:PlugInstall`安装各种插件（包括`YouCompleteMe`）。其实这个时候并没有成功安装`YouCompleteMe`，只是把`YouCompleteMe`的`git`源克隆到了`~/.vim/bundle`目录
 
-### 4 安装 YouCompleteMe 并配置 JavaScript 支持
-编译并安装YouCompleteMe:
-```
-cd ~/.vim/bundle/YouCompleteMe/
-python install.py --clang-completer --java-completer
-```
-
-1. 如果错误如下：
+### 4 安装并配置 YouCompleteMe
+#### 4.1 安装 YouCompleteMe
+1. 编译并安装YouCompleteMe:
    ```
-   CMake Error at ycm/CMakeLists.txt:103 (file):
-   file DOWNLOAD HASH mismatch
-   for file: [/home/up_ding/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/../clang_archives/clang+llvm-3.7.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz]
-     expected hash: [093a94ff8982ae78461f0d2604c98f6b454c15e2ef768d34c235c6676c336460]
-       actual hash: [a12a54f4e937e521a5e9ff790db0bf7a358f6dbc6febebcddab62c798ffc4d51]
+   cd ~/.vim/bundle/YouCompleteMe/
+   python install.py --clang-completer --java-completer 
+   #可在此添加加的语言支持有C(--clang-completer), C#(--cs-completer), Go(--go-completer), Rust(--rust-completer), Java(--java-completer)
+   ```
+   
+   以上步骤的错误处理（`--clang-completer`参数导致的问题）：
+   1. 如果错误如下：
+      ```
+      CMake Error at ycm/CMakeLists.txt:103 (file):
+      file DOWNLOAD HASH mismatch
+      for file: [/home/up_ding/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/../clang_archives/clang+llvm-3.7.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz]
+        expected hash: [093a94ff8982ae78461f0d2604c98f6b454c15e2ef768d34c235c6676c336460]
+          actual hash: [a12a54f4e937e521a5e9ff790db0bf7a358f6dbc6febebcddab62c798ffc4d51]
+      ```
+   
+      则可以手动下载 [Clang archive](https://dl.bintray.com/micbou/libclang/libclang-6.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.bz2), 然后将它移动至`~/.vim/bundle/YouCompleteMe/third_party/ycmd/clang_archives`目录下，然后重新安装YouCompleteMe，具体可参考<https://github.com/Valloric/YouCompleteMe/issues/1711>
+   
+   2. 如果安装成功，启动Vim时却显示`undefined symbol: clang_parseTranslationUnit2`，则参考<https://github.com/Valloric/YouCompleteMe/issues/2055>。
+   
+      注：如果遇到上个错误时没有采纳解决方案参考链接中的`./install.py --clang-completer --system-libclang`方案，则应该不会出现这个问题
+
+2. 编译YCM需要的`ycm_core`库:
+   ```
+   mkdir ~/.ycm_build
+   cd ~/.ycm_build
+   cmake -G "Unix Makefiles" -DEXTERNAL_LIBCLANG_PATH=/root/.vim/bundle/YouCompleteMe/third_party/ycmd/libclang.so.6.0 . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
+   cmake --build . --target ycm_core
+   ```
+   详情见[YouCompleteMe#full-installation-guide](https://github.com/Valloric/YouCompleteMe#full-installation-guide)
+
+3. （可选）为改善Unicode支持和更好的正则表达式性能构建正则表达式模块:
+   ```
+   cd ~
+   mkdir .regex_build
+   cd .regex_build
+   cmake -G "<generator>" . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/cregex
+   cmake --build . --target _regex --config Release
    ```
 
-   则可以手动下载 [Clang archive](https://dl.bintray.com/micbou/libclang/libclang-6.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.bz2), 然后将它移动至`~/.vim/bundle/YouCompleteMe/third_party/ycmd/clang_archives`目录下，然后重新安装YouCompleteMe，具体可参考<https://github.com/Valloric/YouCompleteMe/issues/1711>
+4. `Vim`配置：
 
-2. 如果安装成功，启动Vim时却显示`undefined symbol: clang_parseTranslationUnit2`，则参考<https://github.com/Valloric/YouCompleteMe/issues/2055>。
+   ```vim
+   " for ycm"
+   let g:ycm_min_num_identifier_candidate_chars = 4
+   let g:ycm_min_num_of_chars_for_completion = 2 "set 99 to turn off identifiers completer"
+   let g:ycm_max_num_identifier_candidates = 10 "identifier completion"
+   let g:ycm_max_num_candidates = 30 "semantic completion"
+   let g:ycm_auto_trigger = 1
+   let g:ycm_key_list_stop_completion = ['<C-y>']
+   let g:ycm_server_python_interpreter='/root/.pyenv/shims/python'
+   let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py' "used for c-family language"
+   let g:ycm_error_symbol = '>>'
+   let g:ycm_warning_symbol = '>*'
+   let g:ycm_key_invoke_completion = '<c-l>'
+   nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+   nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+   nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+   nmap <F4> :YcmDiags<CR>
+   ```
 
-   注：如果遇到上个错误时没有采纳解决方案参考链接中的`./install.py --clang-completer --system-libclang`方案，则应该不会出现这个问题
 
-3. 安装 TSServer 引擎（通过安装TypeScript SDK）：
+#### 4.2 配置 C 支持
+1. 复制并修改 `.ycm_extra_conf.py`文件：
+   
+   ```
+   cp ~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ~/.vim/
+   ```
+   
+2. 然后在`~/.vimrc`中设置`g:ycm_global_ycm_extra_conf`变量：
+   
+   ```
+   let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py' "used for c-family language"
+   ```
+
+#### 4.3 配置 JavaScript 支持
+1. 安装 TSServer 引擎（通过安装TypeScript SDK）：
    1. 安装`nvm`（node version manager，安装它后再安装各种版本的node.js就非常简单了，因为后面要用到`npm`）：
       ```
       curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
@@ -156,21 +216,20 @@ python install.py --clang-completer --java-completer
       npm install -g typescript
       ```
 
-   4. 为了获得语法检查的功能，可以在工程目录中的`jsconfig.json`文件里设置`checkJs`选项：
-      <pre>
-      {
-          "compilerOptions": {
-              "checkJs": true
-          }
-      }
-      </pre>
+2. 为了获得语法检查的功能，可以在工程目录中的`jsconfig.json`文件里设置`checkJs`选项：
+    <pre>
+    {
+        "compilerOptions": {
+            "checkJs": true
+        }
+    }
+    </pre>
 
 ### 5 参考链接
 * [Building-Vim-from-source](https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source)
 * [vim-plug](https://github.com/junegunn/vim-plug)
 * [Why I choose vim-plug](https://ssarcandy.tw/2016/08/17/vim-plugin-manager/)
-* [YouCompleteMe Install for linux-64-bit](https://github.com/Valloric/YouCompleteMe#linux-64-bit)
+* [YouCompleteMe#linux-64-bit](https://github.com/Valloric/YouCompleteMe#linux-64-bit)
+* [YouCompleteMe#full-installation-guide](https://github.com/Valloric/YouCompleteMe#full-installation-guide)
+* [一步一步带你安装史上最难安装的 vim 插件 —— YouCompleteMe](https://www.jianshu.com/p/d908ce81017a)
 
-*[npm]: node package manager
-*[nvm]: node version manager
-*[pyenv]: python version manager
