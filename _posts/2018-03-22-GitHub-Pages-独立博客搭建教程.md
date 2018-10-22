@@ -32,12 +32,13 @@ TODO
 
 官方教程很重要，它会让你有个初步认识。看完后**最基本的独立博客**就算搭建好了。
 
-## GitHub Pages 使用模版系统Jekyll
+## GitHub Pages 使用模板
+你应该已经发现了，最基本的博客非常难看，所以为让它更好看，我们将使用别人做的模板。
 
 ### 简介
-GitHub Pages为了提供对HTML内容的支持，选择了Jekyll作为模板系统，Jekyll是一个强大的静态模板系统，作为个人博客使用，基本上可以满足要求，也能保持管理的方便。
+GitHub Pages为了提供对HTML内容的支持，选择了`Jekyll`作为模板系统，`Jekyll`是一个强大的静态模板系统，作为个人博客使用，基本上可以满足要求，也能保持管理的方便。
 
-Jekyll是一种简单的、适用于博客的、静态网站生成引擎。它使用一个模板目录作为网站布局的基础框架，支持Markdown、Textile等标记语言的解析，提供了模板、变量、插件等功能，最终生成一个完整的静态Web站点。说白了就是，只要安装Jekyll的规范和结构，不用写html，就可以生成网站。
+`Jekyll`是一种简单的、适用于博客的、静态网站生成引擎。它使用一个模板目录作为网站布局的基础框架，支持`Markdown`、`Textile`等标记语言的解析，提供了模板、变量、插件等功能，最终生成一个完整的静态`Web`站点。说白了就是，只要按照Jekyll的规范和结构，不用写html，就可以生成网站。
 
 ### 基本结构
 
@@ -115,7 +116,7 @@ Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标�
 以下步骤讲解如何使用别人的模版：
 
 1. **Fork** 一个模版到你的github，比如: [https://github.com/cnfeat/blog.io][other_template_1], **注意**认真看它的README.md文件
-2. 在你的github中将其重命名为`username.github.io`(如果已经有了该名字的**repository**, 将其名字改为其它名字)。现在再打开`https://username.github.io`, 就会发现其模版的效果了
+2. 在你的github中将其重命名为`username.github.io`(**注意用你的用户名替换`username`**。如果已经有了该名字的**repository**, 将其名字改为其它名字)。现在再打开`https://username.github.io`, 就会发现其模版的效果了
 3. 为方便修改及完成后续步骤将其克隆到本地: `git clone git@github.com:username/username.github.io.git`, 此处用的是**SSH**的克隆方法([How to Clone with SSH](/blog/2017/04/02/Git教程笔记/#clone-with-ssh)), 也可以使用**HTTPS**方式：`git clone https://github.com/username/username.github.io.git`
 
 以下步骤搭建本地Jekyll环境：
@@ -136,14 +137,24 @@ Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标�
        ' >Gemfile
    
 5. 安装和github一样的Jekyll环境：`bundle install`。该命令会根据当前目录下的Gemfile，安装所需要的所有软件(使其和github环境一致), 这样可以方便本地调试博客目录以确保它正确，然后直接提交正确的目录到github
-6. 更新本地Jekyll环境（使其和github一致）：`bundle update`
+
+   这一步可能出现以下错误：
+   ```
+   zlib is missing; necessary for building libxml2
+   ```
+   此时安装`zlib1g-dev`软件包即可：
+   ```
+   apt install zlib1g-dev
+   ```
+
+6. （可选）更新本地Jekyll环境（使其和github一致）：`bundle update`
 7. 启动环境：`bundle exec jekyll serve`
 8. 在浏览器输入`http://127.0.0.1:4000/`，即可看见和`https://username.github.io`一样的内容
 
-现在你便可以在你的Linux Terminal中修改(根据模版的README.md修改)和在浏览器中调试(查看效果)你的博客目录了, 确保无误后便可以使用如下命令提交到github：
+现在你便可以在你的`Linux Terminal`中修改(根据模版的`README.md`修改)和在浏览器中调试(查看效果)你的博客目录了, 确保无误后便可以使用如下命令提交到`github`：
 	
-	git add .
-	git commit -m 'a'
+	git add -A
+	git commit -m 'comment'
 	git push
 
 其它可能用到的命令：

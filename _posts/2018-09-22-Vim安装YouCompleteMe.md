@@ -130,12 +130,8 @@ categories: blog
           actual hash: [a12a54f4e937e521a5e9ff790db0bf7a358f6dbc6febebcddab62c798ffc4d51]
       ```
    
-      则可以手动下载 [Clang archive](https://dl.bintray.com/micbou/libclang/libclang-6.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.bz2), 然后将它移动至`~/.vim/bundle/YouCompleteMe/third_party/ycmd/clang_archives`目录下，然后重新安装YouCompleteMe，具体可参考<https://github.com/Valloric/YouCompleteMe/issues/1711>
+      则可以手动下载 [Clang archive](https://dl.bintray.com/micbou/libclang/libclang-6.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.bz2)(记得要科学上网后再下载), 然后将它移动至`~/.vim/bundle/YouCompleteMe/third_party/ycmd/clang_archives`目录下，然后重新安装YouCompleteMe，具体可参考<https://github.com/Valloric/YouCompleteMe/issues/1711>
    
-   2. 如果安装成功，启动Vim时却显示`undefined symbol: clang_parseTranslationUnit2`，则参考<https://github.com/Valloric/YouCompleteMe/issues/2055>。
-   
-      注：如果遇到上个错误时没有采纳解决方案参考链接中的`./install.py --clang-completer --system-libclang`方案，则应该不会出现这个问题
-
 2. 编译YCM需要的`ycm_core`库:
    ```
    mkdir ~/.ycm_build
@@ -154,7 +150,7 @@ categories: blog
    cmake --build . --target _regex --config Release
    ```
 
-4. `Vim`配置：
+4. `Vim`配置（仅供参考）：
 
    ```vim
    " for ycm"
@@ -216,7 +212,7 @@ categories: blog
       npm install -g typescript
       ```
 
-2. 为了获得语法检查的功能，可以在工程目录中的`jsconfig.json`文件里设置`checkJs`选项：
+2. （可选）为了获得语法检查的功能，可以在工程目录中的`jsconfig.json`文件里设置`checkJs`选项：
     <pre>
     {
         "compilerOptions": {
