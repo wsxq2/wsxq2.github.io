@@ -1,6 +1,6 @@
 ---
 layout: post
-tags: [kali,shadowsocks]
+tags: [kali,shadowsocks,shadowsocksr,科学上网]
 categories: blog
 ---
 
@@ -13,15 +13,17 @@ categories: blog
 * [2 通过 shadowsocksr 实现科学上网](#2-通过-shadowsocksr-实现科学上网)
   * [2.1 安装并配置Python版SSR客户端（最重要）](#21-安装并配置python版ssr客户端最重要)
   * [2.2 各种方法](#22-各种方法)
-    * [2.2.1 Polipo + 系统代理（全局,所有应用）](#221-polipo--系统代理全局所有应用)
+    * [2.2.1 浏览器中设置手动的网络代理（全局，浏览器，最简单）](#221-浏览器中设置手动的网络代理全局浏览器最简单)
+    * [2.2.2 Polipo + 系统代理（全局,所有应用）](#222-polipo--系统代理全局所有应用)
       * [2.2.1.1 安装并配置 Polipo](#2211-安装并配置-polipo)
       * [2.2.1.2 设置系统代理](#2212-设置系统代理)
-    * [2.2.2 Firefox + FoxyProxy（自动,浏览器）](#222-firefox--foxyproxy自动浏览器)
-    * [2.2.3 genpac + 系统代理设置（自动,所有应用）](#223-genpac--系统代理设置自动所有应用)
+    * [2.2.3 Firefox + FoxyProxy（自动,浏览器）](#223-firefox--foxyproxy自动浏览器)
+    * [2.2.4 genpac + 系统代理设置（自动,所有应用）](#224-genpac--系统代理设置自动所有应用)
   * [2.3 关于终端下的代理设置](#23-关于终端下的代理设置)
     * [2.3.1 终端代理环境变量](#231-终端代理环境变量)
     * [2.3.2 使用程序的代理相关参数](#232-使用程序的代理相关参数)
 * [3 通过 ssh -D 参数实现科学上网](#3-通过-ssh--d-参数实现科学上网)
+* [4 通过已经可以科学上网的电脑实现科学上网](#4-通过已经可以科学上网的电脑实现科学上网)
 
 <!-- vim-markdown-toc -->
 
@@ -75,7 +77,8 @@ categories: blog
 
 1. 获得Python版SSR的相关文件：
    ```
-   git clone https://github.com/shadowsocksrr/shadowsocksr ~/
+   cd ~/
+   git clone https://github.com/shadowsocksrr/shadowsocksr
    ```
    经测试，其实只有shadowsocksr下的shadowsocks目录是必须的
 
@@ -109,7 +112,7 @@ categories: blog
    ```
 3. 启动SSR客户端：
    ```
-   cd ~/shadowsocksr
+   cd ~/shadowsocksr/shadowsocks
    python2 local.py -c ~/shadowsocksr/config.json
    ```
 4. 测试：暂时无法测试（欢迎知道的人告诉我此处应如何测试）
@@ -132,7 +135,16 @@ categories: blog
    简要说一下上面那个函数`ssr`的用法：直接在bash中输入`ssr`后回车则后台启动（关闭终端也能继续运行）ssr客户端，输入`ssr <任意字符>`则关闭已启动的ssr客户端。
 
 ### 2.2 各种方法
-#### 2.2.1 Polipo + 系统代理（全局,所有应用）
+#### 2.2.1 浏览器中设置手动的网络代理（全局，浏览器，最简单）
+以FireFox为例：
+点击右上角的菜单，选择**Preferences**，选择**General**，滑到最下面，选择**Network Proxy**标签下的**Settings**，选择**Manual proxy configuration**，只需填**SOCKS Host**一栏，填入`127.0.0.1`和`1080`，在下面选择`SOCKS v5`，并在之后的**No Proxy for**中填入不需要代理的网址或IP地址或网段。
+
+完！
+
+这时便可以访问`www.google.com`了，简单吧？
+
+**注意**：此方法有时不行，原因未知
+#### 2.2.2 Polipo + 系统代理（全局,所有应用）
 ##### 2.2.1.1 安装并配置 Polipo
 `Polipo`可以用来将`SOCKS`的代理转换为`HTTP`的代理，从而使那些使用`HTTP`协议的软件（如`curl`, `wget`，浏览器）也可以科学上网
 
@@ -165,7 +177,7 @@ categories: blog
 1. 设置系统手动代理：设置->网络->网络代理，方式改为手动，HTTP、HTTPS、FTP均改为`0.0.0.0 8123`,SOCKS改为`127.0.0.1 1080`
 2. 测试：打开浏览器，输入网址`www.google.com`看是否访问成功
 
-#### 2.2.2 Firefox + FoxyProxy（自动,浏览器）
+#### 2.2.3 Firefox + FoxyProxy（自动,浏览器）
 因为有科学上网需求的主要是浏览器，故若只是为了让浏览器科学上网，则可采用此方法。当然，如果用的是Chrome，则可采用Chrome + SwitchyOmega的方案替代之。
 
 1. 安装`FoxyProxy`插件：<https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/>
@@ -175,7 +187,7 @@ categories: blog
 3. 启用`FoxyProxy`：单击浏览器中右上角相应的图标，选择`Use Enabled Proxies By Patterns and Priority`
 4. 测试：输入网址`www.google.com`看是否访问成功
 
-#### 2.2.3 genpac + 系统代理设置（自动,所有应用）
+#### 2.2.4 genpac + 系统代理设置（自动,所有应用）
 此方法主要使用了`genpac`（generate pac file）生成pac文件，并将系统设置中的网络代理方式改为自动，将其`Configuration URL`指向相应的pac文件位置，具体过程如下：
 1. 安装`genpac`：
 ```
@@ -247,3 +259,15 @@ ssh -ND 12345 -p 22  <user>@<hostname>
 现在就相当于做了[2.1 安装并配置Python版SSR客户端（最重要）](#21-安装并配置python版ssr客户端最重要)这个步骤，只是端口不是`1080`了，而是`12345`。所以后续配置相似，选择[2.2 各种方法](#22-各种方法)中的一个即可
 
 该方法非常简单，你甚至不需要在服务器上做任何配置，客户端的话**ssh+一个浏览器插件**即可（当然，也可以采用上述的各种方法中的其它方法），但前提在于你有一个在国外的服务器，并且每次使用都需要使用ssh连接你的服务器，故只适合特殊情况使用（比如你刚买/租用一个国外的服务器，并且迫切需要科学上网）。
+
+## 4 通过已经可以科学上网的电脑实现科学上网
+也就是说，如果你有一台设备通过上述的方法之一实现了科学上网，那么你就可以借助那台设备轻松地让其它和那台设备**属于同一局域网的设备**实现科学上网。比如你的实体机实现了科学上网，那么对于你的kali虚拟机你就没必要想尽各种办法让它与你的实体机进行类似的配置以实现科学上网。具体方法如下：
+
+前提条件：和可以科学上网的主机处于**同一局域网**
+
+实验环境：主机Windows10（已实现科学上网），虚拟机Kali Linux（需要实现科学上网），对于虚拟机，我使用了两个网卡，**网络地址转换**和**仅主机网络**。
+
+实现步骤：
+1. 配置主机的ssr客户端，使其**允许来自局域网的连接**。于我而言，我是这么设置的：**右键小飞机->选项设置->勾选来自局域网的连接**
+2. 在虚拟机中，配置FireFox浏览器中的网络代理或系统代理，选择手动代理，在所有代理中填入主机的IP地址和其默认的端口（我的是`192.168.56.100`和`1080`）
+3. 完成

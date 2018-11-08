@@ -120,8 +120,17 @@ categories: blog
    #可在此添加加的语言支持有C(--clang-completer), C#(--cs-completer), Go(--go-completer), Rust(--rust-completer), Java(--java-completer)
    ```
    
-   以上步骤的错误处理（`--clang-completer`参数导致的问题）：
-   1. 如果错误如下：
+   以上步骤的可能遇到的问题
+   1. 如果在`git submodule update --init --recursive`这一步（隐含在`python install.py --clang-completer --java-completer`中）中发现下载很慢，则可以参考我的另一篇博客[Kali Linux科学上网](https://wsxq2.55555.io/blog/2018/10/20/Kali-Linux%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/#232-%E4%BD%BF%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E4%BB%A3%E7%90%86%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0)配置好git部分后再下载。
+   
+   
+   2. 如果在：
+      ```
+      -- Downloading libclang 7.0.0 from https://dl.bintray.com/micbou/libclang/libclang-7.0.0-x86_64-unknown-linux-gnu.tar.bz2
+      ```
+      这一步中卡住了
+
+      或者等待很长时间后错误如下（`--clang-completer`参数导致的问题）：
       ```
       CMake Error at ycm/CMakeLists.txt:103 (file):
       file DOWNLOAD HASH mismatch
@@ -129,8 +138,7 @@ categories: blog
         expected hash: [093a94ff8982ae78461f0d2604c98f6b454c15e2ef768d34c235c6676c336460]
           actual hash: [a12a54f4e937e521a5e9ff790db0bf7a358f6dbc6febebcddab62c798ffc4d51]
       ```
-   
-      则可以手动下载 [Clang archive](https://dl.bintray.com/micbou/libclang/libclang-6.0.0-x86_64-linux-gnu-ubuntu-14.04.tar.bz2)(记得要科学上网后再下载), 然后将它移动至`~/.vim/bundle/YouCompleteMe/third_party/ycmd/clang_archives`目录下，然后重新安装YouCompleteMe，具体可参考<https://github.com/Valloric/YouCompleteMe/issues/1711>
+      则可以手动下载 Clang archive(复制那个下载链接即可，记得要科学上网后再下载), 然后将它移动至`~/.vim/bundle/YouCompleteMe/third_party/ycmd/clang_archives`目录下，然后重新安装YouCompleteMe（即运行上面那个`python intall.py……`命令），具体可参考<https://github.com/Valloric/YouCompleteMe/issues/1711>
    
 2. 编译YCM需要的`ycm_core`库:
    ```
@@ -146,7 +154,7 @@ categories: blog
    cd ~
    mkdir .regex_build
    cd .regex_build
-   cmake -G "<generator>" . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/cregex
+   cmake -G "Unix Makefiles" . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/cregex
    cmake --build . --target _regex --config Release
    ```
 
