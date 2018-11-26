@@ -10,6 +10,7 @@ categories: blog
 
 <!-- vim-markdown-toc GFM -->
 
+* [0 简介](#0-简介)
 * [1 安装 Python](#1-安装-python)
 * [2 安装 Vim](#2-安装-vim)
 * [3 通过安装 vim-plug 安装 YouCompleteMe](#3-通过安装-vim-plug-安装-youcompleteme)
@@ -17,9 +18,25 @@ categories: blog
   * [4.1 安装 YouCompleteMe](#41-安装-youcompleteme)
   * [4.2 配置 C 支持](#42-配置-c-支持)
   * [4.3 配置 JavaScript 支持](#43-配置-javascript-支持)
-* [5 参考链接](#5-参考链接)
+* [5 使用](#5-使用)
+* [6 参考链接](#6-参考链接)
 
 <!-- vim-markdown-toc -->
+
+### 0 简介
+> YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine for Vim. It has several completion engines:
+> 
+> * an identifier-based engine that works with every programming language,
+> * a Clang-based engine that provides native semantic code completion for C/C++/Objective-C/Objective-C++/CUDA (from now on referred to as "the C-family languages"),
+> * a Jedi-based completion engine for Python 2 and 3,
+> * an OmniSharp-based completion engine for C#,
+> * a combination of Gocode and Godef semantic engines for Go,
+> * a TSServer-based completion engine for JavaScript and TypeScript,
+> * a racer-based completion engine for Rust,
+> * a jdt.ls-based experimental completion engine for Java.
+> * and an omnifunc-based completer that uses data from Vim's omnicomplete system to provide semantic completions for many other languages (Ruby, PHP etc.).
+
+总之，YouCompleteMe 是目前（2018-11-26）最强大的代码补全插件（但同时也是最难安装的插件）
 
 ### 1 安装 Python
 使用 [`pyenv`](https://github.com/pyenv/pyenv#basic-github-checkout)(Simple Python version management)进行安装
@@ -229,7 +246,17 @@ categories: blog
     }
     </pre>
 
-### 5 参考链接
+### 5 使用
+输入字符超过2个，即会出现补全菜单，主要支持本文档内的补全（注释中的不会用于补全，如想补全注释中的内容，可以使用Ctrl+N和Ctrl+P）、语义补全（根据编程语言自动解析补全，精准度很高）、代码片断补全（和 vim-snippets 配合使用）
+* `Ctrl+N`和`Ctrl+P`：出现补全菜单后，使用`Ctrl+N`向下选择（也可以使用`Tab`），使用`Ctrl+P`向上选择
+* `\gd`(GetDoc)：获取光标所在单词的帮助文档（主要是它的API）
+* `\gr`(GoToReferences)：获取引用光标所在单词的所有位置
+* `\gc`(GoToDeclaration)：跳转至光标所在变量的声明处，其实还可以使用Vim自带的命令`gd`跳转到声明处
+* `\gg`(GoTo): 先尝试跳转至声明处，若失败，则跳转至定义处
+* `Ctrl+L`: 强制补全
+* `Ctrl+Y`：在补全菜单出现时可以使用该快捷键关闭补全菜单（有时很有用）
+
+### 6 参考链接
 * [Building-Vim-from-source](https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source)
 * [vim-plug](https://github.com/junegunn/vim-plug)
 * [Why I choose vim-plug](https://ssarcandy.tw/2016/08/17/vim-plugin-manager/)
