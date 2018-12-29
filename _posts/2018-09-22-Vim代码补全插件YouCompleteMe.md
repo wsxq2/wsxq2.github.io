@@ -130,7 +130,7 @@ categories: blog
 
 ### 4 安装并配置 YouCompleteMe
 #### 4.1 安装 YouCompleteMe
-1. 编译并安装YouCompleteMe:
+1. 编译并安装YouCompleteMe（建议先让终端科学上网后再编译安装，否则极有可能会出现下述问题中的第二个问题，且其解决方案似乎已经失效，2018-11-28）:
    ```
    cd ~/.vim/bundle/YouCompleteMe/
    python install.py --clang-completer --java-completer 
