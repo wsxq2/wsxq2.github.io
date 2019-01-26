@@ -20,3 +20,5 @@ _site/
 Gemfile
 Gemfile.lock
 todo.md
+_posts/images/
+_posts/abbreviations.txt
