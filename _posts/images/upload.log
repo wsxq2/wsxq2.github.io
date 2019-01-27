@@ -557,3 +557,338 @@
 2019/01/26 17:48:57 [I]             Skipped:        75
 2019/01/26 17:48:57 [I]            Duration:   8.128922788s
 2019/01/26 17:48:57 [I] ----------------------------------------
+2019/01/27 13:53:42 [I] Listing local sync dir, this can take a long time for big directory, please wait patiently
+2019/01/27 13:53:42 [I] Walk `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images` start from 2019-01-27 13:53:42.741263085 +0800 CST m=+0.267645264
+2019/01/27 13:53:42 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images`
+2019/01/27 13:53:42 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/ARP协议分析与攻击`
+2019/01/27 13:53:42 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/DHCP协议分析与攻击`
+2019/01/27 13:53:42 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/HTTP协议分析与攻击`
+2019/01/27 13:53:42 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》`
+2019/01/27 13:53:42 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/组网与运维相关知识`
+2019/01/27 13:53:42 [I] Walk `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images` end at 2019-01-27 13:53:42.914382828 +0800 CST m=+0.440765002
+2019/01/27 13:53:42 [I] Walk `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images` last for 173.255354ms
+2019/01/27 13:53:42 [I] Total file count cached 89
+2019/01/27 13:53:43 [I] File `8086处理器体系结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:43 [I] File `ARP协议分析与攻击/Linux查看ARP缓存表.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:43 [I] File `ARP协议分析与攻击/Windows查看ARP缓存表.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:43 [I] File `ARP协议分析与攻击/arpspoof的Python实现（命令帮助）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:43 [I] File `ARP协议分析与攻击/arpspoof的Python实现（执行效果）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:43 [I] File `ARP协议分析与攻击/arpspoof的Python实现（源码部分）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:43 [I] File `ARP协议分析与攻击/kali使用arpspoof工具发起ARP欺骗攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:43 [I] File `ARP协议分析与攻击/kali开启内核转发功能.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:43 [I] File `ARP协议分析与攻击/wireshark抓ARP包（攻击后）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:43 [I] File `ARP协议分析与攻击/wireshark抓ARP应答报文.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:43 [I] File `ARP协议分析与攻击/wireshark抓ARP查询报文.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:43 [I] File `ARP协议分析与攻击/受害者使用ping访问外网.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:44 [I] File `ARP协议分析与攻击/受害者本地ARP缓存表（攻击后）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:44 [I] File `ARP协议分析与攻击/受害者的本地缓存表（攻击之前）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:44 [I] File `ARP协议分析与攻击/网络拓扑图（攻击前）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:44 [I] File `ARP协议分析与攻击/网络拓扑图（攻击后）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:44 [I] File `DHCP协议分析与攻击/DHCP协议攻击原理图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:44 [I] File `DHCP协议分析与攻击/DHCP协议运行过程.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:44 [I] File `DHCP协议分析与攻击/DHCP服务器端日志分析.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:44 [I] File `DHCP协议分析与攻击/DHCP服务配置报错ignored（not-authoritative）解决方法.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:44 [I] File `DHCP协议分析与攻击/DHCP服务配置时报错：ignored（not-authoritative）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:44 [I] File `DHCP协议分析与攻击/Ubuntu-server上安装DHCP服务实验拓扑图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:44 [I] File `DHCP协议分析与攻击/Ubuntu-server安装DHCP服务.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:44 [I] File `DHCP协议分析与攻击/Ubuntu-server配置DHCP服务器.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:44 [I] File `DHCP协议分析与攻击/Ubunu-server查看DHCP服务状态.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:44 [I] File `DHCP协议分析与攻击/Windows10作DHCP客户端结果演示.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:45 [I] File `DHCP协议分析与攻击/Windows10客户端配置DHCP.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:45 [I] File `DHCP协议分析与攻击/Yersinia工具界面.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:45 [I] File `DHCP协议分析与攻击/linux临时开启路由转发功能.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:45 [I] File `DHCP协议分析与攻击/wireshark抓DHCP包.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:45 [I] File `DHCP协议分析与攻击/yersinia工具显示的DHCP包结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:45 [I] File `DHCP协议分析与攻击/使用ping命令和wireshark抓包验证DHCP欺骗攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:45 [I] File `DHCP协议分析与攻击/使用tracert命令验证DHCP欺骗攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:45 [I] File `DHCP协议分析与攻击/使用wireshark验证DHCP饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:45 [I] File `DHCP协议分析与攻击/使用yersinia发起DHCP饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:45 [I] File `DHCP协议分析与攻击/在Ubuntu-server上安装DHCP服务之客户端（win10）网络设置.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:45 [I] File `DHCP协议分析与攻击/在Ubuntu-server上安装DHCP服务之客户端（win10）网络设置2.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:45 [I] File `DHCP协议分析与攻击/在kali上安装并配置DHCP服务.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:45 [I] File `DHCP协议分析与攻击/在kali中开启DHCP服务并确认.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:45 [I] File `DHCP协议分析与攻击/在yersinia中停止DHCP饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `DHCP协议分析与攻击/被攻击网络的拓扑图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `DHCP协议分析与攻击/让受害者强行受害后其获得的IP及网关信息.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `DHCP协议分析与攻击/通过查看官方DHCP服务器的日志文件验证饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `DNS层次结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `HTTP协议分析与攻击/HTTP协议概览.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `HTTP协议分析与攻击/HTTP响应头.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `HTTP协议分析与攻击/HTTP请求头.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `HTTP协议分析与攻击/wireshark抓HTTP响应包.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `HTTP协议分析与攻击/wireshark抓HTTP请求包.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `HTTP协议分析与攻击/wireshark跟踪HTTP流.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `HTTP协议分析与攻击/获取成绩脚本运行结果.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `UDP编程模型.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `bwg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `ss-qt5` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:46 [I] File `upload.log` exists in bucket, but hash not match, go to upload
+2019/01/27 13:53:46 [I] Uploading file /mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/upload.log => wsxq2 : upload.log
+2019/01/27 13:53:46 [I] File `三个实体型之间的联系示例.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:47 [I] File `两个实体的三类联系.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:47 [I] File `主存的分段结构之段寄存器的使用.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:47 [I] Upload file `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/upload.log` => `wsxq2 : upload.log` success
+2019/01/27 13:53:47 [I] File `主存的双体结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:47 [I] File `主存结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:47 [I] File `公交安全管理系统E-R图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:47 [I] File `公交安全管理系统物理模型.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:47 [I] File `公交安全管理系统逻辑模型.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:47 [I] File `公交安全管理系统题目要求1.PNG` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:47 [I] File `公交安全管理系统题目要求2.PNG` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:47 [I] File `公交安全管理系统题目要求3.PNG` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:47 [I] File `公交安全管理系统题目要求4.PNG` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:47 [I] File `单个实体型内的一对多联系示例.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:47 [I] File `完整的E-R图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:47 [I] File `寄存器结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:48 [I] File `寄存器结构说明.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:48 [I] Uploading file /mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》/detailed-info页面.png => wsxq2 : 微信小程序《西电失物招领》/detailed-info页面.png
+2019/01/27 13:53:48 [I] Uploading file /mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》/find页面.png => wsxq2 : 微信小程序《西电失物招领》/find页面.png
+2019/01/27 13:53:48 [I] Uploading file /mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》/mine页面.png => wsxq2 : 微信小程序《西电失物招领》/mine页面.png
+2019/01/27 13:53:48 [I] Upload file `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》/detailed-info页面.png` => `wsxq2 : 微信小程序《西电失物招领》/detailed-info页面.png` success
+2019/01/27 13:53:48 [I] Uploading file /mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》/my-info页面.png => wsxq2 : 微信小程序《西电失物招领》/my-info页面.png
+2019/01/27 13:53:48 [I] Upload file `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》/find页面.png` => `wsxq2 : 微信小程序《西电失物招领》/find页面.png` success
+2019/01/27 13:53:48 [I] Uploading file /mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》/release页面.png => wsxq2 : 微信小程序《西电失物招领》/release页面.png
+2019/01/27 13:53:48 [I] Upload file `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》/mine页面.png` => `wsxq2 : 微信小程序《西电失物招领》/mine页面.png` success
+2019/01/27 13:53:48 [I] Uploading file /mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》/全局变量.png => wsxq2 : 微信小程序《西电失物招领》/全局变量.png
+2019/01/27 13:53:48 [I] Upload file `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》/my-info页面.png` => `wsxq2 : 微信小程序《西电失物招领》/my-info页面.png` success
+2019/01/27 13:53:48 [I] Uploading file /mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》/小程序流程图.png => wsxq2 : 微信小程序《西电失物招领》/小程序流程图.png
+2019/01/27 13:53:48 [I] Upload file `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》/release页面.png` => `wsxq2 : 微信小程序《西电失物招领》/release页面.png` success
+2019/01/27 13:53:48 [I] File `数据库设计各个阶段的数据设计描述.jpg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:48 [I] Upload file `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》/全局变量.png` => `wsxq2 : 微信小程序《西电失物招领》/全局变量.png` success
+2019/01/27 13:53:48 [I] File `数据库设计的基本步骤.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:48 [I] Upload file `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》/小程序流程图.png` => `wsxq2 : 微信小程序《西电失物招领》/小程序流程图.png` success
+2019/01/27 13:53:49 [I] File `数据库设计过程中的各级模式.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:49 [I] File `汇编程序做了什么.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:49 [I] File `汇编程序做了什么2.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:49 [I] File `直接内存操作数.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:49 [I] File `组网与运维相关知识/刀片式服务器.jpg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:49 [I] File `组网与运维相关知识/戴尔塔式服务器.jpg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:49 [I] File `组网与运维相关知识/戴尔机架式服务器.jpg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:49 [I] File `编译链接和运行程序.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:49 [I] File `联系的属性.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:53:49 [I] -------------Upload Result--------------
+2019/01/27 13:53:49 [I]               Total:        89
+2019/01/27 13:53:49 [I]             Success:         8
+2019/01/27 13:53:49 [I]             Failure:         0
+2019/01/27 13:53:49 [I]        NotOverwrite:         0
+2019/01/27 13:53:49 [I]             Skipped:        81
+2019/01/27 13:53:49 [I]            Duration:   7.113943864s
+2019/01/27 13:53:49 [I] ----------------------------------------
+2019/01/27 13:55:47 [I] Listing local sync dir, this can take a long time for big directory, please wait patiently
+2019/01/27 13:55:47 [I] Walk `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images` start from 2019-01-27 13:55:47.471265691 +0800 CST m=+0.176367374
+2019/01/27 13:55:47 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images`
+2019/01/27 13:55:47 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/ARP协议分析与攻击`
+2019/01/27 13:55:47 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/DHCP协议分析与攻击`
+2019/01/27 13:55:47 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/HTTP协议分析与攻击`
+2019/01/27 13:55:47 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》`
+2019/01/27 13:55:47 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/组网与运维相关知识`
+2019/01/27 13:55:47 [I] Walk `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images` end at 2019-01-27 13:55:47.65564457 +0800 CST m=+0.360746225
+2019/01/27 13:55:47 [I] Walk `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images` last for 184.521627ms
+2019/01/27 13:55:47 [I] Total file count cached 89
+2019/01/27 13:55:47 [I] File `8086处理器体系结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:47 [I] File `ARP协议分析与攻击/Linux查看ARP缓存表.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:47 [I] File `ARP协议分析与攻击/Windows查看ARP缓存表.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:47 [I] File `ARP协议分析与攻击/arpspoof的Python实现（命令帮助）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:47 [I] File `ARP协议分析与攻击/arpspoof的Python实现（执行效果）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:48 [I] File `ARP协议分析与攻击/arpspoof的Python实现（源码部分）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:48 [I] File `ARP协议分析与攻击/kali使用arpspoof工具发起ARP欺骗攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:48 [I] File `ARP协议分析与攻击/kali开启内核转发功能.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:48 [I] File `ARP协议分析与攻击/wireshark抓ARP包（攻击后）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:48 [I] File `ARP协议分析与攻击/wireshark抓ARP应答报文.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:48 [I] File `ARP协议分析与攻击/wireshark抓ARP查询报文.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:48 [I] File `ARP协议分析与攻击/受害者使用ping访问外网.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:48 [I] File `ARP协议分析与攻击/受害者本地ARP缓存表（攻击后）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:48 [I] File `ARP协议分析与攻击/受害者的本地缓存表（攻击之前）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:48 [I] File `ARP协议分析与攻击/网络拓扑图（攻击前）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:48 [I] File `ARP协议分析与攻击/网络拓扑图（攻击后）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:48 [I] File `DHCP协议分析与攻击/DHCP协议攻击原理图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:48 [I] File `DHCP协议分析与攻击/DHCP协议运行过程.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:48 [I] File `DHCP协议分析与攻击/DHCP服务器端日志分析.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/DHCP服务配置报错ignored（not-authoritative）解决方法.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/DHCP服务配置时报错：ignored（not-authoritative）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/Ubuntu-server上安装DHCP服务实验拓扑图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/Ubuntu-server安装DHCP服务.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/Ubuntu-server配置DHCP服务器.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/Ubunu-server查看DHCP服务状态.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/Windows10作DHCP客户端结果演示.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/Windows10客户端配置DHCP.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/Yersinia工具界面.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/linux临时开启路由转发功能.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/wireshark抓DHCP包.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/yersinia工具显示的DHCP包结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/使用ping命令和wireshark抓包验证DHCP欺骗攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/使用tracert命令验证DHCP欺骗攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:49 [I] File `DHCP协议分析与攻击/使用wireshark验证DHCP饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:50 [I] File `DHCP协议分析与攻击/使用yersinia发起DHCP饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:50 [I] File `DHCP协议分析与攻击/在Ubuntu-server上安装DHCP服务之客户端（win10）网络设置.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:50 [I] File `DHCP协议分析与攻击/在Ubuntu-server上安装DHCP服务之客户端（win10）网络设置2.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:50 [I] File `DHCP协议分析与攻击/在kali上安装并配置DHCP服务.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:50 [I] File `DHCP协议分析与攻击/在kali中开启DHCP服务并确认.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:50 [I] File `DHCP协议分析与攻击/在yersinia中停止DHCP饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:50 [I] File `DHCP协议分析与攻击/被攻击网络的拓扑图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:50 [I] File `DHCP协议分析与攻击/让受害者强行受害后其获得的IP及网关信息.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:50 [I] File `DHCP协议分析与攻击/通过查看官方DHCP服务器的日志文件验证饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:50 [I] File `DNS层次结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:50 [I] File `HTTP协议分析与攻击/HTTP协议概览.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:50 [I] File `HTTP协议分析与攻击/HTTP响应头.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:50 [I] File `HTTP协议分析与攻击/HTTP请求头.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:50 [I] File `HTTP协议分析与攻击/wireshark抓HTTP响应包.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:51 [I] File `HTTP协议分析与攻击/wireshark抓HTTP请求包.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:51 [I] File `HTTP协议分析与攻击/wireshark跟踪HTTP流.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:51 [I] File `HTTP协议分析与攻击/获取成绩脚本运行结果.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:51 [I] File `UDP编程模型.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:51 [I] File `bwg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:51 [I] File `ss-qt5` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:51 [I] File `upload.log` exists in bucket, but hash not match, go to upload
+2019/01/27 13:55:51 [I] Uploading file /mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/upload.log => wsxq2 : upload.log
+2019/01/27 13:55:51 [I] File `三个实体型之间的联系示例.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:51 [I] File `两个实体的三类联系.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:51 [I] File `主存的分段结构之段寄存器的使用.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:51 [I] Upload file `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/upload.log` => `wsxq2 : upload.log` success
+2019/01/27 13:55:51 [I] File `主存的双体结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:51 [I] File `主存结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:51 [I] File `公交安全管理系统E-R图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:51 [I] File `公交安全管理系统物理模型.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:51 [I] File `公交安全管理系统逻辑模型.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `公交安全管理系统题目要求1.PNG` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `公交安全管理系统题目要求2.PNG` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `公交安全管理系统题目要求3.PNG` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `公交安全管理系统题目要求4.PNG` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `单个实体型内的一对多联系示例.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `完整的E-R图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `寄存器结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `寄存器结构说明.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `微信小程序《西电失物招领》/detailed-info页面.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `微信小程序《西电失物招领》/find页面.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `微信小程序《西电失物招领》/mine页面.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `微信小程序《西电失物招领》/my-info页面.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `微信小程序《西电失物招领》/release页面.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `微信小程序《西电失物招领》/全局变量.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:52 [I] File `微信小程序《西电失物招领》/小程序流程图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:53 [I] File `数据库设计各个阶段的数据设计描述.jpg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:53 [I] File `数据库设计的基本步骤.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:53 [I] File `数据库设计过程中的各级模式.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:53 [I] File `汇编程序做了什么.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:53 [I] File `汇编程序做了什么2.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:53 [I] File `直接内存操作数.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:53 [I] File `组网与运维相关知识/刀片式服务器.jpg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:53 [I] File `组网与运维相关知识/戴尔塔式服务器.jpg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:53 [I] File `组网与运维相关知识/戴尔机架式服务器.jpg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:53 [I] File `编译链接和运行程序.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:53 [I] File `联系的属性.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:55:53 [I] -------------Upload Result--------------
+2019/01/27 13:55:53 [I]               Total:        89
+2019/01/27 13:55:53 [I]             Success:         1
+2019/01/27 13:55:53 [I]             Failure:         0
+2019/01/27 13:55:53 [I]        NotOverwrite:         0
+2019/01/27 13:55:53 [I]             Skipped:        88
+2019/01/27 13:55:53 [I]            Duration:   6.424992813s
+2019/01/27 13:55:53 [I] ----------------------------------------
+2019/01/27 13:57:17 [I] Listing local sync dir, this can take a long time for big directory, please wait patiently
+2019/01/27 13:57:17 [I] Walk `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images` start from 2019-01-27 13:57:17.376751958 +0800 CST m=+0.090211917
+2019/01/27 13:57:17 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images`
+2019/01/27 13:57:17 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/ARP协议分析与攻击`
+2019/01/27 13:57:17 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/DHCP协议分析与攻击`
+2019/01/27 13:57:17 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/HTTP协议分析与攻击`
+2019/01/27 13:57:17 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》`
+2019/01/27 13:57:17 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/组网与运维相关知识`
+2019/01/27 13:57:17 [I] Walk `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images` end at 2019-01-27 13:57:17.563594834 +0800 CST m=+0.277054779
+2019/01/27 13:57:17 [I] Walk `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images` last for 187.043659ms
+2019/01/27 13:57:17 [I] Total file count cached 89
+2019/01/27 13:57:17 [I] File `8086处理器体系结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:17 [I] File `ARP协议分析与攻击/Linux查看ARP缓存表.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:17 [I] File `ARP协议分析与攻击/Windows查看ARP缓存表.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:17 [I] File `ARP协议分析与攻击/arpspoof的Python实现（命令帮助）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:18 [I] File `ARP协议分析与攻击/arpspoof的Python实现（执行效果）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:18 [I] File `ARP协议分析与攻击/arpspoof的Python实现（源码部分）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:18 [I] File `ARP协议分析与攻击/kali使用arpspoof工具发起ARP欺骗攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:18 [I] File `ARP协议分析与攻击/kali开启内核转发功能.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:18 [I] File `ARP协议分析与攻击/wireshark抓ARP包（攻击后）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:18 [I] File `ARP协议分析与攻击/wireshark抓ARP应答报文.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:18 [I] File `ARP协议分析与攻击/wireshark抓ARP查询报文.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:18 [I] File `ARP协议分析与攻击/受害者使用ping访问外网.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:18 [I] File `ARP协议分析与攻击/受害者本地ARP缓存表（攻击后）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:18 [I] File `ARP协议分析与攻击/受害者的本地缓存表（攻击之前）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:18 [I] File `ARP协议分析与攻击/网络拓扑图（攻击前）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:18 [I] File `ARP协议分析与攻击/网络拓扑图（攻击后）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:18 [I] File `DHCP协议分析与攻击/DHCP协议攻击原理图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:18 [I] File `DHCP协议分析与攻击/DHCP协议运行过程.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/DHCP服务器端日志分析.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/DHCP服务配置报错ignored（not-authoritative）解决方法.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/DHCP服务配置时报错：ignored（not-authoritative）.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/Ubuntu-server上安装DHCP服务实验拓扑图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/Ubuntu-server安装DHCP服务.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/Ubuntu-server配置DHCP服务器.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/Ubunu-server查看DHCP服务状态.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/Windows10作DHCP客户端结果演示.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/Windows10客户端配置DHCP.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/Yersinia工具界面.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/linux临时开启路由转发功能.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/wireshark抓DHCP包.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/yersinia工具显示的DHCP包结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/使用ping命令和wireshark抓包验证DHCP欺骗攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:19 [I] File `DHCP协议分析与攻击/使用tracert命令验证DHCP欺骗攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `DHCP协议分析与攻击/使用wireshark验证DHCP饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `DHCP协议分析与攻击/使用yersinia发起DHCP饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `DHCP协议分析与攻击/在Ubuntu-server上安装DHCP服务之客户端（win10）网络设置.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `DHCP协议分析与攻击/在Ubuntu-server上安装DHCP服务之客户端（win10）网络设置2.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `DHCP协议分析与攻击/在kali上安装并配置DHCP服务.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `DHCP协议分析与攻击/在kali中开启DHCP服务并确认.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `DHCP协议分析与攻击/在yersinia中停止DHCP饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `DHCP协议分析与攻击/被攻击网络的拓扑图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `DHCP协议分析与攻击/让受害者强行受害后其获得的IP及网关信息.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `DHCP协议分析与攻击/通过查看官方DHCP服务器的日志文件验证饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `DNS层次结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `HTTP协议分析与攻击/HTTP协议概览.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `HTTP协议分析与攻击/HTTP响应头.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `HTTP协议分析与攻击/HTTP请求头.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `HTTP协议分析与攻击/wireshark抓HTTP响应包.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:20 [I] File `HTTP协议分析与攻击/wireshark抓HTTP请求包.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:21 [I] File `HTTP协议分析与攻击/wireshark跟踪HTTP流.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:21 [I] File `HTTP协议分析与攻击/获取成绩脚本运行结果.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:21 [I] File `UDP编程模型.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:21 [I] File `bwg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:21 [I] File `ss-qt5` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:21 [I] Skip by fixed string `.log` for local file path `upload.log`
+2019/01/27 13:57:21 [I] File `三个实体型之间的联系示例.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:21 [I] File `两个实体的三类联系.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:21 [I] File `主存的分段结构之段寄存器的使用.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:21 [I] File `主存的双体结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:21 [I] File `主存结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:21 [I] File `公交安全管理系统E-R图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:22 [I] File `公交安全管理系统物理模型.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:22 [I] File `公交安全管理系统逻辑模型.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:22 [I] File `公交安全管理系统题目要求1.PNG` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:22 [I] File `公交安全管理系统题目要求2.PNG` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:22 [I] File `公交安全管理系统题目要求3.PNG` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:22 [I] File `公交安全管理系统题目要求4.PNG` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:22 [I] File `单个实体型内的一对多联系示例.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:22 [I] File `完整的E-R图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:22 [I] File `寄存器结构.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:22 [I] File `寄存器结构说明.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:23 [I] File `微信小程序《西电失物招领》/detailed-info页面.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:23 [I] File `微信小程序《西电失物招领》/find页面.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:23 [I] File `微信小程序《西电失物招领》/mine页面.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:23 [I] File `微信小程序《西电失物招领》/my-info页面.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:23 [I] File `微信小程序《西电失物招领》/release页面.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:23 [I] File `微信小程序《西电失物招领》/全局变量.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:23 [I] File `微信小程序《西电失物招领》/小程序流程图.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:23 [I] File `数据库设计各个阶段的数据设计描述.jpg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:23 [I] File `数据库设计的基本步骤.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:23 [I] File `数据库设计过程中的各级模式.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:23 [I] File `汇编程序做了什么.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:23 [I] File `汇编程序做了什么2.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:23 [I] File `直接内存操作数.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:23 [I] File `组网与运维相关知识/刀片式服务器.jpg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:24 [I] File `组网与运维相关知识/戴尔塔式服务器.jpg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:24 [I] File `组网与运维相关知识/戴尔机架式服务器.jpg` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:24 [I] File `编译链接和运行程序.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:24 [I] File `联系的属性.png` exists in bucket, hash match, ignore this upload
+2019/01/27 13:57:24 [I] -------------Upload Result--------------
+2019/01/27 13:57:24 [I]               Total:        89
+2019/01/27 13:57:24 [I]             Success:         0
+2019/01/27 13:57:24 [I]             Failure:         0
+2019/01/27 13:57:24 [I]        NotOverwrite:         0
+2019/01/27 13:57:24 [I]             Skipped:        89
+2019/01/27 13:57:24 [I]            Duration:   6.925622149s
+2019/01/27 13:57:24 [I] ----------------------------------------
