@@ -21,7 +21,7 @@ categories: blog
    
 1. 打开 Vim，输入`:PlugInstall`完成安装即可
 
-关于Vim-Plug 的使用可以参考 [Vim插件vim-table-mode](https://wsxq2.55555.io/blog/2018/12/13/Vim插件vim-table-mode)
+关于Vim-Plug 的使用可以参考 [Vim管理插件的插件Vim-Plug](https://wsxq2.55555.io/blog/2018/11/25/Vim管理插件的插件Vim-Plug)
 
 ## 使用
 

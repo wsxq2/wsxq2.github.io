@@ -4,7 +4,7 @@ tags: [kali,shadowsocks,shadowsocksr,科学上网]
 categories: blog
 ---
 
-众所周知，科学上网是每个学计算机的人员的必备技能，本文简要讲解基于`Debian`的用于安全测试的`kali Linux`系统科学上网的方法，其它基于`Debian`的`Linux`类似，再其它的可能就仅做参考了 :) 。
+众所周知，科学上网是每个学计算机的人员的必备技能，本文简要讲解基于`Debian`的用于安全测试的`kali Linux`系统科学上网的方法，其它基于`Debian`的`Linux`（如`Ubuntu`）类似，再其它的可能就仅做参考了 :) 。
 <!-- vim-markdown-toc GFM -->
 
 * [1 通过 shadowsocks 实现科学上网](#1-通过-shadowsocks-实现科学上网)
@@ -28,7 +28,7 @@ categories: blog
 <!-- vim-markdown-toc -->
 
 ## 1 通过 shadowsocks 实现科学上网
-该方法最后更新时间：2018-04-08
+该方法最后更新时间：2018-04-08。此方法截止 2018-10-20 已不可用。建议使用本文中第二个方法 [2 通过 shadowsocksr 实现科学上网](#2-通过-shadowsocksr-实现科学上网)
 
 ### 1.1 实现步骤
 1. 在`/etc/apt/sources.list`文件末尾添加: `deb http://ppa.launchpad.net/hzwhuang/ss-qt5/ubuntu devel main`
@@ -40,9 +40,14 @@ categories: blog
 	apt update #这一步成功后便可安装shadowsocks-qt5了
 	```
 3. 安装shadowsocks-qt5: `apt install shadowsocks-qt5 `。
-4. 安装后在`bash`中输入`ss-qt5`, 完成配置, 配置好后的图如下：![ss-qt5](http://wsxq12.55555.io/ss-qt5)
-   图中使用的服务器账号是我花**180￥/年**租用的搬瓦工的VPS(见下图)（大家也可以搭建一个属于自己的SSR服务器，可以学到不少东西）
-   ![bwg](http://wsxq12.55555.io/bwg)
+4. 安装后在`bash`中输入`ss-qt5`, 完成配置, 配置好后的图如下：
+
+   ![ss-qt5](http://wsxq12.55555.io/Kali-Linux科学上网/ss-qt5主界面.png)
+
+   图中使用的服务器账号是我花**180元/年**租用的搬瓦工的VPS(见下图)（大家也可以搭建一个属于自己的SSR服务器，可以学到不少东西）
+
+   ![bwg](http://wsxq12.55555.io/Kali-Linux科学上网/bwg主机信息界面.png)
+
 4. 获得pac文件：
 
 	    pip install genpac
