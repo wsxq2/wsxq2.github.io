@@ -24,7 +24,7 @@ categories: blog
 2. 安装：一路**Next**即可。
 
 ### 2 下载 MacOS 虚拟机的 `.vmdk` 文件
-1. 下载链接（共 6 个 rar 压缩包，需要科学上网）：[macOS High Sierra 10.13.6 Final (6 of 6)](https://drive.google.com/drive/folders/1G8tLAdllZq-lxp91DJ2K1VVz-2yY1z2S)
+1. 下载链接（共 6 个 rar 压缩包，需要科学上网）：[macOS High Sierra 10.13.6 Final (6 of 6)](https://drive.google.com/drive/folders/1G8tLAdllZq-lxp91DJ2K1VVz-2yY1z2S)。如果上述链接失效，可以使用我的百度云盘分享：<https://pan.baidu.com/s/1fpn8pme8flyXfhgHH_mVrw>，提取码为`qcs3`
 2. 使用 7zip（推荐） 或 WinRAR 解压缩：解压缩第一个即可，它会自动解压其它文件（因为它们是一个整体）
 
 ### 3 创建 MacOS 虚拟机

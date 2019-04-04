@@ -12,10 +12,11 @@ categories: blog
 * [3 安卓模拟器](#3-安卓模拟器)
 * [4 常用ADB命令](#4-常用adb命令)
 * [5 Lua语言](#5-lua语言)
-	* [5.1 基本特性](#51-基本特性)
-	* [5.2 程序控制语句](#52-程序控制语句)
-	* [5.3 运算符](#53-运算符)
-	* [5.4 变量](#54-变量)
+  * [5.1 基本特性](#51-基本特性)
+  * [5.2 程序控制语句](#52-程序控制语句)
+  * [5.3 运算符](#53-运算符)
+  * [5.4 变量](#54-变量)
+* [第二次开发过程](#第二次开发过程)
 * [6 我写的脚本](#6-我写的脚本)
 
 <!-- vim-markdown-toc -->
@@ -27,6 +28,7 @@ categories: blog
 [触动精灵脚本开发Lua简明教程]: http://www.touchsprite.com/helpdoc#/doc?id=1734
 [【雷电命令】雷电安卓模拟器修改信息及常用adb命令整理贴]: http://www.ldmnq.com/bbs/thread-32-1-1.html
 [【新手指导】夜神安卓模拟器adb命令详解]: https://www.yeshen.com/faqs/H15tDZ6YW
+[触动精灵开发手册大全]: http://www.touchsprite.com/helpdoc
 
 ## 1 学习路线
 1. 连接安卓模拟器：
@@ -66,7 +68,8 @@ categories: blog
 4. TS:
 	1. 触动精灵官网：<http://www.touchsprite.com/>
 	2. 触动精灵论坛：<http://bbs.touchsprite.com/forum.php>
-	3. 触动精灵开发手册大全：<http://www.touchsprite.com/helpdoc#/doc?id=1625>
+	3. 触动精灵开发手册大全：<http://www.touchsprite.com/helpdoc>
+
 
 ## 3 安卓模拟器
 * 安装完成后，找到安装路径（如`D:\Changzhi\dnplayer2`），将`adb.exe`所在目录添加到`PATH`**环境变量**以方便使用
@@ -407,6 +410,12 @@ categories: blog
   end
   </code>
   </pre>
+
+## 第二次开发过程
+1. 脚本开发相关工具：<http://www.touchsprite.com/helpdoc#/doc?id=227>。如果上述连接失效的话，请在[触动精灵开发手册大全]中点击——**触动精灵脚本开发手册->脚本开发相关工具**
+1. TouchSprite Studio IDE帮助文档：<https://www.zybuluo.com/miniknife/note/123055#%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE>，或者在软件中按 F1 查看
+   1. 连接设备：<https://www.zybuluo.com/miniknife/note/123055#%E8%BF%9E%E6%8E%A5%E8%AE%BE%E5%A4%87>
+   1. 常用快捷键：<https://www.zybuluo.com/miniknife/note/123055#%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE>
 
 ## 6 我写的脚本
 * 全民k歌刷鲜花脚本：<https://github.com/wsxq2/WeSingFlowers>
