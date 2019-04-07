@@ -3,7 +3,7 @@ header-img: "img/green.jpg"
 tagline: "cn"  
 description: "学无止境"  # 一句话描述你的博客
 baseurl: ""
-url: "http://wsxq2.55555.io" # 此处填写你的博客地址 
+url: "https://wsxq2.55555.io" # 此处填写你的博客地址 
 
 owner: 
   name: "wsxq2" # 填写作者信息：名字
