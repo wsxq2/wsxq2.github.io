@@ -17,6 +17,7 @@
 # My configurations:
 _site/
 *.swp
+*.swo
 Gemfile
 Gemfile.lock
 todo.md
