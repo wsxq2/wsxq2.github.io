@@ -53,3 +53,4 @@ plugins:
   - jemoji
   - jekyll-paginate
   - jekyll-sitemap
+    # - jekyll-toc-generator

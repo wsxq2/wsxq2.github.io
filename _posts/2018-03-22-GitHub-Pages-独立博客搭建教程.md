@@ -4,6 +4,8 @@ tags: [GitHub Pages,TODO]
 categories: blog
 ---
 
+* aa
+{:toc #markdown-toc}
 
 **注意**: 
 
@@ -163,7 +165,7 @@ Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标�
     gem source -a http://gems.ruby-china.com/ (添加新镜像)
     gem source
 
-### 参考链接：
+### 参考链接
 #### 官方
 1. [Jekyll中文指导手册](http://jekyllcn.com/)
 4. [Github Pages Basics中文版(极客学院翻译)](http://wiki.jikexueyuan.com/project/github-pages-basics/)

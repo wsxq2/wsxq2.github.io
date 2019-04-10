@@ -45,7 +45,10 @@ a.no2 {background-color: Gainsboro; padding: 2px;}
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
 
+
                 {{ content }}
+
+              <div class="sidebar_catelog"></div>
 
                 <hr>
 
@@ -102,6 +105,7 @@ a.no2 {background-color: Gainsboro; padding: 2px;}
                 </div>
                 <!-- 多说评论框 end -->
 
+                <!-- gitment 评论框 start -->
                 <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
                 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
                 <script>
@@ -119,6 +123,19 @@ a.no2 {background-color: Gainsboro; padding: 2px;}
 
 gitment.render('comments')
                 </script>
+                <!-- gitment 评论框 end -->
+
+                <!-- 侧边栏目录 start -->
+                <script>
+                  /*可通过下列语句判断是否生成了目录(有的文章内容短无目录)*/
+                  if (typeof $('#markdown-toc').html() === 'undefined') {
+                    //...	
+                  }else {
+                    /*将其显示在侧边栏*/
+                    $('.sidebar_catelog').html('<ul class="list_catelog">' + $('#markdown-toc').html() + '</ul>');
+                  }
+                </script>
+                <!-- 侧边栏目录 end -->
 
             </div>
         </div>
