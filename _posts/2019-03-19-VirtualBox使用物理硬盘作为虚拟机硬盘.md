@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [VirtualBox]
-categories: blog
 ---
 
 <!-- vim-markdown-toc GFM -->

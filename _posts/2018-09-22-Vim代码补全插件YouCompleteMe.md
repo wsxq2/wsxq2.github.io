@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [CentOS7, YouCompleteMe,Vim,TODO]
-categories: blog
 ---
 
 目标：使`YouCompleteMe`能作用于`C`、`Java`、`JavaScript`。

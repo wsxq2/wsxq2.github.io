@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [GitHub Pages,TODO]
-categories: blog
 ---
 
 * aa

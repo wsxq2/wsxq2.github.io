@@ -24,3 +24,6 @@ todo.md
 _posts/images/
 _posts/abbreviations.txt
 _posts/images/upload.log
+backup*
+*.sh
+*.sed

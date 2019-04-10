@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [Vim, Vim-lug, Vim插件]
-categories: blog
 ---
 
 **GitHub**: <https://github.com/junegunn/vim-plug>

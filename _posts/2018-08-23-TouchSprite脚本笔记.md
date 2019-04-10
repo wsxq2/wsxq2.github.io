@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [note,TouchSprite,ADB,Lua,脚本]
-categories: blog
 ---
 
 

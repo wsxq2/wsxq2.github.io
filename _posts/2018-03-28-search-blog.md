@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [GitHub Pages,TODO]
-categories: blog
 ---
 
 # 让GitHub Pages上的博客被搜索引擎搜索到

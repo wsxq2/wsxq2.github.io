@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [kali,U盘]
-categories: blog
 ---
 
 kali官方网站：<https://www.kali.org>

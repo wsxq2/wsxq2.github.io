@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [emmet, Vim, emmet-vim]
-categories: blog
 ---
 
 

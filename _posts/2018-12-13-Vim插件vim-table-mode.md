@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [Vim, vim-table-mode]
-categories: blog
 ---
 
 <!-- vim-markdown-toc GFM -->

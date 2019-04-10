@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [Kali, VirtualBox,TODO]
-categories: blog
 ---
 
 

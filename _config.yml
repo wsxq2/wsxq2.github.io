@@ -8,7 +8,7 @@ url: "https://wsxq2.55555.io" # 此处填写你的博客地址
 owner: 
   name: "wsxq2" # 填写作者信息：名字
   email: "wsxq2@qq.com" # 填写作者信息：邮箱
-  bio: "一只倔强的小强。" # 填写作者信息：博客描述
+  bio: "小强的博客" # 填写作者信息：博客描述
 
 gavatar: /img/favicon.png # 浏览器地址栏小图标，可自定义更改
 favicon: /img/favicon.png # 浏览器地址栏小图标，可自定义更改
@@ -21,9 +21,12 @@ weibo_username:
 zhihu_username: 
 
 markdown: kramdown
+kramdown:
+  input: GFM
+
 highlighter: rouge
 permalink: pretty
-paginate: 8
+paginate: 10
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 
 timezone: Asia/Shanghai
@@ -48,9 +51,10 @@ comments :
 google_analytics:  # 填写你  google_analytics id
 google_verify:
 bing_verify:
-    # plugins: [jekyll-paginate]
 plugins:
   - jemoji
   - jekyll-paginate
   - jekyll-sitemap
+  - jekyll-last-modified-at
     # - jekyll-toc-generator
+

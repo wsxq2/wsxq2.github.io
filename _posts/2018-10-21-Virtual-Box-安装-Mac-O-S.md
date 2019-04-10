@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [VirtualBox, MacOS]
-categories: blog
 ---
 
 

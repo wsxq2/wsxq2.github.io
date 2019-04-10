@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [Vim, ultisnips,vim-snippets, TODO]
-categories: blog
 ---
 
 * UltiSnips: <https://github.com/SirVer/ultisnips>

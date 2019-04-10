@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [Vim, vim-autoformat, Vim插件]
-categories: blog
 ---
 
 <!-- vim-markdown-toc GFM -->

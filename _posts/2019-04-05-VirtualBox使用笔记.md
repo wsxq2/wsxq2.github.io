@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [VirtualBox]
-categories: blog
 ---
 
 <!-- vim-markdown-toc GFM -->
@@ -74,6 +72,7 @@ categories: blog
 下面总结了本文中使用的所有链接：
 
 <!-- link start -->
+* [Oracle_VM_VirtualBox_Extension_Pack-5.2.12-122591.vbox-extpack](https://linux.xidian.edu.cn/mirrors/virtualbox/5.2.12/Oracle_VM_VirtualBox_Extension_Pack-5.2.12-122591.vbox-extpack)
 
 <!-- link end -->
 

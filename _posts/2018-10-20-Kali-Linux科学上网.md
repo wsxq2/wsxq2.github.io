@@ -1,7 +1,5 @@
 ---
-layout: post
 tags: [kali,shadowsocks,shadowsocksr,科学上网]
-categories: blog
 ---
 
 众所周知，科学上网是每个学计算机的人员的必备技能，本文简要讲解基于`Debian`的用于安全测试的`kali Linux`系统科学上网的方法，其它基于`Debian`的`Linux`（如`Ubuntu`）类似，再其它的可能就仅做参考了 :) 。
