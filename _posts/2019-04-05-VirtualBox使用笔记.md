@@ -1,11 +1,12 @@
 ---
 tags: [VirtualBox]
+last_modified_time: 2019-04-11 12:48:00 +0800
 ---
 
 <!-- vim-markdown-toc GFM -->
 
 * [安装增强功能（Guest Additions）](#安装增强功能guest-additions)
-  * [Ubuntu](#ubuntu)
+    * [Ubuntu](#ubuntu)
 * [链接](#链接)
 
 <!-- vim-markdown-toc -->

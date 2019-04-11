@@ -21,16 +21,16 @@ a.no2 {background-color: Gainsboro; padding: 2px;}
                     {% if page.subtitle %}
                     <h2 class="subheading">{{ page.subtitle }}</h2>
                     {% endif %}
-                    <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
+                    <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}<a href="{{ post.url | prepend: site.baseurl }}#disqus_thread">Link</a></span>
 					<br />
                     <div class="Tags">
 						TAGS:&ensp; {% for tag in page.tags %} <a class="tag no2" href="/tags/#{{ tag }}" title="{{ tag }}">{{ tag }}</a> &ensp; {% endfor %}
                     </div>
 
                     <br />
-                    <div class="last-modified-time">
-                      本文最后一次编辑时间：{{ page.last_modified_at }}
-                    </div>
+                    {% if page.last_modified_time %}
+                    <div class="last-modified-time"> 本文最后一次编辑时间：{{ page.last_modified_time }} </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -66,10 +66,27 @@ a.no2 {background-color: Gainsboro; padding: 2px;}
                     {% endif %}
                 </ul>
 
+                {% if page.comments %} 
+                <div id="disqus_thread"></div>
+                <script>
 
-                <!-- gitment 评论框 start -->
-                <div id="comments"></div>
-                <!-- gitment 评论框 end -->
+                  /**
+                  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+var disqus_config = function () {
+  this.page.url = {{ site.url }};  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = {{ page.title }}; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://wsxq2.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+                {% endif %}
 
                 <!-- 侧边栏目录 start -->
                 <script>
@@ -88,25 +105,7 @@ a.no2 {background-color: Gainsboro; padding: 2px;}
     </div>
 </article>
 
-<!-- gitment 公共JS代码 start -->
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  const gitment = new Gitment({
-    id: '{{ page.title }}',
-    owner: 'wsxq2',
-    repo: 'wsxq2.github.io',
-    oauth: {
-      client_id: 'b16ac01ecf8255caa6d7',
-      client_secret: '508c3ae20208508714ba478bebdafaa9572d9299',
-    },
-    // ...
-    // For more available options, check out the documentation below
-  })
-
-  gitment.render('comments')
-</script>
-<!-- gitment 公共JS代码 end -->
+<script id="dsq-count-scr" src="//wsxq2.disqus.com/count.js" async></script>
 
 <!-- async load function -->
 <script>
