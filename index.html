@@ -19,7 +19,7 @@ description: 不乱于心，不困于情。不畏将来，不念过往。
             {{ post.content | strip_html | truncate:150 }}
         </div>
     </a>
-    <p class="post-meta">Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }} <a href="{{ post.url | prepend: site.baseurl }}#disqus_thread">Link</a> </p>
+    <p class="post-meta">Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }} </p>
 </div>
 
 <hr>
