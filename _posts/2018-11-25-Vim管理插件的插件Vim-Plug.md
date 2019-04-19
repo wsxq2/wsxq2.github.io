@@ -4,6 +4,7 @@ tags: [Vim, Vim-lug, Vim插件]
 
 **GitHub**: <https://github.com/junegunn/vim-plug>
 
+<p id="markdown-toc"></p>
 <!-- vim-markdown-toc GFM -->
 
 * [简介](#简介)

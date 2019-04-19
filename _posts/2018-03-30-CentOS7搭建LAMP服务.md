@@ -4,6 +4,7 @@ tags: [CentOS,LAMP]
 
 本文讲解在 CentOS 7 上如何搭建 LAMP 服务。应注意到 MariaDB 和 SQL 非常相似（MariaDB fork from MySQL），所以它们的好多命令是一样的，本文没有严格区分。下面是本文的目录：
 
+<p id="markdown-toc"></p>
 <!-- vim-markdown-toc GFM -->
 
 * [1 什么是 LAMP ?](#1-什么是-lamp-)

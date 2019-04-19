@@ -2,6 +2,7 @@
 tags: [VirtualBox]
 ---
 
+<p id="markdown-toc"></p>
 <!-- vim-markdown-toc GFM -->
 
 * [VirtualBox 使用物理硬盘作为虚拟机硬盘](#virtualbox-使用物理硬盘作为虚拟机硬盘)

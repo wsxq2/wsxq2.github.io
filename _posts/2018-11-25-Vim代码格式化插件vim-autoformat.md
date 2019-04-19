@@ -2,6 +2,7 @@
 tags: [Vim, vim-autoformat, Vim插件]
 ---
 
+<p id="markdown-toc"></p>
 <!-- vim-markdown-toc GFM -->
 
 * [vim-autoformat 是什么？](#vim-autoformat-是什么)

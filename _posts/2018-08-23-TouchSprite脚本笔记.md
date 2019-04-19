@@ -3,6 +3,7 @@ tags: [note,TouchSprite,ADB,Lua,脚本]
 ---
 
 
+<p id="markdown-toc"></p>
 <!-- vim-markdown-toc GFM -->
 
 * [1 学习路线](#1-学习路线)

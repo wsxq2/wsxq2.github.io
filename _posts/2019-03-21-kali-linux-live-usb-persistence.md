@@ -4,6 +4,7 @@ tags: [kali,U盘]
 
 kali官方网站：<https://www.kali.org>
 
+<p id="markdown-toc"></p>
 <!-- vim-markdown-toc GFM -->
 
 * [下载 Kali Linux](#下载-kali-linux)

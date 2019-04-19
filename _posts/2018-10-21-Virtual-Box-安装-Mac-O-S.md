@@ -3,6 +3,7 @@ tags: [VirtualBox, MacOS]
 ---
 
 
+<p id="markdown-toc"></p>
 <!-- vim-markdown-toc GFM -->
 
 * [1 安装 Virtual Box](#1-安装-virtual-box)

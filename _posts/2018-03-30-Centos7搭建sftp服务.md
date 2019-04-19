@@ -1,6 +1,14 @@
 ---
 tags: [CentOS,sftp]
+last_modified_time: 2019-04-18 23:02:07 +0800
 ---
+<!-- vim-markdown-toc GFM -->
+
+* [搭建](#搭建)
+* [登陆](#登陆)
+* [参考链接](#参考链接)
+
+<!-- vim-markdown-toc -->
 
 **注意**：此教程是在网站的根目录（`/var/www/html/`）下搭建sftp
 ## 搭建

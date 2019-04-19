@@ -12,7 +12,7 @@ a.no2 {background-color: Gainsboro; padding: 2px;}
         background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')
     }
 </style>
-<header class="intro-header" >
+<header class="intro-header" style="position:relative;" >
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -21,13 +21,14 @@ a.no2 {background-color: Gainsboro; padding: 2px;}
                     {% if page.subtitle %}
                     <h2 class="subheading">{{ page.subtitle }}</h2>
                     {% endif %}
-                    <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
+                    <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%F" }}</span>
 					<br />
                     <div class="Tags">
 						TAGS:&ensp; {% for tag in page.tags %} <a class="tag no2" href="/tags/#{{ tag }}" title="{{ tag }}">{{ tag }}</a> &ensp; {% endfor %}
                     </div>
 
                     <br />
+
                     {% if page.last_modified_time %}
                     <div class="last-modified-time"> 本文最后一次编辑时间：{{ page.last_modified_time }} </div>
                     {% endif %}
@@ -41,15 +42,13 @@ a.no2 {background-color: Gainsboro; padding: 2px;}
 
 
 <!-- Post Content -->
-<article>
+<article style="position:relative;">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
 
 
                 {{ content }}
-
-              <div class="sidebar_catelog"></div>
 
                 <hr>
 
@@ -67,12 +66,46 @@ a.no2 {background-color: Gainsboro; padding: 2px;}
                 </ul>
 
                 {% if page.comments %} 
-                <div id="disqus_thread"></div>
-                <script>
 
-                  /**
-                  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-                   *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+                <div id="comments">
+                  <!-- not displqy comment warning start --> 
+                  <div id="comment-info" style="color:red;font: italic bold 1em/2em sans-serif;"></div>
+                  <!-- not displqy comment warning end --> 
+
+                  <!-- disqus start --> 
+                  <p id="anonymous-discuss"></p>
+                  <div id="disqus_thread"></div>
+                  <!-- disqus end --> 
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<div id="sidebar-catalog" style="left:-300px;">
+  <div id="catalog-caption" style="text-align:center;"><h3>目录</h3></div>
+  <div id="catalog-content" style="margin:15px;"></div>
+</div>
+
+<div id="left-bottom-button">
+  <a class="catalog-button" href="javascript:void(0)" title="目录"></a>
+  <a class="backtop-button" href="#top" title="回到顶部"></a>
+</div>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
+</div>
+
+
+<script type="text/javascript" src="/js/my.js"></script>
+{% if page.comments %} 
+<script>
+/**
+ *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+ *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
 var disqus_config = function () {
   this.page.url = '{{ site.url }}';  // Replace PAGE_URL with your page's canonical URL variable
   this.page.identifier = '{{ page.title }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
@@ -83,52 +116,49 @@ var disqus_config = function () {
   s.setAttribute('data-timestamp', +new Date());
   (d.head || d.body).appendChild(s);
 })();
-                </script>
-                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
-                {% endif %}
+//for disqus
+var timeout = 20;
 
-                <!-- 侧边栏目录 start -->
-                <script>
-                  /*可通过下列语句判断是否生成了目录(有的文章内容短无目录)*/
-                  if (typeof $('#markdown-toc').html() === 'undefined') {
-                    //...	
-                  }else {
-                    /*将其显示在侧边栏*/
-                    $('.sidebar_catelog').html('<ul class="list_catelog">' + $('#markdown-toc').html() + '</ul>');
-                  }
-                </script>
-                <!-- 侧边栏目录 end -->
-
-            </div>
-        </div>
-    </div>
-</article>
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
+var poll = function () {
+  setTimeout(function () {
+    timeout--;
+    if (document.getElementById("disqus_thread").innerHTML) {
+      // External file loaded
+      document.getElementById("anonymous-discuss").innerHTML="<strong>温馨提示</strong>：disqus 支持匿名评论，操作步骤如下：输入评论内容，点击四个登录图标右侧的“姓名”框，选中“我更想匿名评论”，重新点击评论内容，按<code>Ctrl+Enter</code>即可"
     }
+    else if (timeout > 0) {
+      poll();
+    }
+    else {
+      document.getElementById("comment-info").innerText="本博客的评论系统为 disqus ，需要 fq 才能看见";
+      // External library failed to load
+    }
+  }, 1000);
+};
+
+poll();
 </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+{% endif %}
 
 <!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
 <script>
     async("http://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
         anchors.options = {
           visible: 'always',
-          placement: 'right',
-          icon: ''
+          placement: 'right'
         };
-        anchors.add().remove('.intro-header h1').remove('.subheading');
+        anchors.add('.post-container>h2');
+        anchors.add('.post-container>h3');
+        anchors.add('.post-container>h4');
+        anchors.add('.post-container>h5');
+        anchors.add('.post-container>h6');
     })
 </script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script> -->
+
 <style>
     /* place left on bigger screen */
     @media all and (min-width: 800px) {
@@ -140,4 +170,5 @@ var disqus_config = function () {
         }
     }
 </style>
+<link rel="stylesheet" href="/css/my.css">
 

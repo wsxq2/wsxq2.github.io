@@ -3,6 +3,7 @@ tags: [emmet, Vim, emmet-vim]
 ---
 
 
+<p id="markdown-toc"></p>
 <!-- vim-markdown-toc GFM -->
 
 * [简介](#简介)

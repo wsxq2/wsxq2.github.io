@@ -1,0 +1,110 @@
+#sidebar-catalog{
+	top: 0;
+	bottom: 0;
+	position: fixed;
+	width: 300px;
+	z-index: 9998;
+	background-color: #fff;
+	border-right: 1px solid #ddd;
+	-webkit-border-radius: 2px;
+	-moz-border--radius: 2px;
+	border-radius: 2px;
+	-webkit-box-shadow: 0px 0px 10px 2px #ddd;
+	-moz-box-shadow: 0px 0px 10px 2px #ddd;
+	box-shadow: 0px 0px 10px 2px #ddd;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+#left-bottom-button{
+	z-index:9999;
+	position: fixed;
+	left:0;
+}
+#left-bottom-button>a{
+	position: fixed;
+	left:0;
+	width: 54px;
+	height: 54px;
+	display: block;
+	background-color: #aaa;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	-webkit-transition: 1s;
+	-moz-transition: 1s;
+	transition: 1s;
+}
+#left-bottom-button>a.catalog-button {
+	bottom: 90px;
+	background: #aaa url(/img/catalog.png) no-repeat center center;
+}
+#left-bottom-button>a.backtop-button {
+	bottom: 30px;
+	background: #aaa url(/img/Back-Top_Arrow.png) no-repeat center center;
+}
+
+#left-bottom-button>a:hover {
+	background-color: #777;
+}
+/*  Back Top Button  End */
+
+img{
+	max-width: 750px;
+	display: block;
+	margin: auto;
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+  margin: auto;
+  display: block;
+}
+
+/* Caption of Modal Image */
+#caption {
+  margin: auto;
+  display: block;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation */
+.modal-content, #caption {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.2s;
+  animation-name: zoom;
+  animation-duration: 0.2s;
+}
+
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(0)}
+  to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+
+#sidebar-catalog a{
+    color: #337ab7;
+}
+.post-container a{
+    color: #337ab7;
+}

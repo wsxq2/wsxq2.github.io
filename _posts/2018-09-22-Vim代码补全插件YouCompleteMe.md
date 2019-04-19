@@ -6,6 +6,7 @@ tags: [CentOS7, YouCompleteMe,Vim,TODO]
 
 根据`YouCompleteMe`插件的要求，我们需要**Vim 7.4.1578 with Python 2 or Python 3 support**。你可以通过`vim --version`命令来查看你的`Vim`是否符合上述要求。如果不符合，则可以通过第1、2步源码编译重装Vim；如果符合，则可跳至第3步
 
+<p id="markdown-toc"></p>
 <!-- vim-markdown-toc GFM -->
 
 * [0 简介](#0-简介)

@@ -3,6 +3,7 @@ tags: [VirtualBox]
 last_modified_time: 2019-04-11 12:48:00 +0800
 ---
 
+<p id="markdown-toc"></p>
 <!-- vim-markdown-toc GFM -->
 
 * [安装增强功能（Guest Additions）](#安装增强功能guest-additions)

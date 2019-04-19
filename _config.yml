@@ -41,6 +41,7 @@ defaults:
       author: "wsxq2" # 你的名字
       header-img: "img/green.jpg" # We don't want posts without a header image, that whould mean white on white
       comments: true
+      categories: "blog"
 
 comments :
   provider : disqus # 使用 disqus 评论模块，读者翻墙才能看见

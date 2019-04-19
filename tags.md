@@ -5,10 +5,6 @@ description: "标签"
 header-img: "img/semantic.jpg"  
 ---
 
-<style type="text/css">
-a.no2 {background-color: Gainsboro; padding: 2px;}
-</style>
-
 ## 标签列表
 
 ---
@@ -35,11 +31,11 @@ a.no2 {background-color: Gainsboro; padding: 2px;}
 {% endfor %}
 </ul>
 
-<script src="/media/js/jquery.tagcloud.js" type="text/javascript" charset="utf-8"></script> 
+<script src="/js/jquery.tagcloud.js" type="text/javascript" charset="utf-8"></script> 
 <script language="javascript">
 $.fn.tagcloud.defaults = {
-    size: {start: 1, end: 1, unit: 'em'},
-      color: {start: '#f8e0e6', end: '#ff3333'}
+    size: {start: 15, end: 30, unit: 'px'},
+      color: {start: '#cde', end: '#f52'}
 };
 
 $(function () {

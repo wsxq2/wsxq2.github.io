@@ -2,6 +2,7 @@
 tags: [Vim, IndentLine]
 ---
 
+<p id="markdown-toc"></p>
 <!-- vim-markdown-toc GFM -->
 
 * [使用](#使用)

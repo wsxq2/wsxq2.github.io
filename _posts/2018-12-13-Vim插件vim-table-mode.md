@@ -2,6 +2,7 @@
 tags: [Vim, vim-table-mode]
 ---
 
+<p id="markdown-toc"></p>
 <!-- vim-markdown-toc GFM -->
 
 * [安装](#安装)
