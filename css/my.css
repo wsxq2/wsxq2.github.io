@@ -49,10 +49,13 @@
 }
 /*  Back Top Button  End */
 
-img{
+img.img-responsive{
 	max-width: 750px;
 	display: block;
 	margin: auto;
+}
+img.img-responsive.emoji{
+	display: inline;
 }
 /* The Modal (background) */
 .modal {
