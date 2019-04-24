@@ -20,6 +20,7 @@
 	z-index:9999;
 	position: fixed;
 	left:0;
+	opacity: 0.4;
 }
 #left-bottom-button>a{
 	position: fixed;
