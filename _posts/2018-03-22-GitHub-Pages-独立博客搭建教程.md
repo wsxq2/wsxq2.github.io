@@ -1,6 +1,6 @@
 ---
 tags: [GitHub Pages,TODO]
-last_modified_time: 2019-04-18 19:42:06 +0800
+last_modified_time: 2019-05-09 16:00:08 +0800
 ---
 
 <p id="markdown-toc"></p>
@@ -16,9 +16,9 @@ last_modified_time: 2019-04-18 19:42:06 +0800
   * [参考链接](#参考链接)
     * [官方](#官方)
     * [其它](#其它)
-  * [Github Pages 模版](#github-pages-模版)
-    * [官方](#官方-1)
-    * [其它](#其它-1)
+    * [Github Pages 模版](#github-pages-模版)
+      * [官方](#官方-1)
+      * [其它](#其它-1)
 
 <!-- vim-markdown-toc -->
 
@@ -140,21 +140,25 @@ Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标�
 以下步骤搭建本地Jekyll环境：
 
 1. [安装ruby](https://www.ruby-lang.org/zh_cn/documentation/installation/)(Debian: `# apt install ruby-full`)
-2. 安装bundle: `gem install bundle`
+2. 安装bundle: `gem install bundle`（`gem`是`ruby`语言的包管理器，正如`python`语言的`pip`一样；`bundle`则是配置环境（安装必要`ruby`包）的利器，只需一个`Gemfile`配置文件就可配置相应的环境，参见 [bundler vs RVM vs gems vs RubyGems vs gemsets vs system ruby - Stack Overflow](https://stackoverflow.com/questions/15586216/bundler-vs-rvm-vs-gems-vs-rubygems-vs-gemsets-vs-system-ruby) ）
 3. 进入之前克隆到本地的`username.github.io`目录：`cd username.github.io`
 4. 创建`Gemfile`文件, 往其中加入以下内容：
 
+    ```
 		source 'http://gems.ruby-china.com/'
 		gem 'github-pages'
+    ```
 
    可以直接使用如下代码：
    
-       echo '
-       source 'http://gems.ruby-china.com/'
-       gem 'github-pages'
-       ' >Gemfile
+    <pre>
+    echo '
+    source "http://gems.ruby-china.com/"
+    gem "github-pages"
+    ' >Gemfile
+    </pre>
    
-5. 安装和github一样的Jekyll环境：`bundle install`。该命令会根据当前目录下的Gemfile，安装所需要的所有软件(使其和github环境一致), 这样可以方便本地调试博客目录以确保它正确，然后直接提交正确的目录到github
+5. 安装和github一样的Jekyll环境：`bundle install`。该命令会根据当前目录下的`Gemfile`，安装所需要的所有软件(使其和github环境一致), 这样可以方便本地调试博客目录以确保它正确，然后直接提交正确的目录到github
 
    这一步可能出现以下错误：
    ```
@@ -167,9 +171,9 @@ Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标�
 
 6. （可选）更新本地Jekyll环境（使其和github一致）：`bundle update`
 7. 启动环境：`bundle exec jekyll serve`
-8. 在浏览器输入`http://127.0.0.1:4000/`，即可看见和`https://username.github.io`一样的内容
+8. 在浏览器输入`http://127.0.0.1:4000/`（参考上一步命令的输出，可能端口不是`4000`），即可看见和`https://username.github.io`一样的内容
 
-现在你便可以在你的`Linux Terminal`中修改(根据模版的`README.md`修改)和在浏览器中调试(查看效果)你的博客目录了, 确保无误后便可以使用如下命令提交到`github`：
+现在你便可以在你的电脑上修改并在浏览器中调试(查看效果)你的博客了, 确保无误后便可以使用如下命令提交到`github`：
 	
 	git add -A
 	git commit -m 'comment'
@@ -193,12 +197,12 @@ Jekyll的核心其实就是一个文本的转换引擎，用你最喜欢的标�
 2. [一步步在GitHub上创建博客主页-最新版](http://www.pchou.info/ssgithubPage/2014-07-04-build-github-blog-page-08.html)
 3. [利用GitHubPages+jekyll+Markdown搭建个人博客](https://juejin.im/post/5a266dfc51882578da0dba52)
 
-### Github Pages 模版
-#### 官方
+#### Github Pages 模版
+##### 官方
 1. [http://jekyllthemes.org/](http://jekyllthemes.org/)
 2. [https://github.com/wsxq2/wsxq2.github.io/settings/pages/themes?utf8=%E2%9C%93&source=master](https://github.com/wsxq2/wsxq2.github.io/settings/pages/themes?utf8=%E2%9C%93&source=master)
 
-#### 其它 
+##### 其它 
 2. [https://github.com/cnfeat/blog.io][other_template_1]
 1. [https://github.com/onevcat/vno-jekyll][other_template_2]
 
