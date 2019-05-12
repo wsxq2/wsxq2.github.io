@@ -31,4 +31,5 @@ a
 b
 c
 d
-
+_plugins/
+_includes/debugger.html
