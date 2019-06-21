@@ -1,5 +1,6 @@
 ---
 tags: [CentOS7, YouCompleteMe,Vim,TODO]
+last_modified_time: 2019-06-12 16:18:28 +0800
 ---
 
 目标：使`YouCompleteMe`能作用于`C`、`Java`、`JavaScript`。
@@ -18,6 +19,8 @@ tags: [CentOS7, YouCompleteMe,Vim,TODO]
   * [4.2 配置 C 支持](#42-配置-c-支持)
   * [4.3 配置 JavaScript 支持](#43-配置-javascript-支持)
 * [5 使用](#5-使用)
+  * [5.1 通用](#51-通用)
+  * [5.2 C语言](#52-c语言)
 * [6 参考链接](#6-参考链接)
 
 <!-- vim-markdown-toc -->
@@ -246,14 +249,78 @@ tags: [CentOS7, YouCompleteMe,Vim,TODO]
     </pre>
 
 ### 5 使用
+参见`:h youcompleteme-commands`及`:h youcompleteme-ycmcompleter-subcommands`
+#### 5.1 通用
+8. Commands                                           `youcompleteme-commands`
+   1. The `:YcmRestartServer` command
+   2. The `:YcmForceCompileAndDiagnostics` command
+   3. The `:YcmDiags` command
+   4. The `:YcmShowDetailedDiagnostic` command
+   5. The `:YcmDebugInfo` command
+   6. The `:YcmToggleLogs` command
+   7. The `:YcmCompleter` command
+9. YcmCompleter Subcommands           `youcompleteme-ycmcompleter-subcommands`
+   1. GoTo Commands                                `youcompleteme-goto-commands`
+      1. The `GoToInclude` subcommand
+      2. The `GoToDeclaration` subcommand
+      3. The `GoToDefinition` subcommand
+      4. The `GoTo` subcommand
+      5. The `GoToImprecise` subcommand
+      6. The `GoToReferences` subcommand
+      7. The `GoToImplementation` subcommand
+      8. The `GoToImplementationElseDeclaration` subcommand
+      9. The `GoToType` subcommand
+   2. Semantic Information Commands `youcompleteme-semantic-information-commands`
+      1. The `GetType` subcommand
+      2. The `GetTypeImprecise` subcommand
+      3. The `GetParent` subcommand
+      4. The `GetDoc` subcommand
+      5. The `GetDocImprecise` subcommand
+   3. Refactoring Commands                  `youcompleteme-refactoring-commands`
+      1. The `FixIt` subcommand
+      2. The 'RefactorRename <new name>' subcommand      `RefactorRename-new-name`
+      3. Multi-file Refactor                   `youcompleteme-multi-file-refactor`
+      4. The `Format` subcommand
+      5. The `OrganizeImports` subcommand
+   4. Miscellaneous Commands              `youcompleteme-miscellaneous-commands`
+      1. The `RestartServer` subcommand
+      2. The `ClearCompilationFlagCache` subcommand
+      3. The `ReloadSolution` subcommand
+
+关于它们的用法请参见`:h :<命令名>`，如`:h :YcmRestartServer`
+
 输入字符超过2个，即会出现补全菜单，主要支持本文档内的补全（注释中的不会用于补全，如想补全注释中的内容，可以使用Ctrl+N和Ctrl+P）、语义补全（根据编程语言自动解析补全，精准度很高）、代码片断补全（和 vim-snippets 配合使用）
 * `Ctrl+N`和`Ctrl+P`：出现补全菜单后，使用`Ctrl+N`向下选择（也可以使用`Tab`），使用`Ctrl+P`向上选择
 * `\gd`(GetDoc)：获取光标所在单词的帮助文档（主要是它的API）
 * `\gr`(GoToReferences)：获取引用光标所在单词的所有位置
-* `\gc`(GoToDeclaration)：跳转至光标所在变量的声明处，其实还可以使用Vim自带的命令`gd`跳转到声明处
 * `\gg`(GoTo): 先尝试跳转至声明处，若失败，则跳转至定义处
 * `Ctrl+L`: 强制补全
 * `Ctrl+Y`：在补全菜单出现时可以使用该快捷键关闭补全菜单（有时很有用）
+
+#### 5.2 C语言
+
+| normal | cmdline(`:YcmCompleter <subcmd>`) | Description                                                                                  | 备注                                                  |
+|--------|-----------------------------------|----------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| `\gi`  | `GoToInclude`                     | Looks up the current line for a header and jumps to it.                                      | 和 Vim 自带的`gf`命令类似                             |
+| `\gc`  | `GoToDeclaration`                 | Looks up the symbol under the cursor and jumps to its declaration.                           | 和 Vim 自带的`gd`命令类似                             |
+| `\gf`  | `GoToDefinition`                  | Looks up the symbol under the cursor and jumps to its definition.                            |                                                       |
+| `\gg`  | `GoTo`                            | Auto select from above                                                                       |                                                       |
+| `\gt`  | `GetType`                         | Echos the type of the variable or method under the cursor                                    |                                                       |
+| `\gp`  | `GetParent`                       | Echos the semantic parent of the point under the cursor.                                     |                                                       |
+| `\gd`  | `GetDoc`                          | Displays the preview window populated with quick info about the identifier under the cursor. | 可以使用`K`或`\K`命令查看`man`手册，详情参见`:h :Man` |
+
+注意，上述命令需要配置文件`~/.vimrc`如下：
+```
+nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
+nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gg :YcmCompleter GoTo<CR>
+nnoremap <leader>gt :YcmCompleter GetType<CR>
+nnoremap <leader>gp :YcmCompleter GetParent<CR>
+nnoremap <leader>gd :YcmCompleter GetDoc<CR>
+```
+且其中的`<leader>`没有被修改过，即为默认的`\`。详情参见`:h <leader>`
+
 
 ### 6 参考链接
 * [Building-Vim-from-source](https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source)

@@ -7,6 +7,8 @@ header-img: "img/semantic.jpg"
 
 `TAGS`中含`TODO`的文章可在这里找到（[Home](/)和[Archive](/archive/)中找不到）
 
+（温馨提示：可以使用`Ctrl+F`在当前页面中快速查找关键字）
+
 ## 标签列表
 
 ---
