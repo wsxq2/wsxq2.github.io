@@ -1,6 +1,6 @@
 ---
 tags: [kali,shadowsocks,shadowsocksr,科学上网]
-last_modified_time: 2019-07-03 12:59:58 +0800
+last_modified_time: 2019-07-03 17:33:08 +0800
 ---
 
 > * TODO: 本文正在更新中，每天都会有新内容 <2019-07-02>
@@ -24,7 +24,19 @@ last_modified_time: 2019-07-03 12:59:58 +0800
       * [VPS 提供商](#vps-提供商)
       * [使用的方案](#使用的方案)
   * [总结](#总结)
+* [自主搭建代理服务器实现科学上网大致流程](#自主搭建代理服务器实现科学上网大致流程)
+  * [选择 VPS 提供商](#选择-vps-提供商)
+  * [租用 VPS](#租用-vps)
+  * [初步部署 VPS](#初步部署-vps)
+  * [连接到你的 VPS](#连接到你的-vps)
+  * [选择科学上网方案](#选择科学上网方案)
+  * [配置你的服务器（VPS）](#配置你的服务器vps)
+  * [配置你的客户端](#配置你的客户端)
+  * [测试](#测试)
 * [SSH](#ssh)
+  * [Putty](#putty)
+  * [SSH tunnel](#ssh-tunnel)
+  * [`-D`参数](#-d参数)
 * [Shadowsocks](#shadowsocks)
   * [是什么](#是什么)
   * [运行原理](#运行原理)
@@ -32,12 +44,12 @@ last_modified_time: 2019-07-03 12:59:58 +0800
   * [实现](#实现)
   * [使用方法](#使用方法)
     * [环境说明](#环境说明)
-    * [服务器配置](#服务器配置)
+    * [服务器配置（SS Server）](#服务器配置ss-server)
       * [安装`shadowsocks-libev`](#安装shadowsocks-libev)
       * [配置`shadowsocks-libev`](#配置shadowsocks-libev)
       * [控制`shadowsocks-libev`及日志查看](#控制shadowsocks-libev及日志查看)
       * [关于将`shadowsocks-libev`用作客户端](#关于将shadowsocks-libev用作客户端)
-    * [客户端配置](#客户端配置)
+    * [客户端配置（SS Local + PC）](#客户端配置ss-local--pc)
       * [安装`shadowsocks-qt5`](#安装shadowsocks-qt5)
       * [配置`shadowsocks-qt5`](#配置shadowsocks-qt5)
       * [设置 PAC 自动代理](#设置-pac-自动代理)
@@ -48,10 +60,11 @@ last_modified_time: 2019-07-03 12:59:58 +0800
   * [安全性](#安全性-1)
   * [实现](#实现-1)
   * [使用方法](#使用方法-1)
-    * [服务器配置（SS Server）](#服务器配置ss-server)
-    * [客户端配置（SS Local + PC）](#客户端配置ss-local--pc)
-      * [SS Local 连接到 SS Server](#ss-local-连接到-ss-server)
-      * [PC 连接到 SS Local](#pc-连接到-ss-local)
+    * [服务器配置（SSR Server）](#服务器配置ssr-server)
+    * [客户端配置（SSR Local + PC）](#客户端配置ssr-local--pc)
+      * [本部分测试平台](#本部分测试平台)
+      * [SSR Local 连接到 SSR Server](#ssr-local-连接到-ssr-server)
+      * [PC 连接到 SSR Local](#pc-连接到-ssr-local)
         * [浏览器中设置手动的网络代理（全局，浏览器，最简单）](#浏览器中设置手动的网络代理全局浏览器最简单)
         * [Polipo + 系统代理（全局,所有应用）](#polipo--系统代理全局所有应用)
           * [安装并配置 Polipo](#安装并配置-polipo)
@@ -153,8 +166,70 @@ last_modified_time: 2019-07-03 12:59:58 +0800
 
 因此，本文着重讲解，如何通过自己租用的 VPS 搭建代理服务器实现科学上网
 
+## 自主搭建代理服务器实现科学上网大致流程
+### 选择 VPS 提供商
+VPS，全称 Virtual Private Sever，即虚拟专用服务器。它是一个在真实的服务器中虚拟出来的一个服务器环境，你可以在这个服务器上安装你喜欢的服务器端操作系统，然后做你想做的事，如搭建代理服务、搭建 Web 站点、搭建 VPN 服务等。维基百科中的介绍如下：
+
+> 虚拟专用服务器（英语：Virtual private server，缩写为 VPS），是将一台服务器分割成多个虚拟专享服务器的服务。实现VPS的技术分为容器技术和虚拟机技术 。在容器或虚拟机中，每个VPS都可分配独立公网IP地址、独立操作系统、实现不同VPS间磁盘空间、内存、CPU资源、进程和系统配置的隔离，为用户和应用程序模拟出“独占”使用计算资源的体验。VPS可以像独立服务器一样，重装操作系统，安装程序，单独重启服务器。
+> 
+> ——引用自[虚拟专用服务器 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8)
+
+其中可安装的操作系统有很多，如 Ubuntu Server、CentOS、Windows Server等，笔者建议使用 CentOS，一个字——“稳”。当然，Ubuntu Server也不错，它有如下优势：
+
+* 使用体验和 Ubuntu（这里指带图形界面的）几乎完全一致。故适合用过 Ubuntu 的新手
+* 如果命令未找到，会提示你安装相应的软件包（CentOS可以直接使用`yum provides <commandname>`查找相应的命令的软件包）
+* 强大的自动补全功能。比 CentOS 强大。因为它甚至可以补全`apt-get`后的命令，好像是因为它默认安装了一个叫`bash_complete`的软件包。
+
+注意，几乎所有的 Linux 服务器版本都不会带图形界面，事实上，Linux 本身就不需要图形界面，请萌新尽早学会使用 Shell（如 Bash）
+
+由于提供上述 VPS 的商家很多，如 搬瓦工 vultr virmach hostdare cloudcone hosthatch anynode hostsolutions hostflyte justhost sentris gullo cheapnat GCP xenspec等等。如何选择成为一个比较复杂的问题。需要从价格、速度、稳定性、延迟、易用性等方面来考虑。
+
+笔者使用的是 搬瓦工，但是近期（2019-06-03）搬瓦工的 IP 被封得有些厉害，故现在不是很推荐，当时选择它是因为它便宜且速度和稳定性尚可。
+
+现在比较好用的 VPS 笔者也不清楚，建议使用搜索引擎搜索
+
+### 租用 VPS
+选择好了 VPS 提供商后，便可租用一个。租用时间可自行斟酌。如果未用过，网上也没有相关的测评，则建议租用时间短些（如 1 个月）；如果网上好评如潮且不差钱，则直接 1 年起步即可
+
+**温馨提示**：租用的 VPS 可以在某些渠道转卖
+
+完成这一步后你需要对你的 VPS 有个大概的认识，主要包括如下几个方面的内容：
+* 你的 VPS 提供商是？这个问题的答案可以帮助你在遇到问题使用正确的关键字搜索
+* 如何进入你的 VPS 的控制面板？这个问题最为重要，你必须知道 VPS 提供商为你提供了怎样的接口来访问和控制你的 VPS，以及如何使用这些接口
+* 如何续费？这个问题在你完成一个租用周期依然想继续使用时显得格外重要
+
+### 初步部署 VPS
+租用了 VPS 后，有的商家可能直接给你安装了一个默认的操作系统，有的可能会让你自己部署。无论如何，你可能都会想要安装一个自己喜欢的操作系统。当然，这一步除了选择喜欢的操作系统外，你还需要了解你的服务器的如下相关信息：
+
+* IP 地址
+* SSH 端口
+* root 密码，或者配置 SSH 公/私钥
+
+从而为下一步的连接做准备
+
+### 连接到你的 VPS
+在这一步中，你需要使用 SSH 工具连接到你的服务器。在 Windows 中，你需要安装一个 SSH 客户端，例如 Putty、Xshell、Mobaxterm 等（对于 Windows 10 最新版本，自带 ssh 客户端，可在 Powershell 或 CMD 中直接使用，如`ssh -p 22 wsxq2@192.168.56.11`，不过使用体验远不如 Putty 等软件）；而 MacOS 则不需要，其终端支持良好，默认 Shell 为 Bash，ssh 应该是默认安装了的，所以直接使用`ssh -p <port> <username>@<server ip>`即可，如`ssh -p 22 wsxq2@192.168.56.11`。
+
+笔者使用的是 [Putty](https://www.putty.org/)。
+
+（我超级喜欢的 Putty 竟然更新了？今天点进去一看，我的天，时隔将近两年，Putty 终于更新了 :sob:）
+
+安装好 Putty 后，你可以进行一些简单的配置：
+必需：在**Host Name**中填写你的服务器的 IP 地址，在**Port**处填写你的服务器的 SSH 服务使用的端口
+保存会话配置：在**Saved Sessions**的输入框中输入一个别名（用于区分你保存的会话配置），再点击**Save**即可
+
+### 选择科学上网方案
+### 配置你的服务器（VPS）
+### 配置你的客户端
+### 测试
 
 ## SSH
+### Putty
+
+### SSH tunnel
+
+### `-D`参数
+
 ssh 可以使用`-D`参数实现科学上网：
 > &emsp;&emsp;-D port 
 
@@ -261,7 +336,7 @@ ssh -ND 1080 -p 22  <user>@<hostname>
 > 
 > ——引用自[CentOS 7 配置 shadowsocks-libev 服务器端进行科学上网 \| 鸣沙山侧 月牙泉畔](https://roxhaiy.wordpress.com/2017/08/04/430/)
 
-#### 服务器配置
+#### 服务器配置（SS Server）
 先说简单方法，使用一键安装脚本 [teddysun/shadowsocks_install at master](https://github.com/teddysun/shadowsocks_install/tree/master)。注意，因为某些原因，该一键安装脚本已经停止更新，参见 [Shadowsocks非官方网站](https://shadowsocks.be/)
 
 再说复杂点的方法（即后文）
@@ -391,7 +466,7 @@ systemctl enable shadowsocks-libev-local@client
 
 ......
 
-#### 客户端配置
+#### 客户端配置（SS Local + PC）
 本部分最后更新时间：2018-04-08。
 
 2019-07-02更新： 客户端选择`shadowsocks-qt5`是因为它简单，界面友好（好吧，是因为当初只听说过它）。现在的我更倾向于使用`shadowsocks-libev`作为客户端，因为它最近一次更新在 2019 年 7 月，而 shadowsocks（即原始的 Python 版）最后更新时间是 2018 年 10 月，shadowsocks-qt5 最近一次更新则是在 2018 年 8 月
@@ -439,7 +514,7 @@ systemctl enable shadowsocks-libev-local@client
 
 ## shadowsocksr
 * 该方法最初发布时间：2018-10-20
-* 该方法最后更新时间：2019-07-03。更新处会以`2019-07-03 更新`标明
+* 该方法最后更新时间：2019-07-03。此次更新添加了一些新内容（重要相关网站、简介、基本原理、安全性、实现、服务器配置、2019-07-03 更新），并对之前的部分内容进行了优化
 
 重要相关网站： 
 * [GitHub - breakwa11](https://github.com/breakwa11)：原开发者
@@ -451,7 +526,11 @@ systemctl enable shadowsocks-libev-local@client
 
 起初我以为最简单的方法为使用[electron-ssr](https://github.com/erguotou520/electron-ssr)，因为它看起来那么的棒，结果安装后却只有第一次可以成功打开，不知是它的 BUG 还是`kali`的 BUG 。
 
+2019-07-03 更新：2019 年 05 月 15 日 electron-ssr 原作者 erguotou520 因为在 Telegram 群里听说 Doubi 被抓，自行删库。参见 [format · erguotou520/bye@7541a9a](https://github.com/erguotou520/bye/commit/7541a9aaa9fce5129794ab47b2161fc9d4529b17) 和 [Shadowsocks非官方网站](https://shadowsocks.be/)。现在其项目由 [shadowsocksrr](https://github.com/shadowsocksrr) 维护，且最近一次更新是在2019 年 5 月，所以可能还能用，大家可以低调地试试
+
 后来根据[Python版SSR客户端](https://www.jianshu.com/p/68d8462a0fe0)和[4 - Ubuntu 16.04 + SSR翻墙](https://www.jianshu.com/p/a0f3268bfa33)这两个参考链接才成功，下面简要总结如下:
+
+2019-07-03 更新：上面的两个参考链接中，第二个参考链接已失效
 
 ### 简介
 > &emsp;&emsp;ShadowsocksR（简称SSR）是网名为breakwa11的用户发起的Shadowsocks分支，在Shadowsocks的基础上增加了一些数据混淆方式，称修复了部分安全问题并可以提高QoS优先级。[20]后来贡献者Librehat也为Shadowsocks补上了一些此类特性，[21]甚至增加了类似Tor的可插拔传输层功能。[22]
@@ -479,9 +558,9 @@ systemctl enable shadowsocks-libev-local@client
 > * 在 VPS 服务器上搭建 SS 服务（对应上图中的**SS Server**）：这个步骤可简单可复杂。想简单的话使用一键安装脚本即可，但是缺点在于你遇到问题后会一脸懵逼；复杂点的方法则是自己一步一步的根据官网指导，结合别人的博客来安装，缺点在于费时
 > * 在客户端上进行配置（对应上图中的**PC**和**SS Local**）：对于 Windows, MacOS, Android 这几个操作系统来说这个过程是非常简单的。因为它们的客户端几乎都是带图形界面的（MacOS 也可以使用命令行），且近乎傻瓜式的操作在网上很容易找到带图的教程。而在 Linux 上则稍微麻烦些，不过现在也变得简单了，因为它也有了图形界面的客户端——shadowsocks-qt5，而且是跨平台的（因为 Qt5 这个图形界面接口是跨平台的）
 > 
-> ——引用自[运行原理](#运行原理)
+> ——引用自[SS 运行原理](#运行原理)
 
-不过为了加深理解，本部分（shadowsocksr）将其中的**PC**、**SS Local**和**SS Server**分开说明（前文的 shadowsocks 中只将**SS Local+PC**和**SS Server**分开说明了，因为 SS 和 SSR 的相似性，其中 **PC**连接**SS Local**的部分对 SS 也有效）
+不过为了加深理解，本部分（shadowsocksr）将其中的**PC**、**SS Local**和**SS Server**分开说明（前文的 shadowsocks 中只将**SS Local+PC**和**SS Server**分开说明了，因为 SS 和 SSR 的相似性，其中 **PC**连接**SS Local**的部分对 SS 也有效）。为了和前文区分，后文使用 SSR 代替 SS
 
 ### 安全性
 如[简介](#简介)中所述：
@@ -491,26 +570,41 @@ systemctl enable shadowsocks-libev-local@client
 ### 实现
 和 shadowsocks 类似，不过其开发并不活跃。结合 [Shadowsocks - Implementations](https://shadowsocks.org/en/spec/Implementations.html) 和 [GitHub - shadowsocksrr](https://github.com/shadowsocksrr)可以知晓它的实现和 SS 的对应关系。
 
-需要注意的是有的实现很长时间没有更新了，例如 shadowsocksr-libev、shadowsocksr-android，最近一次更新是 2018 年 3 月，shadowsocksr（即原始的 Python 版）最近一次更新是在 2018 年 5月，shadowsocksr-csharp（Windows客户端）最近一次更新是在 2018 年 4 月，electron-ssr 最近一次更新是在 2019 年 5 月。而令人震惊的是，上述所有软件的最近一次更新全是由 [Akkariiin (Akkariiin)](https://github.com/Akkariiin ) 完成的，当然，也可能只是因为他恰好负责打包和发布这一工作
+需要注意的是有的实现很长时间没有更新了，下表列出其各个实现的最近一次更新时间（2019-07-03）：
+
+| 实现                 | 编程语言        | 适用平台            | 最近一次更新 | 服务器 or 客户端 |
+|----------------------|-----------------|---------------------|--------------|------------------|
+| shadowsocksr         | Python          | Linux, OSX          | 2018-05      | both             |
+| shadowsocksr-libev   | C               | Linux, OSX, openwrt | 2018-03      | both             |
+| shadowsocksr-android | Java,Go         | Android             | 2018-03      | client           |
+| shadowsocks-csharp   | C#              | Windows             | 2018-04      | client           |
+| electron-ssr         | JavaScript, Vue | Linux, OSX, Windows | 2019-05      | client           |
+
+上述所有信息来源于 [shadowsocksrr](https://github.com/shadowsocksrr)
+
+注意其中的服务器和客户端一栏，通常而言，可用于服务器端的话就能用于客户端，所以 shadowsocksr 和 shadowsocks-libev 均为`both`。此外令人震惊的是，上述所有软件的最近一次更新全是由 [Akkariiin (Akkariiin)](https://github.com/Akkariiin ) 完成的，当然，也可能只是因为他恰好负责打包和发布这一工作
 
 ### 使用方法
-#### 服务器配置（SS Server）
+#### 服务器配置（SSR Server）
 先说简单方法，使用一键安装脚本 [teddysun/shadowsocks_install at master](https://github.com/teddysun/shadowsocks_install/tree/master)
 
 再说复杂点的方法
 
-#### 客户端配置（SS Local + PC）
-##### SS Local 连接到 SS Server
+#### 客户端配置（SSR Local + PC）
+##### 本部分测试平台
+* 操作系统：Kali Linux。实际上只要是 Linux 将本文内容稍加修改也适用。毕竟核心的东西是不变的
+
+##### SSR Local 连接到 SSR Server
 使用 Python 版之所以使用 Python 版，是因为我只找到 Python 版的，/笑哭。 这一步是最重要的，后面的方法都建立在这个基础之上
 
-2019-07-03 更新：
+2019-07-03 更新：事实上，SSR 现在可用的 Linux 客户端有三个，shadowsocksr, shadowsocksr-libev, electron-ssr，参见前面的 [SSR 实现](#实现-1)部分
 
-1. 获得Python版SSR的相关文件：
+1. 获得 Python 版 SSR 的相关文件：
    ```
    cd ~/
    git clone https://github.com/shadowsocksrr/shadowsocksr
    ```
-   经测试，其实只有shadowsocksr下的shadowsocks目录是必须的
+   经测试，其实只有 shadowsocksr 下的 shadowsocks 目录是必须的
 
 2. 根据你的服务器配置修改配置文件`~/shadowsocksr/config.json`:
    ```
@@ -565,25 +659,28 @@ systemctl enable shadowsocks-libev-local@client
    }
    ssr
    ```
-   简要说一下上面那个函数`ssr`的用法：直接在bash中输入`ssr`后回车则后台启动（关闭终端也能继续运行）ssr客户端，输入`ssr <任意字符>`则关闭已启动的ssr客户端。
+   简要说一下上面那个函数`ssr`的用法：直接在 bash 中输入`ssr`后回车则后台启动（关闭终端也能继续运行）ssr客户端，输入`ssr <任意字符>`则关闭已启动的ssr客户端。
 
-##### PC 连接到 SS Local
-该部分方法较多，选择一个你喜欢的即可
+##### PC 连接到 SSR Local
+2019-07-03 更新： 该部分方法较多，选择一个你喜欢的即可
 
 ###### 浏览器中设置手动的网络代理（全局，浏览器，最简单）
-以FireFox为例：
+以 FireFox 为例：
 
-点击右上角的菜单，选择**Preferences**，选择**General**，滑到最下面，选择**Network Proxy**标签下的**Settings**，选择**Manual proxy configuration**，只需填**SOCKS Host**一栏，填入`127.0.0.1`和`1080`，在下面选择`SOCKS v5`，并在之后的**No Proxy for**中填入不需要代理的网址或IP地址或网段。
+1. 找到浏览器中的手动代理设置的位置：点击右上角的菜单，选择**Preferences**，选择**General**，滑到最下面，选择**Network Proxy**标签下的**Settings**，选择**Manual proxy configuration**
+1. 配置：找到**SOCKS Host**一栏，填入`127.0.0.1`和`1080`，在下面选择`SOCKS v5`，并在之后的**No Proxy for**中填入不需要代理的网址或IP地址或网段。
 
 完！
 
-这时便可以访问`www.google.com`了，简单吧？
+这时便可以访问<https://www.google.com>了，简单吧？
 
 **注意**：此方法有时不行，原因未知
 
 ###### Polipo + 系统代理（全局,所有应用）
 ####### 安装并配置 Polipo
-`Polipo`可以用来将`SOCKS`的代理转换为`HTTP`的代理，从而使那些使用`HTTP`协议的软件（如`curl`, `wget`，浏览器）也可以科学上网
+> **温馨提示**：由于网页只支持到 6 级标题，所以这个 7 级标题变成了这个样子 :joy:
+
+`Polipo`可以用来将`SOCKS`的代理转换为`HTTP`的代理，从而使那些只支持`HTTP`代理的软件（如`wget`，部分浏览器，部分操作系统的全局代理）也可以科学上网
 
 1. 安装`polipo`:
    ```
@@ -603,7 +700,7 @@ systemctl enable shadowsocks-libev-local@client
    ```
    systemctl restart polipo
    ```
-4. 验证polipo是否正常工作：
+4. 验证 polipo 是否正常工作：
    ```
    export http_proxy="http://127.0.0.1:8123/"
    curl www.google.com
@@ -615,7 +712,7 @@ systemctl enable shadowsocks-libev-local@client
 2. 测试：打开浏览器，输入网址`www.google.com`看是否访问成功
 
 ###### Firefox + FoxyProxy（自动,浏览器）
-因为有科学上网需求的主要是浏览器，故若只是为了让浏览器科学上网，则可采用此方法。当然，如果用的是Chrome，则可采用Chrome + SwitchyOmega的方案替代之。
+FoxyProxy 是 Firefox 浏览器中的一个非常好用的代理插件。因为有科学上网需求的主要是浏览器，故若只是为了让浏览器科学上网，则可采用此方法。当然，如果用的是 Chrome ，则可采用 Chrome + SwitchyOmega 的方案替代之。
 
 1. 安装`FoxyProxy`插件：<https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/>
 2. 设置`FoxyProxy`选项：
@@ -625,7 +722,7 @@ systemctl enable shadowsocks-libev-local@client
 4. 测试：输入网址`www.google.com`看是否访问成功
 
 ###### genpac + 系统代理设置（自动,所有应用）
-此方法主要使用了`genpac`（generate pac file）生成pac文件，并将系统设置中的网络代理方式改为自动，将其`Configuration URL`指向相应的pac文件位置，具体过程如下：
+此方法主要使用了`genpac`（GENerate PAC file）生成 PAC 文件，并将系统设置中的网络代理方式改为自动，将其`Configuration URL`指向相应的 PAC 文件位置。具体过程如下：
 1. 安装`genpac`：
    ```
    #安装
@@ -642,6 +739,8 @@ systemctl enable shadowsocks-libev-local@client
    ```
 3. 设置系统自动代理：**设置->网络->网络代理**，方式改为**自动**，`Configuration URL`改为`file:///root/.pac/ProxyAutoConfig.pac`（注意我用的是root用户，如果非root用户请将`/root`改为`/home/<your username>`）
 4. 测试：打开浏览器，输入网址`www.google.com`看是否访问成功
+
+2019-07-03 更新：该方法存在的问题是如果你的 PAC 文件失效了，可能需要重新下载 PAC 文件，即重新执行第 2 步中的`genpac`步骤。
 
 ##### 关于终端下的代理设置
 ###### 终端代理环境变量
