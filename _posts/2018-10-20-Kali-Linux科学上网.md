@@ -1,6 +1,6 @@
 ---
 tags: [kali,shadowsocks,shadowsocksr,科学上网]
-last_modified_time: 2019-07-02 19:28:02 +0800
+last_modified_time: 2019-07-03 12:51:22 +0800
 ---
 
 > * TODO: 本文正在更新中，每天都会有新内容 <2019-07-02>
@@ -43,7 +43,14 @@ last_modified_time: 2019-07-02 19:28:02 +0800
       * [设置 PAC 自动代理](#设置-pac-自动代理)
       * [优化](#优化)
 * [shadowsocksr](#shadowsocksr)
-  * [2.1 安装并配置Python版SSR客户端（最重要）](#21-安装并配置python版ssr客户端最重要)
+  * [简介](#简介)
+  * [基本原理](#基本原理)
+  * [安全性](#安全性-1)
+  * [实现](#实现-1)
+  * [使用方法](#使用方法-1)
+    * [服务器配置（SS Server）](#服务器配置ss-server)
+    * [客户端配置（SS Local + PC）](#客户端配置ss-local--pc)
+      * [2.1 安装并配置Python版SSR客户端（最重要）](#21-安装并配置python版ssr客户端最重要)
   * [2.2 各种方法](#22-各种方法)
     * [2.2.1 浏览器中设置手动的网络代理（全局，浏览器，最简单）](#221-浏览器中设置手动的网络代理全局浏览器最简单)
     * [2.2.2 Polipo + 系统代理（全局,所有应用）](#222-polipo--系统代理全局所有应用)
@@ -55,12 +62,13 @@ last_modified_time: 2019-07-02 19:28:02 +0800
     * [2.3.1 终端代理环境变量](#231-终端代理环境变量)
     * [2.3.2 使用程序的代理相关参数](#232-使用程序的代理相关参数)
 * [4 通过已经可以科学上网的电脑实现科学上网](#4-通过已经可以科学上网的电脑实现科学上网)
+* [链接](#链接)
 
 <!-- vim-markdown-toc -->
 
 ## 概述
 ### 何为翻墙（科学上网）？
-> &emsp;&emsp;突破网络审查或突破网络封锁，俗称翻墙[1][2]、穿墙、爬墙、科学上网、魔法上网、爱国上网、自由上网、正常上网等。由于“翻墙”在中国大陆境内成为敏感词汇，现在更多的使用科学上网来代替“翻墙”，通常特指在中国大陆绕过互联网审查封锁技术（IP封锁、端口封锁、关键词过滤、域名劫持等），突破防火长城，实现对网络内容的访问。
+> &emsp;&emsp;突破网络审查或突破网络封锁，俗称翻墙、穿墙、爬墙、科学上网、魔法上网、爱国上网、自由上网、正常上网等。由于“翻墙”在中国大陆境内成为敏感词汇，现在更多的使用科学上网来代替“翻墙”，通常特指在中国大陆绕过互联网审查封锁技术（IP封锁、端口封锁、关键词过滤、域名劫持等），突破防火长城，实现对网络内容的访问。
 > 
 > &emsp;&emsp;突破网络审查的软件通常被称作翻墙软件，俗称梯子。翻墙软件并不只是VPN、代理软件。它们着眼于获得被屏蔽的网站内容，并在访问受限网站时向ISP隐藏自己的真实地址信息。
 > 
@@ -94,7 +102,7 @@ last_modified_time: 2019-07-02 19:28:02 +0800
 ### 付费
 #### “机场”
 购买 VPN, SS, SSR 账号，也被称为“机场”。比较便宜的推荐如下：
-* [justmysocks](justmysocks1.net)：亲测好用。
+* [justmysocks](https://justmysocks.net)：亲测好用。
 
   > 目前只有三个方案可选，支持月/季/半年/年付，付款周期越长价格越便宜，年付只需付10个月，目前支持paypal和支付宝付款，带宽分1G/2.5G/5G，对于GIA来说带宽相当大了。
   >
@@ -105,6 +113,11 @@ last_modified_time: 2019-07-02 19:28:02 +0800
   >
   > ——引用自[好用的机场推荐 \| Atrandys](https://www.atrandys.com/2019/1582.html)
 
+  常用链接：
+
+  * 无需科学上网的官网地址：<https://justmysocks1.net>
+  * 无需科学上网的 clientarea 地址：<https://justmysocks1.net/members/clientarea.php>
+
 * buyV
 * kdatacenter
 
@@ -112,7 +125,13 @@ last_modified_time: 2019-07-02 19:28:02 +0800
 自己租用 VPS 搭建代理服务器。
 
 ##### VPS 提供商
-* [搬瓦工](https://bwg.net)：笔者一直用的它，它价格便宜（笔者当时的是200元/年左右）、速度较快（200KB/s+），但是延迟较高（`200ms`左右）。近期搬瓦工的大量 VPS IP地址被封，笔者就是其中的一员，但是亲测可以通过套 cf(cloudflare) 的方法继续使用
+* [搬瓦工](https://bwg.net)：笔者一直用的它，它价格便宜（笔者当时的是200元/年左右）、速度较快（200KB/s+），但是延迟较高（`200ms`左右）。近期搬瓦工的大量 VPS IP地址被封，笔者就是其中的一员，但是亲测可以通过套 cf(cloudflare) 的方法继续使用。
+  
+  其它常用链接：
+
+  * 无需科学上网的官网地址：<https://bwh88.net/>
+  * 无需科学上网的 clientarea 地址：<https://bwh88.net/clientarea.php>
+
 * [vultr](https://www.vultr.com/)：曾经尝试过使用它，但是其 IP 地址大多被封，因为我试了好几个都没有找到没被封的，于是就放弃了
 * virmach：一个好友用过，价格也比较便宜（200元/年），但是速度较慢（20KB/s，20Mbps带宽）、延迟较高（`376ms`）。以上是我的测试，我的好友的测试结果和我截然相反，他那边速度较快（`1MB/s`，100Mbps带宽）、延迟较低（`250ms`左右）
 * 其他：hostdare cloudcone hosthatch anynode hostsolutions hostflyte justhost sentris gullo cheapnat GCP xenspec。以上 VPS 提供商笔者和笔者的好友都没有用过，它们是热心网友推荐的
@@ -162,6 +181,7 @@ ssh -ND 1080 -p 22  <user>@<hostname>
 重要相关网站： 
 * [Shadowsocks - A secure socks5 proxy](https://shadowsocks.org/en/index.html)
 * [GitHub - shadowsocks](https://github.com/shadowsocks)
+* [Shadowsocks - Implementations](https://shadowsocks.org/en/spec/Implementations.html)：包括服务器和客户端的实现，且进行了比较。强烈建议看一下
 
 此方法截止 2018-10-20 已不可用。建议使用本文中的其它方法（可以逐个尝试）
 
@@ -170,7 +190,7 @@ ssh -ND 1080 -p 22  <user>@<hostname>
 ### 是什么
 > &emsp;&emsp;Shadowsocks（简称SS）是一种基于Socks5代理方式的加密传输协议，也可以指实现这个协议的各种开发包。当前包使用Python、C、C++、C#、Go语言等编程语言开发，大部分主要实现（iOS平台的除外）采用Apache许可证、GPL、MIT许可证等多种自由软件许可协议开放源代码。Shadowsocks分为服务器端和客户端，在使用之前，需要先将服务器端程序部署到服务器上面，然后通过客户端连接并创建本地代理。
 > 
-> &emsp;&emsp;在中国大陆，本工具广泛用于突破防火长城（GFW），以浏览被封锁、遮蔽或干扰的内容。2015年8月22日，Shadowsocks原作者Clowwindy称受到了中国政府的压力，宣布停止维护此计划（项目）并移除其个人页面所存储的源代码[4][5]。
+> &emsp;&emsp;在中国大陆，本工具广泛用于突破防火长城（GFW），以浏览被封锁、遮蔽或干扰的内容。2015年8月22日，Shadowsocks原作者Clowwindy称受到了中国政府的压力，宣布停止维护此计划（项目）并移除其个人页面所存储的源代码。
 > 
 > &emsp;&emsp;为了避免关键词过滤，网民会根据谐音将ShadowsocksR称为“酸酸乳”（SSR），将Shadowsocks称为“酸酸”（SS）。
 > 
@@ -183,7 +203,22 @@ ssh -ND 1080 -p 22  <user>@<hostname>
 > 
 > &emsp;&emsp;——引用自[Shadowsocks - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/Shadowsocks)
 
-关于 Shadowsocks 的原理还可以参考通俗易懂的[写给非专业人士看的 Shadowsocks 简介 \| 綠茶如是说](https://vc2tea.com/whats-shadowsocks/)。强烈建议萌新看一下
+图解：
+
+> 简单理解的话，shadowsocks 是将原来 ssh 创建的 Socks5 协议拆开成 server 端和 client 端，所以下面这个原理图基本上和利用 ssh tunnel 大致类似
+> 
+> ![shadowsocks原理图解](https://vc2tea.com/public/upload/whats-shadowsocks-04.png)
+> 
+> 其中：
+> * 1、6) 客户端发出的请求基于 Socks5 协议跟 ss-local 端进行通讯，由于这个 ss-local 一般是本机或路由器或局域网的其他机器，不经过 GFW，所以解决了上面被 GFW 通过特征分析进行干扰的问题
+> * 2、5) ss-local 和 ss-server 两端通过多种可选的加密方法进行通讯，经过 GFW 的时候是常规的TCP包，没有明显的特征码而且 GFW 也无法对通讯数据进行解密
+> * 3、4) ss-server 将收到的加密数据进行解密，还原原来的请求，再发送到用户需要访问的服务，获取响应原路返回
+> 
+> ——引用自[写给非专业人士看的 Shadowsocks 简介 \| 綠茶如是说](https://vc2tea.com/whats-shadowsocks/)
+
+因此，如果要使用 VPS 自行搭建 SS 服务并使用它，我们需要做如下几件事情：
+* 在 VPS 服务器上搭建 SS 服务（对应上图中的**SS Server**）：这个步骤可简单可复杂。想简单的话使用一键安装脚本即可，但是缺点在于你遇到问题后会一脸懵逼；复杂点的方法则是自己一步一步的根据官网指导，结合别人的博客来安装，缺点在于费时
+* 在客户端上进行配置（对应上图中的**PC**和**SS Local**）：对于 Windows, MacOS, Android 这几个操作系统来说这个过程是非常简单的。因为它们的客户端几乎都是带图形界面的（MacOS 也可以使用命令行），且近乎傻瓜式的操作在网上很容易找到带图的教程。而在 Linux 上则稍微麻烦些，不过现在也变得简单了，因为它也有了图形界面的客户端——shadowsocks-qt5，而且是跨平台的（因为 Qt5 这个图形界面接口是跨平台的）
 
 ### 安全性
 > &emsp;&emsp;Shadowsocks的最初设计目的只是为了绕过GFW，而不是提供密码学意义的安全，所以Shadowsocks自行设计的加密协议对双方的身份验证仅限于预共享密钥，亦无完全前向保密，也未曾有安全专家公开分析或评估协议及其实现。如果是在监听类型的国家内想更加安全的上网，基本上Shadowsocks功能不够完善，应该使用隐密性更高的工具。[8]
@@ -227,6 +262,10 @@ ssh -ND 1080 -p 22  <user>@<hostname>
 > ——引用自[CentOS 7 配置 shadowsocks-libev 服务器端进行科学上网 \| 鸣沙山侧 月牙泉畔](https://roxhaiy.wordpress.com/2017/08/04/430/)
 
 #### 服务器配置
+先说简单方法，使用一键安装脚本 [teddysun/shadowsocks_install at master](https://github.com/teddysun/shadowsocks_install/tree/master)。注意，因为某些原因，该一键安装脚本已经停止更新，参见 [Shadowsocks非官方网站](https://shadowsocks.be/)
+
+再说复杂点的方法（即后文）
+
 ##### 安装`shadowsocks-libev`
 ```
 cd /etc/yum.repos.d/ #进入 CentOS 软件源目录
@@ -355,7 +394,7 @@ systemctl enable shadowsocks-libev-local@client
 #### 客户端配置
 本部分最后更新时间：2018-04-08。
 
-2019-07-02更新： 客户端选择`shadowsocks-qt5`是因为它简单，界面友好（好吧，是因为当初只听说过它）。现在的我更倾向于使用`shadowsocks-libev`作为客户端
+2019-07-02更新： 客户端选择`shadowsocks-qt5`是因为它简单，界面友好（好吧，是因为当初只听说过它）。现在的我更倾向于使用`shadowsocks-libev`作为客户端，因为它最近一次更新在 2019 年 7 月，而 shadowsocks（即原始的 Python 版）最后更新时间是 2018 年 10 月，shadowsocks-qt5 最近一次更新则是在 2018 年 8 月
 
 ##### 安装`shadowsocks-qt5`
 
@@ -374,20 +413,21 @@ systemctl enable shadowsocks-libev-local@client
 
    ![ss-qt5](http://wsxq12.55555.io/Kali-Linux科学上网/ss-qt5主界面.png)
 
-   图中使用的服务器账号是我花**180元/年**租用的搬瓦工的 VPS (见下图)（大家也可以搭建一个属于自己的SSR服务器，可以学到不少东西）
+   图中使用的服务器账号是我花**180元/年**租用的搬瓦工的 VPS (见下图)（大家也可以搭建一个属于自己的 SS 服务器，可以学到不少东西）
 
    ![bwg](http://wsxq12.55555.io/Kali-Linux科学上网/bwg主机信息界面.png)
 
 ##### 设置 PAC 自动代理
 4. 获得 pac 文件：
 
-	    pip install genpac
-	    pip install --upgrade genpac
-	    mkdir ~/vpnPAC
-	    cd ~/vpnPAC
-	    touch user-rules.txt
-	    genpac -p "SOCKS5 127.0.0.1:1080" --gfwlist-proxy="SOCKS5 127.0.0.1:1080" --output="autoproxy.pac" --gfwlist-url="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt" --user-rule-from="user-rules.txt"
-
+   ```
+	 pip install genpac
+	 pip install --upgrade genpac
+	 mkdir ~/vpnPAC
+	 cd ~/vpnPAC
+	 touch user-rules.txt
+	 genpac -p "SOCKS5 127.0.0.1:1080" --gfwlist-proxy="SOCKS5 127.0.0.1:1080" --output="autoproxy.pac" --gfwlist-url="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt" --user-rule-from="user-rules.txt"
+   ```
 												
 5. 系统设置自动代理: **设置->网络->网络代理**，**方式**改为**自动**，**配置URL**改为：`file://root/vpnPAC/autoproxy.pac`
 
@@ -396,11 +436,16 @@ systemctl enable shadowsocks-libev-local@client
 2. 自动连接某个节点：打开`bash`，输入`ss-qt5`，**右键某个节点->编辑->程序启动时自动连接**
 3. 通过快捷键开启或关闭shadowsocks-qt5: **设置->键盘->添加自定义快捷键**（滑到最下面你会看到一个`+`）， **名字**可以随意，**命令**输入`ss-qt5`（关闭时输入`pkill ss-qt5`），**按键**设置成你喜欢的即可。
 
-*[SS]: shadowsocks
-*[SSR]: shadowsocksr
 
 ## shadowsocksr
-该方法最后更新时间：2018-10-20
+* 该方法最初发布时间：2018-10-20
+* 该方法最后更新时间：2019-07-03。更新处会以`2019-07-03 更新`标明
+
+重要相关网站： 
+* [GitHub - breakwa11](https://github.com/breakwa11)：原开发者
+* [shadowsocksr-backup](https://github.com/shadowsocksr-backup)：由于原开发者将其 shadowsocksr 项目删除了，所以这是一个由热心网友整合的备份。几乎完全没有更新
+* [GitHub - shadowsocksrr](https://github.com/shadowsocksrr)：现在的开发 & 维护者
+* [大概是萌新也看得懂的SSR功能详细介绍&使用教程 - 神代綺凜の萌化小基地](https://moe.best/tutorial/shadowsocksr.html)：一个非常详细的 SSR 客户端教程
 
 主要是因为 SS 不能用了，所以把服务器改成了 SSR 的。而 Linux 下的 SSR 客户端配置起来有点麻烦，故更新此文，添加了该内容。
 
@@ -408,7 +453,54 @@ systemctl enable shadowsocks-libev-local@client
 
 后来根据[Python版SSR客户端](https://www.jianshu.com/p/68d8462a0fe0)和[4 - Ubuntu 16.04 + SSR翻墙](https://www.jianshu.com/p/a0f3268bfa33)这两个参考链接才成功，下面简要总结如下:
 
-### 2.1 安装并配置Python版SSR客户端（最重要）
+### 简介
+> &emsp;&emsp;ShadowsocksR（简称SSR）是网名为breakwa11的用户发起的Shadowsocks分支，在Shadowsocks的基础上增加了一些数据混淆方式，称修复了部分安全问题并可以提高QoS优先级。[20]后来贡献者Librehat也为Shadowsocks补上了一些此类特性，[21]甚至增加了类似Tor的可插拔传输层功能。[22]
+> 
+> &emsp;&emsp;——引用自[Shadowsocks#ShadowsocksR - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/Shadowsocks#ShadowsocksR)
+
+需要注意的是其原开发者 [breakwa11](https://github.com/breakwa11) 已删除了 GitHub 上的所有 ShadowsocksR 代码、解散了相关 Telegram 交流群组，停止开发 ShadowsocksR 项目。但该项目已被多人 fork，并有人在其基础上继续发布新的版本，例如较为知名的 [SSRR](https://github.com/shadowsocksrr) （ShadowsocksRR）。而本部分（shadowsocksr）讲解的也正是 SSRR
+
+### 基本原理
+由于其前身是 shadowsocks，所以它的基本原理和 shadowsocks 相同，依然可以用前文所述的方法解释，只是将 SS 替换为 SSR 即可：
+
+> > 简单理解的话，shadowsocks 是将原来 ssh 创建的 Socks5 协议拆开成 server 端和 client 端，所以下面这个原理图基本上和利用 ssh tunnel 大致类似
+> > 
+> > ![shadowsocks原理图解](https://vc2tea.com/public/upload/whats-shadowsocks-04.png)
+> > 
+> > 其中：
+> > * 1、6) 客户端发出的请求基于 Socks5 协议跟 ss-local 端进行通讯，由于这个 ss-local 一般是本机或路由器或局域网的其他机器，不经过 GFW，所以解决了上面被 GFW 通过特征分析进行干扰的问题
+> > * 2、5) ss-local 和 ss-server 两端通过多种可选的加密方法进行通讯，经过 GFW 的时候是常规的TCP包，没有明显的特征码而且 GFW 也无法对通讯数据进行解密
+> > * 3、4) ss-server 将收到的加密数据进行解密，还原原来的请求，再发送到用户需要访问的服务，获取响应原路返回
+> > 
+> > ——引用自[写给非专业人士看的 Shadowsocks 简介 \| 綠茶如是说](https://vc2tea.com/whats-shadowsocks/)
+> 
+> 因此，如果要使用 VPS 自行搭建 SS 服务并使用它，我们需要做如下几件事情：
+>
+> * 在 VPS 服务器上搭建 SS 服务（对应上图中的**SS Server**）：这个步骤可简单可复杂。想简单的话使用一键安装脚本即可，但是缺点在于你遇到问题后会一脸懵逼；复杂点的方法则是自己一步一步的根据官网指导，结合别人的博客来安装，缺点在于费时
+> * 在客户端上进行配置（对应上图中的**PC**和**SS Local**）：对于 Windows, MacOS, Android 这几个操作系统来说这个过程是非常简单的。因为它们的客户端几乎都是带图形界面的（MacOS 也可以使用命令行），且近乎傻瓜式的操作在网上很容易找到带图的教程。而在 Linux 上则稍微麻烦些，不过现在也变得简单了，因为它也有了图形界面的客户端——shadowsocks-qt5，而且是跨平台的（因为 Qt5 这个图形界面接口是跨平台的）
+> 
+> ——引用自[运行原理](#运行原理)
+
+不过为了加深理解，本部分（shadowsocksr）将其中的**PC**、**SS Local**和**SS Server**分开说明（前文的 shadowsocks 中只将**SS Local+PC**和**SS Server**分开说明了，因为 SS 和 SSR 的相似性，其中 **PC**连接**SS Local**的部分对 SS 也有效）
+
+### 安全性
+如[简介](#简介)中所述：
+
+> 在 Shadowsocks 的基础上增加了一些数据混淆方式，称修复了部分安全问题并可以提高 QoS 优先级
+
+### 实现
+和 shadowsocks 类似，不过其开发并不活跃。结合 [Shadowsocks - Implementations](https://shadowsocks.org/en/spec/Implementations.html) 和 [GitHub - shadowsocksrr](https://github.com/shadowsocksrr)可以知晓它的实现和 SS 的对应关系。
+
+需要注意的是有的实现很长时间没有更新了，例如 shadowsocksr-libev、shadowsocksr-android，最近一次更新是 2018 年 3 月，shadowsocksr（即原始的 Python 版）最近一次更新是在 2018 年 5月，shadowsocksr-csharp（Windows客户端）最近一次更新是在 2018 年 4 月，electron-ssr 最近一次更新是在 2019 年 5 月。而令人震惊的是，上述所有软件的最近一次更新全是由 [Akkariiin (Akkariiin)](https://github.com/Akkariiin ) 完成的，当然，也可能只是因为他恰好负责打包和发布这一工作
+
+### 使用方法
+#### 服务器配置（SS Server）
+先说简单方法，使用一键安装脚本 [teddysun/shadowsocks_install at master](https://github.com/teddysun/shadowsocks_install/tree/master)
+
+再说复杂点的方法
+
+#### 客户端配置（SS Local + PC）
+##### 2.1 安装并配置Python版SSR客户端（最重要）
 之所以使用Python版，是因为我只找到Python版的，/笑哭。 这一步是最重要的，后面的方法都建立在这个基础之上
 
 1. 获得Python版SSR的相关文件：
@@ -621,3 +713,95 @@ function up() {
 1. 配置主机的ssr客户端，使其**允许来自局域网的连接**。于我而言，我是这么设置的：**右键小飞机->选项设置->勾选来自局域网的连接**
 2. 在虚拟机中，配置FireFox浏览器中的网络代理或系统代理，选择手动代理，在所有代理中填入主机的IP地址和其默认的端口（我的是`192.168.56.100`和`1080`）
 3. 完成
+
+## 链接
+下面总结了本文中使用的所有链接：
+
+<!-- link start -->
+
+* [4 - Ubuntu 16.04 + SSR翻墙](https://www.jianshu.com/p/a0f3268bfa33)
+* [Build from source with centos](https://github.com/shadowsocks/shadowsocks-libev#build-from-source-with-centos)
+* [CentOS 7 配置 shadowsocks-libev 服务器端进行科学上网 \| 鸣沙山侧 月牙泉畔](https://roxhaiy.wordpress.com/2017/08/04/430/)
+* [GitHub - shadowsocks](https://github.com/shadowsocks)
+* [Google](https://www.google.com/)
+* [Install from repository](https://github.com/shadowsocks/shadowsocks-libev#install-from-repository-1)
+* [Python版SSR客户端](https://www.jianshu.com/p/68d8462a0fe0)
+* [Shadowsocks - A secure socks5 proxy](https://shadowsocks.org/en/index.html)
+* [Shadowsocks - Implementations](https://shadowsocks.org/en/spec/Implementations.html)
+* [Shadowsocks - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/Shadowsocks)
+* [Stack Overflow](https://stackoverflow.com/)
+* [bwg](http://wsxq12.55555.io/Kali-Linux科学上网/bwg主机信息界面.png)
+* [electron-ssr](https://github.com/erguotou520/electron-ssr)
+* [justmysocks](https://justmysocks.net)
+* [justmysocks](https://justmysocks1.net/members/index.php)
+* [shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev)
+* [shadowsocks-qt5](https://github.com/shadowsocks/shadowsocks-qt5)
+* [shadowsocks/shadowsocks-libev at v3.2.0](https://github.com/shadowsocks/shadowsocks-libev/tree/v3.2.0)
+* [shadowsocks原理图解](https://vc2tea.com/public/upload/whats-shadowsocks-04.png)
+* [ss-qt5](http://wsxq12.55555.io/Kali-Linux科学上网/ss-qt5主界面.png)
+* [vultr](https://www.vultr.com/)
+* [写给非专业人士看的 Shadowsocks 简介 \| 綠茶如是说](https://vc2tea.com/whats-shadowsocks/)
+* [好用的机场推荐 \| Atrandys](https://www.atrandys.com/2019/1582.html)
+* [实战 SSH 端口转发](https://www.ibm.com/developerworks/cn/linux/l-cn-sshforward/index.html)
+* [搬瓦工](https://bwg.net)：笔者一直用的它，它价格便宜（笔者当时的是200元/年左右）、速度较快（200KB/s+），但是延迟较高（`200ms`左右）。近期搬瓦工的大量 VPS IP地址被封，笔者就是其中的一员，但是亲测可以通过套 cf(cloudflare)
+* [点击购买](https://justmysocks1.net/members/cart.php)
+* [百度](https://www.baidu.com)
+* [百度百科 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/%E7%99%BE%E5%BA%A6%E7%99%BE%E7%A7%91)
+* [突破网络审查 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/%E7%AA%81%E7%A0%B4%E7%BD%91%E7%BB%9C%E5%AE%A1%E6%9F%A5)
+* [维基百科 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91)
+* [维基百科](https://www.wikipedia.org/)
+* [防火长城 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/%E9%98%B2%E7%81%AB%E9%95%BF%E5%9F%8E)
+<!-- link end -->
+
+<!-- abbreviations start -->
+
+*[SS]: shadowsocks
+*[SSR]: shadowsocksr
+
+<!-- abbreviations end -->
+*[ARM]: Advanced RISC Machines
+*[BUG]: 
+*[CDN]: Content Delivery Network
+*[CPU]: Central Processing Unit
+*[DNS]: Domain Name System
+*[DPI]: Deep Packet Inspection
+*[DPI]: Dots Per Inch
+*[FTP]: File Transfer Protocol
+*[GCP]: 
+*[GFW]: 
+*[GIA]: 
+*[GPL]: General Public License
+*[GPL]: General-Purpose Language
+*[HTTP]: Hypertext Transfer Protocol
+*[HTTPS]: HTTP Secure
+*[IEEE]: Institute of Electrical and Electronics Engineers
+*[IP]: Instruction Pointer
+*[IP]: Intellectual Property
+*[IP]: Internet Protocol
+*[ISP]: Internet Service Provider
+*[JSON]: JavaScript Object Notation
+*[KB]: Keyboard
+*[KB]: Kilobyte
+*[KB]: Knowledge Base
+*[MB]: Megabyte
+*[MIPS]: Microprocessor without Interlocked Pipeline Stages
+*[MIPS]: Million Instructions Per Second
+*[MIT]: Massachusetts Institute of Technology
+*[ND]: 
+*[NG]: 
+*[OS]: Open Source
+*[OS]: Operating System
+*[PAC]: 
+*[POSIX]: Portable Operating System Interface, formerly IEEE-IX
+*[PROXY]: 
+*[SOCKS]: 
+*[SS]: Stack Segment
+*[SSH]: Secure Shell
+*[SSR]: 
+*[TCP]: Transmission Control Protocol
+*[TLS]: Thread-Local Storage
+*[TLS]: Transport Layer Security
+*[URL]: Uniform Resource Locator
+*[US]: 
+*[VPN]: Virtual Private Network
+*[VPS]: 
