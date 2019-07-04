@@ -1,6 +1,6 @@
 ---
 tags: [kali,shadowsocks,shadowsocksr,科学上网]
-last_modified_time: 2019-07-03 17:33:08 +0800
+last_modified_time: 2019-07-05 00:00:44 +0800
 ---
 
 > * TODO: 本文正在更新中，每天都会有新内容 <2019-07-02>
@@ -33,10 +33,11 @@ last_modified_time: 2019-07-03 17:33:08 +0800
   * [配置你的服务器（VPS）](#配置你的服务器vps)
   * [配置你的客户端](#配置你的客户端)
   * [测试](#测试)
-* [SSH](#ssh)
-  * [Putty](#putty)
-  * [SSH tunnel](#ssh-tunnel)
-  * [`-D`参数](#-d参数)
+* [SSH 的`-D`参数](#ssh-的-d参数)
+  * [简介](#简介)
+  * [原理](#原理)
+  * [操作步骤](#操作步骤)
+  * [小结](#小结)
 * [Shadowsocks](#shadowsocks)
   * [是什么](#是什么)
   * [运行原理](#运行原理)
@@ -55,7 +56,7 @@ last_modified_time: 2019-07-03 17:33:08 +0800
       * [设置 PAC 自动代理](#设置-pac-自动代理)
       * [优化](#优化)
 * [shadowsocksr](#shadowsocksr)
-  * [简介](#简介)
+  * [简介](#简介-1)
   * [基本原理](#基本原理)
   * [安全性](#安全性-1)
   * [实现](#实现-1)
@@ -65,16 +66,20 @@ last_modified_time: 2019-07-03 17:33:08 +0800
       * [本部分测试平台](#本部分测试平台)
       * [SSR Local 连接到 SSR Server](#ssr-local-连接到-ssr-server)
       * [PC 连接到 SSR Local](#pc-连接到-ssr-local)
-        * [浏览器中设置手动的网络代理（全局，浏览器，最简单）](#浏览器中设置手动的网络代理全局浏览器最简单)
-        * [Polipo + 系统代理（全局,所有应用）](#polipo--系统代理全局所有应用)
+        * [浏览器全局代理](#浏览器全局代理)
+        * [浏览器自动代理](#浏览器自动代理)
+        * [转换 SOCKS 代理为 HTTP 代理](#转换-socks-代理为-http-代理)
           * [安装并配置 Polipo](#安装并配置-polipo)
-          * [设置系统代理](#设置系统代理)
-        * [Firefox + FoxyProxy（自动,浏览器）](#firefox--foxyproxy自动浏览器)
-        * [genpac + 系统代理设置（自动,所有应用）](#genpac--系统代理设置自动所有应用)
-      * [关于终端下的代理设置](#关于终端下的代理设置)
-        * [终端代理环境变量](#终端代理环境变量)
-        * [使用程序的代理相关参数](#使用程序的代理相关参数)
+        * [全局系统代理](#全局系统代理)
+        * [PAC 代理配置](#pac-代理配置)
+        * [关于终端下的代理设置](#关于终端下的代理设置)
+          * [终端代理环境变量](#终端代理环境变量)
+          * [使用程序的代理相关参数](#使用程序的代理相关参数)
 * [通过已经可以科学上网的电脑实现科学上网](#通过已经可以科学上网的电脑实现科学上网)
+* [测试](#测试-1)
+  * [通用测试方法](#通用测试方法)
+  * [常用工具](#常用工具)
+  * [科学上网问题测试思路](#科学上网问题测试思路)
 * [链接](#链接)
 
 <!-- vim-markdown-toc -->
@@ -150,12 +155,12 @@ last_modified_time: 2019-07-03 17:33:08 +0800
 * 其他：hostdare cloudcone hosthatch anynode hostsolutions hostflyte justhost sentris gullo cheapnat GCP xenspec。以上 VPS 提供商笔者和笔者的好友都没有用过，它们是热心网友推荐的
 
 ##### 使用的方案
-* SSH：使用 OpenSSH 软件包中`ssh`命令的 `-D` 参数即可实现科学上网。具体参见后文
-* VPN：未曾尝试过
-* SS：使用 shadowsocks 服务器端软件和客户端软件即可实现科学上网。详情参见后文
-* SSR：使用 shadowsocksr 服务器端软件和客户端软件即可实现科学上网。详情参见后文
-* V2ray：使用 V2ray 服务器端软件和客户端软件即可实现科学上网。详情参见后方
-* V2ray+CDN：即“俗称”的“套cf”。由于用到的 CDN 通常是免费的 cloudflare，所以被网友戏称为“套cf”。它能让被墙 IP 的 VPS 继续使用
+* SSH：使用 OpenSSH 软件包中`ssh`命令的 `-D` 参数即可实现科学上网。该方法的前提是你可以通过 SSH 成功连上你的服务器，且你的服务器能访问国外网站（如谷歌等）。优点在于简单方便，缺点在于需要支持`ssh`命令的`-D`参数（OpenSSH 和 Putty 均支持）。具体参见后文 [SSH](#ssh)
+* VPN：未曾尝试过。请自行研究
+* SS：使用 shadowsocks 服务器端软件和客户端软件即可实现科学上网。虽然不少人说它凉了，但其开发依然活跃，尤其是 shadowsocks-libev（C语言版）。详情参见后文 [Shadowsocks](#shadowsocks)
+* SSR：使用 shadowsocksr 服务器端软件和客户端软件即可实现科学上网。虽然它好久没有更新了，但是依然能用。详情参见后文 [shadowsocksr](#shadowsocksr)
+* V2ray：使用 V2ray 服务器端软件和客户端软件即可实现科学上网。新兴势力，开发活跃。详情参见后文
+* V2ray+CDN：即“俗称”的“套cf”。由于用到的 CDN 通常是免费的 cloudflare，所以被网友戏称为“套cf”。它能让被墙 IP 的 VPS 继续使用（SS、SSR、V2ray 能用的前提是 IP 没被封）
 
 ### 总结
 须知，天下没有免费的午餐（就算有也很少）。上述的方法中，免费的那几种方法大多存在不安全、有流量限制、有速度限制、有广告、不稳定等问题。而付费的机场虽然体验极佳，但是价格昂贵，且通常只能 1~3 人使用。
@@ -167,6 +172,8 @@ last_modified_time: 2019-07-03 17:33:08 +0800
 因此，本文着重讲解，如何通过自己租用的 VPS 搭建代理服务器实现科学上网
 
 ## 自主搭建代理服务器实现科学上网大致流程
+大致思路对于做好一件事非常重要，这部分便负责讲解大致思路
+
 ### 选择 VPS 提供商
 VPS，全称 Virtual Private Sever，即虚拟专用服务器。它是一个在真实的服务器中虚拟出来的一个服务器环境，你可以在这个服务器上安装你喜欢的服务器端操作系统，然后做你想做的事，如搭建代理服务、搭建 Web 站点、搭建 VPN 服务等。维基百科中的介绍如下：
 
@@ -178,7 +185,7 @@ VPS，全称 Virtual Private Sever，即虚拟专用服务器。它是一个在�
 
 * 使用体验和 Ubuntu（这里指带图形界面的）几乎完全一致。故适合用过 Ubuntu 的新手
 * 如果命令未找到，会提示你安装相应的软件包（CentOS可以直接使用`yum provides <commandname>`查找相应的命令的软件包）
-* 强大的自动补全功能。比 CentOS 强大。因为它甚至可以补全`apt-get`后的命令，好像是因为它默认安装了一个叫`bash_complete`的软件包。
+* 强大的自动补全功能。比 CentOS 强大。因为它甚至可以补全二级命令（如`apt-get`后的`install`命令），好像是因为它默认安装了一个叫`bash_completion`的软件包。
 
 注意，几乎所有的 Linux 服务器版本都不会带图形界面，事实上，Linux 本身就不需要图形界面，请萌新尽早学会使用 Shell（如 Bash）
 
@@ -194,62 +201,121 @@ VPS，全称 Virtual Private Sever，即虚拟专用服务器。它是一个在�
 **温馨提示**：租用的 VPS 可以在某些渠道转卖
 
 完成这一步后你需要对你的 VPS 有个大概的认识，主要包括如下几个方面的内容：
-* 你的 VPS 提供商是？这个问题的答案可以帮助你在遇到问题使用正确的关键字搜索
-* 如何进入你的 VPS 的控制面板？这个问题最为重要，你必须知道 VPS 提供商为你提供了怎样的接口来访问和控制你的 VPS，以及如何使用这些接口
-* 如何续费？这个问题在你完成一个租用周期依然想继续使用时显得格外重要
+* 你的 VPS 提供商是？这个问题的答案可以帮助你在遇到问题使用正确的关键字搜索。对于搬瓦工而言就是**搬瓦工**
+* 如何进入你的 VPS 的控制面板？这个问题最为重要，你必须知道 VPS 提供商为你提供了怎样的接口来访问和控制你的 VPS，以及如何使用这些接口。对于搬瓦工而言是 [Bandwagon Host - Client Area](https://bwh88.net/clientarea.php?action=products)中的**KiwiVM Control Panel**。其中有如下几个重要的功能（以搬瓦工为例，其它 VPS 提供商类似）：
+  * **Main controls**：在这里你可以查看你的服务器的概况。包括所在位置、公网 IP、SSH端口、状态、内存和 SWAP 使用情况、磁盘使用情况、带宽使用情况、操作系统、主机名、PTR记录
+  * **Root - shell interactive**：这个接口在你使用 SSH 连不上 VPS 时非常有用。它让你可以直接通过 Web 使用 Shell 对你的 VPS 进行控制
+  * **Install new OS**：这个接口允许你重新安装操作系统。注意，重装操作系统，你之前操作系统上的所有更改过的数据将清空
+  * **Root password modification**：搬瓦工直接提供了重新生成 root 密码的接口。如果你不知道 root 初始密码的话，你可以在这里生成后使用生成的新密码
+* 如何续费？这个问题在你完成一个租用周期依然想继续使用时显得格外重要。对于搬瓦工而言是 [Bandwagon Host - Client Area - addfunds](https://bwh88.net/clientarea.php?action=addfunds)
 
 ### 初步部署 VPS
-租用了 VPS 后，有的商家可能直接给你安装了一个默认的操作系统，有的可能会让你自己部署。无论如何，你可能都会想要安装一个自己喜欢的操作系统。当然，这一步除了选择喜欢的操作系统外，你还需要了解你的服务器的如下相关信息：
+租用了 VPS 后，有的商家可能直接给你安装了一个默认的操作系统，有的可能会让你自己部署。无论如何，你可能都会想要安装一个自己喜欢的操作系统。如上所述，笔者建议安装 CentOS 或者 Ubuntu Server。安装好你喜欢的操作系统后，你需要知道如下相关信息：
 
 * IP 地址
 * SSH 端口
-* root 密码，或者配置 SSH 公/私钥
+* root 密码（或者配置 SSH 公/私钥）
 
 从而为下一步的连接做准备
 
 ### 连接到你的 VPS
-在这一步中，你需要使用 SSH 工具连接到你的服务器。在 Windows 中，你需要安装一个 SSH 客户端，例如 Putty、Xshell、Mobaxterm 等（对于 Windows 10 最新版本，自带 ssh 客户端，可在 Powershell 或 CMD 中直接使用，如`ssh -p 22 wsxq2@192.168.56.11`，不过使用体验远不如 Putty 等软件）；而 MacOS 则不需要，其终端支持良好，默认 Shell 为 Bash，ssh 应该是默认安装了的，所以直接使用`ssh -p <port> <username>@<server ip>`即可，如`ssh -p 22 wsxq2@192.168.56.11`。
+在这一步中，你需要使用 SSH 工具连接到你的服务器。~~在 Windows 中，你需要安装一个 SSH 客户端，例如 Putty、Xshell、Mobaxterm 等~~（对于 Windows 10 最新版本，自带 ssh 客户端，可在 Powershell 或 CMD 中直接使用，如`ssh -p 22 wsxq2@192.168.56.11`，不过使用体验远不如 Putty 等软件）；而 MacOS 则不需要，其终端支持良好，默认 Shell 为 Bash，ssh 应该是默认安装了的，所以直接使用`ssh -p <port> <username>@<server ip>`即可，如`ssh -p 22 wsxq2@192.168.56.11`。
 
 笔者使用的是 [Putty](https://www.putty.org/)。
 
 （我超级喜欢的 Putty 竟然更新了？今天点进去一看，我的天，时隔将近两年，Putty 终于更新了 :sob:）
 
-安装好 Putty 后，你可以进行一些简单的配置：
-必需：在**Host Name**中填写你的服务器的 IP 地址，在**Port**处填写你的服务器的 SSH 服务使用的端口
-保存会话配置：在**Saved Sessions**的输入框中输入一个别名（用于区分你保存的会话配置），再点击**Save**即可
+安装好 Putty 后，你便可以连接到你的 VPS 了：在**Host Name**中填写你的服务器的 IP 地址，在**Port**处填写你的服务器的 SSH 服务使用的端口，在**Connection type**处选择**SSH**（默认使用的就是**SSH**，这里提一下是为了以防万一）
+
+如果你的服务器的 IP 没被封、TCP 没被阻断的话，应该就能连上，第一次连接会提示`The authenticity of host...balabala...`的东东，这是为了防止有人冒充你的服务器接受你的连接从而套取你的密码，但是这是低概率事件，所以输入`yes`即可，之后便会要求你输入用户名和密码，通常用户名默认为`root`，密码应该能在你的 VPS 的控制面板处找到，如果找不到，你可以在控制面板的 shell 接口处（对于搬瓦工而言是**KiwiVM Control Panel**中的**Root - shell interactive**）直接修改你的 root 密码（在 shell 中使用`passwd`命令即可）以便登录
+
+登录成功后，你就可以对你的服务器进行配置了
 
 ### 选择科学上网方案
+在配置之前，我们需要知道可用的科学上网方案有哪些，在[方法-付费-VPS-使用的方案](#使用的方案)处已经提到了现今比较流行的方案。从中选择一个即可。如果 IP 没被封，笔者建议使用 shadowsocks，因为其历史悠久（相对于 SSR 和 V2Ray），文档丰富（V2Ray 文档也挺好）。如果 IP 被封了，建议使用 V2Ray + CDN 的方案
+
 ### 配置你的服务器（VPS）
+选定方案后，重难点便是配置服务器了。本文会简要介绍如何配置服务器
+
 ### 配置你的客户端
+对于大多有图形界面的客户端软件（如 SSR for Windows——shadowsocksr-csharp）而言，配置都相当简单，网上很容易搜到图文教程，本文会一笔带过。本文着重讲解没有图形界面的客户端软件（如 SSR for Linux——shadowsocksr（Python版））
+
 ### 测试
+测试是个非常重要的环境，很多人在失败之后一脸懵逼，只知道自己没成功，但不知道为什么没成功
 
-## SSH
-### Putty
+由于测试（调试）自古以来是难点，因为导致出错的原因很多，让人不知从何下手。然而本文针对的就是这种难点。因此后文将大致（本来想说详细的，但详细太难了）介绍测试思路和测试工具
 
-### SSH tunnel
+参见[测试](#测试-1)
 
-### `-D`参数
 
-ssh 可以使用`-D`参数实现科学上网：
+## SSH 的`-D`参数
+### 简介
+**OpenSSH**和**Putty**都支持端口动态转发（即`-D`参数）。事实上，在 SSH 中，转发共有如下四种：
+
+* 本地端口转发：将发往本地端口的数据包通过 SSH 隧道转发到远程服务器的端口中，数据包由远程服务器处理。远程服务器可以 SSH 服务器自身，也可以是其它服务器（例如未加密的 HTTP 服务器，加密的 HTTPS 貌似会出于安全考虑拒收这样的数据包）。在`ssh`和`plink`/`putty`中均使用`-L`参数
+* 远程端口转发：将发往 SSH 服务器指定端口的数据通过 SSH 隧道转发到本地主机（客户端）的指定端口中，数据包由本地主机进行处理，然后反方向返回响应数据。在`ssh`和`plink`/`putty`中均使用`-R`参数
+* 动态端口转发：将发往本地端口的数据包通过 SSH 隧道发送到 SSH 服务器上，再由 SSH 服务器转发到目的地。具体流程如下：
+  
+  1. 在本地应用程序和本地端口间使用`SOCK4/5`协议进行通信（即本地 SOCKS 代理）
+  1. 发送到本地端口的数据经过客户端程序`ssh`加密后发送到 SSH 服务器（即 SSH 加密后的数据通过网络传输）
+  1. 服务器端程序`sshd`将其解密后再转发出去。
+  
+  在这种转发中，SSH 服务器用作代理服务器，即转发由客户端发送的数据包。这种转发在`ssh`和`plink`/`putty`中均使用`-D`参数
+
+* X 协议转发：以 GUI（图形用户界面）方式运行一些程序时会用到
+
+关于它们的详细讲解请参见 [实战 SSH 端口转发](https://www.ibm.com/developerworks/cn/linux/l-cn-sshforward/index.html) 。下面我们把重心放在第 3 种转发上（即动态端口转发），因为它完美满足了我们科学上网的需求。让我们先来看看它的运行原理
+
+### 原理
+> ![动态端口转发原理图解](https://www.ibm.com/developerworks/cn/linux/l-cn-sshforward/image005.jpg)
+> ——引用自 [实战 SSH 端口转发](https://www.ibm.com/developerworks/cn/linux/l-cn-sshforward/index.html#N10100)
+
+仔细看一下上面的图，让我们再来模拟一遍整个流程（假设浏览器的代理设置为`socks5://127.0.0.1:7001`，访问的 Web 服务器使用的是 HTTP 协议）：
+
+1. 浏览器发送请求数据到本地主机的`7001`端口；
+1. 由本地主机上的`ssh`（客户端）处理该请求数据，将其加密；
+1. `ssh`（客户端）将加密后的数据发送给 SSH 服务器；
+1. 这个加密后的数据历经千难万险（如经过 GFW）到达服务器程序`sshd`；
+1. `sshd`（服务器）将该数据解密；
+1. `sshd`（服务器）选择一个可用的端口（通常 10000+，因此被称为动态端口转发）将解密后的数据转发给目标服务器（在这里是 Web 服务器）；
+1. Web 服务器收到解密后的请求数据返回相应的响应数据给 SSH 服务器；
+1. SSH 服务器收到响应数据后将其交给`sshd`处理；
+1. `sshd`将其加密后发送给客户端（期间经过 GFW）；
+1. ……
+
+是不是清楚了？清楚了这个 SSH `-D`参数的原理后对于后文理解 shadowsocks, shadowsocksr, V2ray 很有帮助。事实上，它们的基本原理几乎完全一样
+
+现在再让我们来看一下 Linux 中的 manual 手册对该参数的说明：
 > &emsp;&emsp;-D port 
 
 > &emsp;&emsp;This works by allocating a socket to listen to port on the local side, and whenever a connection is made to this port, the connection is forwarded over the secure channel, and the application protocol is then used to determine where to connect to from the remote machine. Currently the SOCKS4 and SOCKS5 protocols are supported, and ssh will act as a SOCKS server. Only root can forward privileged ports. Dynamic port forwardings can also be specified in the configuration file.
 > 
 > &emsp;&emsp;——引用自`man ssh`
 
-```
-ssh -ND 1080 -p 22  <user>@<hostname> 
-```
-其中`-N`：
+是不是变得通俗易懂了？
 
->  &emsp;&emsp;-N&emsp;&emsp;Do not execute a remote command.  This is useful for just forwarding ports.
+### 操作步骤
+了解原理后，我们便可以使用如下命令实现动态端口转发：
+```
+ssh -N -D 1080 -p 22  <user>@<hostname> #for Linux/Windows + OpenSSH
+plink -batch -N -D 1080 -load <your_saved_session> #for Windows + PuTTY
+```
+
+其中`-N`参数：
+
+> -N&emsp;&emsp;Do not execute a remote command.  This is useful for just forwarding ports.
 > 
 > &emsp;&emsp;——引用自`man ssh`
 
-具体可参考这个链接：[实战 SSH 端口转发](https://www.ibm.com/developerworks/cn/linux/l-cn-sshforward/index.html)
+执行完上述命令后，本地主机会在本地环回地址（`127.0.0.1`）的`1080`端口（当然，你也可以更换成其它端口）监听数据。如果监听到数据，就会将收到的数据加密并发送给 SSH 服务器，然后……（如原理中所述）
 
-现在就相当于做了[2.1 安装并配置Python版SSR客户端（最重要）](#21-安装并配置python版ssr客户端最重要)这个步骤。所以后续配置相似，选择[2.2 各种方法](#22-各种方法)中的一个即可
+那么如何让`1080`端口监听到数据呢？答案很简单，只需设置全局代理（在 Windows **设置**中），并将**地址**设置为`127.0.0.1`，**端口**设置为`1080`即可让所有程序的数据都发送到`1080`端口
 
+当然你也可以使用浏览器+浏览器插件实现分网站代理，如 Chrome+SwitchOmega 等
+
+对于 Linux 而言，如何让程序走代理可参见后文 [PC 连接到 SSR Local](#pc-连接到-ssr-local)
+
+### 小结
 该方法非常简单，你甚至不需要在服务器上做任何配置，客户端的话**ssh+一个浏览器插件**即可（当然，也可以采用上述的各种方法中的其它方法），但前提在于你有一个在国外的服务器，并且每次使用都需要使用 ssh 连接你的服务器，故只适合特殊情况使用（比如你刚买/租用一个国外的服务器，并且迫切需要科学上网）。
 
 ## Shadowsocks
@@ -593,6 +659,7 @@ systemctl enable shadowsocks-libev-local@client
 #### 客户端配置（SSR Local + PC）
 ##### 本部分测试平台
 * 操作系统：Kali Linux。实际上只要是 Linux 将本文内容稍加修改也适用。毕竟核心的东西是不变的
+  * 使用的 SSR 客户端：shadowsocksr（Python 版）。
 
 ##### SSR Local 连接到 SSR Server
 使用 Python 版之所以使用 Python 版，是因为我只找到 Python 版的，/笑哭。 这一步是最重要的，后面的方法都建立在这个基础之上
@@ -662,21 +729,37 @@ systemctl enable shadowsocks-libev-local@client
    简要说一下上面那个函数`ssr`的用法：直接在 bash 中输入`ssr`后回车则后台启动（关闭终端也能继续运行）ssr客户端，输入`ssr <任意字符>`则关闭已启动的ssr客户端。
 
 ##### PC 连接到 SSR Local
-2019-07-03 更新： 该部分方法较多，选择一个你喜欢的即可
+2019-07-03 更新： 该部分阐述了如何让 SSR Local 监听到数据，即如何让程序走代理
 
-###### 浏览器中设置手动的网络代理（全局，浏览器，最简单）
+###### 浏览器全局代理
+2019-07-04 更新：本部分的目标在于让浏览器浏览所有网页时都走代理。只需在浏览器中设置手动代理即可
+
 以 FireFox 为例：
 
 1. 找到浏览器中的手动代理设置的位置：点击右上角的菜单，选择**Preferences**，选择**General**，滑到最下面，选择**Network Proxy**标签下的**Settings**，选择**Manual proxy configuration**
-1. 配置：找到**SOCKS Host**一栏，填入`127.0.0.1`和`1080`，在下面选择`SOCKS v5`，并在之后的**No Proxy for**中填入不需要代理的网址或IP地址或网段。
+1. 配置：找到**SOCKS Host**一栏，填入`127.0.0.1`和`1080`，在下面选择**SOCKS v5**，并在之后的**No Proxy for**中填入不需要代理的网址或IP地址或网段。
+
+   2019-07-04 更新：记得勾选下方的**Proxy DNS when using SOCKS v5**以防止 GFW 的 DNS 污染
 
 完！
 
 这时便可以访问<https://www.google.com>了，简单吧？
 
-**注意**：此方法有时不行，原因未知
+###### 浏览器自动代理
+2019-07-04 更新：本部分的目标在于让浏览器根据浏览的网站的不同自动选择是否走代理，例如对于国外网站走代理，对于国内网站不走代理。方法也很简单，使用浏览器插件即可，FireFox 用 FoxyProxy，Chrome 用 SwitchyOmega。
 
-###### Polipo + 系统代理（全局,所有应用）
+FoxyProxy 是 Firefox 浏览器中的一个非常好用的代理插件。因为有科学上网需求的主要是浏览器，故若只是为了让浏览器科学上网，则可采用此方法。当然，如果用的是 Chrome ，则可采用 Chrome + SwitchyOmega 的方案替代之。
+
+1. 安装`FoxyProxy`插件：<https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/>
+2. 设置`FoxyProxy`选项：
+   1. **Add Proxy**: `Proxy Type`选`SOCKS5`，`IP address`填`127.0.0.1`，`Port`填`1080`，记得最后点下`Save`
+   2. 添加`Patterns`: 在选项主界面，点击刚刚添加的`Proxy`的`Patterns`，根据自己的需要添加`Patterns`
+3. 启用`FoxyProxy`：单击浏览器中右上角相应的图标，选择`Use Enabled Proxies By Patterns and Priority`
+4. 测试：输入网址`www.google.com`看是否访问成功
+
+###### 转换 SOCKS 代理为 HTTP 代理
+2019-07-04 更新：相关的工具有很多。这里使用的工具是 Polipo
+
 ####### 安装并配置 Polipo
 > **温馨提示**：由于网页只支持到 6 级标题，所以这个 7 级标题变成了这个样子 :joy:
 
@@ -705,24 +788,16 @@ systemctl enable shadowsocks-libev-local@client
    export http_proxy="http://127.0.0.1:8123/"
    curl www.google.com
    ```
-   如果正常，就会返回抓取到的Google网页内容。可通过`man polipo`查看其帮助文档。
+   如果正常，就会返回抓取到的 Google 网页内容。可通过`man polipo`查看其帮助文档。
   
-####### 设置系统代理
-1. 设置系统手动代理：设置->网络->网络代理，方式改为手动，HTTP、HTTPS、FTP均改为`0.0.0.0 8123`,SOCKS改为`127.0.0.1 1080`
+###### 全局系统代理
+在系统设置中的网络代理方式设为手动即可：
+1. 设置系统手动代理：设置->网络->网络代理，方式改为**手动**，HTTP、HTTPS、FTP均改为`0.0.0.0 8123`,SOCKS改为`127.0.0.1 1080`
 2. 测试：打开浏览器，输入网址`www.google.com`看是否访问成功
 
-###### Firefox + FoxyProxy（自动,浏览器）
-FoxyProxy 是 Firefox 浏览器中的一个非常好用的代理插件。因为有科学上网需求的主要是浏览器，故若只是为了让浏览器科学上网，则可采用此方法。当然，如果用的是 Chrome ，则可采用 Chrome + SwitchyOmega 的方案替代之。
-
-1. 安装`FoxyProxy`插件：<https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/>
-2. 设置`FoxyProxy`选项：
-   1. **Add Proxy**: `Proxy Type`选`SOCKS5`，`IP address`填`127.0.0.1`，`Port`填`1080`，记得最后点下`Save`
-   2. 添加`Patterns`: 在选项主界面，点击刚刚添加的`Proxy`的`Patterns`，根据自己的需要添加`Patterns`
-3. 启用`FoxyProxy`：单击浏览器中右上角相应的图标，选择`Use Enabled Proxies By Patterns and Priority`
-4. 测试：输入网址`www.google.com`看是否访问成功
-
-###### genpac + 系统代理设置（自动,所有应用）
+###### PAC 代理配置
 此方法主要使用了`genpac`（GENerate PAC file）生成 PAC 文件，并将系统设置中的网络代理方式改为自动，将其`Configuration URL`指向相应的 PAC 文件位置。具体过程如下：
+
 1. 安装`genpac`：
    ```
    #安装
@@ -742,8 +817,8 @@ FoxyProxy 是 Firefox 浏览器中的一个非常好用的代理插件。因为�
 
 2019-07-03 更新：该方法存在的问题是如果你的 PAC 文件失效了，可能需要重新下载 PAC 文件，即重新执行第 2 步中的`genpac`步骤。
 
-##### 关于终端下的代理设置
-###### 终端代理环境变量
+###### 关于终端下的代理设置
+####### 终端代理环境变量
 
 ```
 # Set Proxy
@@ -766,7 +841,7 @@ function up() {
 ```
 其中的`http_proxy`表示访问`http`协议站点使用的代理，而不是使用`http`代理访问`http`协议站点。同理`ftp_proxy`表示访问`ftp`站点时使用的代理
 
-###### 使用程序的代理相关参数
+####### 使用程序的代理相关参数
 1. `git`：已知（亲测）支持`socks5`、`http`这两种代理方式，支持上述的终端代理环境变量。也可单独设置代理以覆盖全局设置：
    ```
    # 设置`socks5`代理
@@ -817,6 +892,144 @@ function up() {
 2. 在虚拟机中，配置FireFox浏览器中的网络代理或系统代理，选择手动代理，在所有代理中填入主机的IP地址和其默认的端口（我的是`192.168.56.100`和`1080`）
 3. 完成
 
+## 测试
+最基本的测试是在配置好后，打开你的浏览器，在地址栏输入<www.google.com>，如果访问成功，则恭喜你！
+
+当然，通常不会一次性成功。那么失败时我们该从何下手呢？
+
+让我们从通用测试方法开始
+
+### 通用测试方法
+
+* `ping`。ping 命令可以用于检测本机和目的主机是否相通。当然，防火墙可能阻止 ping 命令的成功，即 ping 不通不代表连不上。同时 ping 不通也不代表连得上（例如 TCP 阻断，此时需要更换端口或 IP）。故其结果仅供参考
+* `tracert`（Linux 中为`traceroute`）。
+* 抓包。但凡涉及到网络，抓包总是不会错的。推荐的抓包工具为 [Wireshark](https://www.wireshark.org/) 和 [tcpdump](https://www.tcpdump.org/)。前者适用于有图形界面的，后者适用于无图形界面的（即 Shell）。再简单点地说，tcpdump 用于在服务器（例如 CentOS ）上抓包，Wireshark 用于在客户端（例如 Windows）上抓包。
+
+* `nc`。作为网络调试中的瑞士军刀，其功能非常强大。初始版本过旧，建议使用衍生版本，如`Ncat`（Nmap 官方出品）
+
+### 常用工具
+
+### 科学上网问题测试思路
+1. 确保你的服务器可以访问谷歌，使用如下命令：
+   ```
+   curl -s -i -4 -m 10 www.google.com | less
+   ```
+   简要解释下：curl是一个强大的用于在服务器和客户端间传输数据的工具。上述命令使用的是其最常用的一个能力，获取 Web 网页。其中：
+     * `-s`参数是为了防止出现进度条，影响阅读；
+     * `-i`参数是为了让其显示响应头（Response header）；
+     * `-m 10`表示最多只等 10s，否则可能等很长时间才返回失败信息；
+     * `www.google.com`参数用于指明从<http://www.google.com>获取数据；
+     * `|`是管道，用于将`curl`命令的输入重定向为`less`命令的输入；
+     * `less`命令的作用是分页显示输入的内容（通常用于原文过长，一个屏幕显示不全的情况）。
+
+   如果成功，其输出应当如下：
+   ```
+   HTTP/1.1 200 OK
+   Date: Thu, 04 Jul 2019 03:17:26 GMT
+   Expires: -1
+   Cache-Control: private, max-age=0
+   Content-Type: text/html; charset=ISO-8859-1
+   P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."
+   Server: gws
+   ......
+   ```
+1. 确保你可以连接到你的服务器（如果使用 V2Ray + CDN 方案这点不做要求）。使用如下命令（注意使用你的服务器的 IP 替换下面的演示 IP）：
+   ```
+   PS C:\Users\wsxq2> ping 104.27.157.73
+   Pinging 104.27.157.73 with 32 bytes of data:
+   Reply from 104.27.157.73: bytes=32 time=185ms TTL=52
+   Reply from 104.27.157.73: bytes=32 time=186ms TTL=52
+   Reply from 104.27.157.73: bytes=32 time=186ms TTL=52
+   Reply from 104.27.157.73: bytes=32 time=187ms TTL=52
+
+   Ping statistics for 104.27.157.73:
+       Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+   Approximate round trip times in milli-seconds:
+       Minimum = 185ms, Maximum = 187ms, Average = 186ms
+   ```
+   上面的是 ping 成功的例子（用的命令行是 Windows 10 中 Powershell）。如果 ping 失败（即使成功了也要进行后续步骤），还可以尝试使用 SSH 连接到你的服务器（注意替换`master`）：
+   ```
+   PS C:\Users\wsxq2> ssh master
+   The authenticity of host 'master (192.168.56.11)' can't be established.
+   ECDSA key fingerprint is SHA256:0Y6BmNB1vsQiK2RSf9Ux9qcPlESud8C3UYIvtMZeKGs.
+   Are you sure you want to continue connecting (yes/no)? no
+   Host key verification failed.
+   PS C:\Users\wsxq2>
+   ```
+   如果出现上面的提示（`The authenticity of host...`），则说明可以连接。如果出现如下提示（注意替换 IP）：
+   ```
+   PS C:\Users\wsxq2> ssh 192.168.56.13
+   ssh: connect to host 192.168.56.13 port 22: Connection timed out
+   PS C:\Users\wsxq2>
+   ```
+   则说明连接不上
+   
+1. 测试你和你的服务器上的用于科学上网的端口是否可以连通。这个测试的前提是上面的 SSH 连接测试成功了
+  
+   先打开已经安装在 Windows 上的 Wireshark，选择你和服务器之间连接使用的网卡进行数据包嗅探。然后使用 Windows 自带的 telnet 连接到你的服务器上的用于科学上网的端口（注意替换 IP（`master`）和端口（`1234`））：
+
+   ```
+   PS C:\Users\wsxq2> telnet master 1234
+   ```
+
+   在 Wireshark 中查看是否抓到如下数据包（即查看 TCP 三次握手是否成功）：
+   ```
+   1	0.000000	192.168.56.100	192.168.56.11	TCP	66	8754 → 1234 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 WS=256 SACK_PERM=1
+   2	0.000306	192.168.56.11	192.168.56.100	TCP	66	1234 → 8754 [SYN, ACK] Seq=0 Ack=1 Win=29200 Len=0 MSS=1460 SACK_PERM=1 WS=128
+   3	0.000369	192.168.56.100	192.168.56.11	TCP	54	8754 → 1234 [ACK] Seq=1 Ack=1 Win=525568 Len=0
+   ```
+
+   如果失败，说明你和你的服务器上的用于科学上网的端口无法连接。可能是因为端口没有开启啊之类的原因导致的
+   
+1. 测试你的客户端软件是否开启。使用如下命令：
+   ```
+   PS C:\Users\wsxq2> netstat -ano|findstr "LISTENING"
+     TCP    0.0.0.0:135            0.0.0.0:0              LISTENING       576
+     TCP    0.0.0.0:445            0.0.0.0:0              LISTENING       4
+     TCP    0.0.0.0:1080           0.0.0.0:0              LISTENING       11328
+     TCP    0.0.0.0:1536           0.0.0.0:0              LISTENING       684
+     TCP    0.0.0.0:1537           0.0.0.0:0              LISTENING       1484
+     TCP    0.0.0.0:1538           0.0.0.0:0              LISTENING       1368
+     TCP    0.0.0.0:1539           0.0.0.0:0              LISTENING       2928
+     TCP    0.0.0.0:1545           0.0.0.0:0              LISTENING       828
+     TCP    0.0.0.0:1547           0.0.0.0:0              LISTENING       840
+     TCP    0.0.0.0:5040           0.0.0.0:0              LISTENING       5416
+     TCP    0.0.0.0:5938           0.0.0.0:0              LISTENING       3708
+     TCP    0.0.0.0:7680           0.0.0.0:0              LISTENING       13036
+     TCP    0.0.0.0:23443          0.0.0.0:0              LISTENING       11196
+     TCP    10.177.15.93:139       0.0.0.0:0              LISTENING       4
+     TCP    127.0.0.1:1081         0.0.0.0:0              LISTENING       11528
+     TCP    127.0.0.1:1562         0.0.0.0:0              LISTENING       9864
+     TCP    127.0.0.1:4300         0.0.0.0:0              LISTENING       10268
+     TCP    127.0.0.1:4301         0.0.0.0:0              LISTENING       10268
+     TCP    127.0.0.1:5939         0.0.0.0:0              LISTENING       3708
+     TCP    127.0.0.1:10000        0.0.0.0:0              LISTENING       3448
+     TCP    127.0.0.1:28317        0.0.0.0:0              LISTENING       3696
+     TCP    127.0.0.1:41830        0.0.0.0:0              LISTENING       16080
+     TCP    127.0.0.1:54530        0.0.0.0:0              LISTENING       9072
+     TCP    127.0.0.1:62783        0.0.0.0:0              LISTENING       14884
+     TCP    127.0.0.1:65000        0.0.0.0:0              LISTENING       3220
+     TCP    127.0.0.1:65001        0.0.0.0:0              LISTENING       3220
+     TCP    169.254.64.217:139     0.0.0.0:0              LISTENING       4
+     TCP    192.168.56.100:139     0.0.0.0:0              LISTENING       4
+     TCP    [::]:135               [::]:0                 LISTENING       576
+     TCP    [::]:445               [::]:0                 LISTENING       4
+     TCP    [::]:1080              [::]:0                 LISTENING       11328
+     TCP    [::]:1536              [::]:0                 LISTENING       684
+     TCP    [::]:1537              [::]:0                 LISTENING       1484
+     TCP    [::]:1538              [::]:0                 LISTENING       1368
+     TCP    [::]:1539              [::]:0                 LISTENING       2928
+     TCP    [::]:1545              [::]:0                 LISTENING       828
+     TCP    [::]:1547              [::]:0                 LISTENING       840
+     TCP    [::]:5938              [::]:0                 LISTENING       3708
+     TCP    [::]:7680              [::]:0                 LISTENING       13036
+     TCP    [::1]:1546             [::]:0                 LISTENING       2488
+   PS C:\Users\wsxq2>
+   ```
+   在其中找到你设置的本地端口号（SS Local），通常为 1080。
+   
+如果上述测试均成功，那可能是你的配置文件有问题，包括服务器和客户端，请仔细检查
+   
 ## 链接
 下面总结了本文中使用的所有链接：
 
