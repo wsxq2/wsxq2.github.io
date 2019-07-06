@@ -1,6 +1,6 @@
 ---
 tags: [kali,shadowsocks,shadowsocksr,科学上网]
-last_modified_time: 2019-07-05 00:00:44 +0800
+last_modified_time: 2019-07-06 21:06:04 +0800
 ---
 
 > * TODO: 本文正在更新中，每天都会有新内容 <2019-07-02>
@@ -33,11 +33,24 @@ last_modified_time: 2019-07-05 00:00:44 +0800
   * [配置你的服务器（VPS）](#配置你的服务器vps)
   * [配置你的客户端](#配置你的客户端)
   * [测试](#测试)
-* [SSH 的`-D`参数](#ssh-的-d参数)
+* [代理](#代理)
   * [简介](#简介)
+  * [HTTP 代理](#http-代理)
+    * [HTTP 协议](#http-协议)
+    * [基于 GET、POST 方法的代理](#基于-getpost-方法的代理)
+    * [基于 CONNECT 方法的代理](#基于-connect-方法的代理)
+    * [在 VPS 上搭建 HTTP 代理](#在-vps-上搭建-http-代理)
+  * [SOCKS 代理](#socks-代理)
+    * [Socks 协议模型](#socks-协议模型)
+    * [Socks协议的优缺点](#socks协议的优缺点)
+    * [在 VPS 上搭建 SOCKS 代理](#在-vps-上搭建-socks-代理)
+  * [其它代理](#其它代理)
+  * [小结](#小结)
+* [SSH 的`-D`参数](#ssh-的-d参数)
+  * [简介](#简介-1)
   * [原理](#原理)
   * [操作步骤](#操作步骤)
-  * [小结](#小结)
+  * [小结](#小结-1)
 * [Shadowsocks](#shadowsocks)
   * [是什么](#是什么)
   * [运行原理](#运行原理)
@@ -56,7 +69,7 @@ last_modified_time: 2019-07-05 00:00:44 +0800
       * [设置 PAC 自动代理](#设置-pac-自动代理)
       * [优化](#优化)
 * [shadowsocksr](#shadowsocksr)
-  * [简介](#简介-1)
+  * [简介](#简介-2)
   * [基本原理](#基本原理)
   * [安全性](#安全性-1)
   * [实现](#实现-1)
@@ -67,11 +80,12 @@ last_modified_time: 2019-07-05 00:00:44 +0800
       * [SSR Local 连接到 SSR Server](#ssr-local-连接到-ssr-server)
       * [PC 连接到 SSR Local](#pc-连接到-ssr-local)
         * [浏览器全局代理](#浏览器全局代理)
-        * [浏览器自动代理](#浏览器自动代理)
+        * [系统全局代理](#系统全局代理)
+        * [真·系统全局代理（透明代理）](#真系统全局代理透明代理)
+        * [通过 SOCKS 代理进行 DNS 查询](#通过-socks-代理进行-dns-查询)
         * [转换 SOCKS 代理为 HTTP 代理](#转换-socks-代理为-http-代理)
-          * [安装并配置 Polipo](#安装并配置-polipo)
-        * [全局系统代理](#全局系统代理)
-        * [PAC 代理配置](#pac-代理配置)
+        * [浏览器自动代理](#浏览器自动代理)
+        * [PAC（代理自动配置）](#pac代理自动配置)
         * [关于终端下的代理设置](#关于终端下的代理设置)
           * [终端代理环境变量](#终端代理环境变量)
           * [使用程序的代理相关参数](#使用程序的代理相关参数)
@@ -79,7 +93,11 @@ last_modified_time: 2019-07-05 00:00:44 +0800
 * [测试](#测试-1)
   * [通用测试方法](#通用测试方法)
   * [常用工具](#常用工具)
+    * [本地工具](#本地工具)
+    * [在线工具](#在线工具)
   * [科学上网问题测试思路](#科学上网问题测试思路)
+* [进一步阅读](#进一步阅读)
+* [总结](#总结-1)
 * [链接](#链接)
 
 <!-- vim-markdown-toc -->
@@ -149,12 +167,15 @@ last_modified_time: 2019-07-05 00:00:44 +0800
 
   * 无需科学上网的官网地址：<https://bwh88.net/>
   * 无需科学上网的 clientarea 地址：<https://bwh88.net/clientarea.php>
+  * [Kiwi VM Control Panel - blacklistcheck](https://kiwivm.64clouds.com/main-exec.php?mode=blacklistcheck)：GFW 黑名单检查。要求先进入**KiwiVM Control Panel**。
+  * [bwhstatus](https://bwhstatus.com/)：看起来很有用的样子
 
 * [vultr](https://www.vultr.com/)：曾经尝试过使用它，但是其 IP 地址大多被封，因为我试了好几个都没有找到没被封的，于是就放弃了
 * virmach：一个好友用过，价格也比较便宜（200元/年），但是速度较慢（20KB/s，20Mbps带宽）、延迟较高（`376ms`）。以上是我的测试，我的好友的测试结果和我截然相反，他那边速度较快（`1MB/s`，100Mbps带宽）、延迟较低（`250ms`左右）
 * 其他：hostdare cloudcone hosthatch anynode hostsolutions hostflyte justhost sentris gullo cheapnat GCP xenspec。以上 VPS 提供商笔者和笔者的好友都没有用过，它们是热心网友推荐的
 
 ##### 使用的方案
+* 通用代理服务器：起初 GFW 没有现在这么强大的时候，大家可以通过简单的通用代理服务器上网。这里的通用代理服务器指的是 HTTP 代理服务器和 SOCKS 代理服务器。其中 HTTP 代理服务器最为常用。虽然该方案对于现今的 GFW 已经没有作用，但其原理和相关协议（例如 socks5 ）依然在使用。比如大家熟知的 SS 便在本地主机上搭建了一个 SOCKS 代理服务器（监听地址通常为`127.0.0.1 1080`）
 * SSH：使用 OpenSSH 软件包中`ssh`命令的 `-D` 参数即可实现科学上网。该方法的前提是你可以通过 SSH 成功连上你的服务器，且你的服务器能访问国外网站（如谷歌等）。优点在于简单方便，缺点在于需要支持`ssh`命令的`-D`参数（OpenSSH 和 Putty 均支持）。具体参见后文 [SSH](#ssh)
 * VPN：未曾尝试过。请自行研究
 * SS：使用 shadowsocks 服务器端软件和客户端软件即可实现科学上网。虽然不少人说它凉了，但其开发依然活跃，尤其是 shadowsocks-libev（C语言版）。详情参见后文 [Shadowsocks](#shadowsocks)
@@ -247,6 +268,120 @@ VPS，全称 Virtual Private Sever，即虚拟专用服务器。它是一个在�
 
 参见[测试](#测试-1)
 
+## 代理
+如前文所述，起初 GFW 没有现在这么强大的时候，大家可以通过简单的通用代理服务器实现科学上网。这里的通用代理服务器指的是 HTTP 代理服务器和 SOCKS 代理服务器。其中 HTTP 代理服务器最为常用。
+
+虽然通用代理对于现今的 GFW 已经没有作用，但其原理和相关协议（例如 socks5 ）依然在使用，包括现在的 SS、SSR、V2Ray，都和通用代理实现科学上网使用了几乎相同的原理。比如大家熟知的 SS 方案的服务器端便是相当于一个使用 SS 协议的代理（监听地址通常为`<VPS ip> 8388`），而其客户端则在本地主机上搭建了一个 SOCKS 代理服务器（监听地址通常为`127.0.0.1 1080`），通过这种双代理的方式实现科学上网
+
+### 简介
+> 代理（英语：Proxy）也称网络代理，是一种特殊的网络服务，允许一个网络终端（一般为客户端）通过这个服务与另一个网络终端（一般为服务器）进行非直接的连接。一些网关、路由器等网络设备具备网络代理功能。一般认为代理服务有利于保障网络终端的隐私或安全，防止攻击。
+> 
+> ——引用自[代理服务器 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8#%E6%A0%B9%E6%8D%AE%E5%8D%8F%E8%AE%AE%E5%8C%BA%E5%88%86)
+
+代理的一般原理：`客户端（如你的浏览器）<->代理服务器（如你的 VPS）<->目标站点（如 www.google.com）`
+
+其中每个代理服务器都会运行一种或者多种代理协议。在网页浏览过程中使用到的代理协议主要有：基于 HTTP 的代理、Socks4 代理、Socks5 代理、以及基于服务器应用程序（如 SS/SSR/V2Ray Server）的代理。
+
+本部分的后面的内容（HTTP 代理，SOCKS 代理，基于服务器应用程序的代理）修改自 [有关几种网络代理协议的探讨 - 图文 - 百度文库](https://wenku.baidu.com/view/db37ded63186bceb19e8bbf6.html)。若侵权请联系<wsxq2@qq.com>删除
+
+### HTTP 代理
+HTTP 本身是一个用于 Web 的协议，但是其具有代理功能。为了使用它的代理功能，我们需要对 HTTP 协议有个大概的了解
+
+#### HTTP 协议
+HTTP 协议是一个属于应用层（参见 [OSI模型 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/OSI%E6%A8%A1%E5%9E%8B)）的协议。它于1990年提出，经过十几年的使用与发
+展，得到不断地完善和扩展。目前在 WWW 中主要使用的是 HTTP/1.1 版。 
+
+在 HTTP 协议中．主要有 GET、POST、CONNECT 和 HEAD 等请求方法。为了把服务器的请求信息传递给客户．HTTP 定义了以下四部分工作过程：
+
+1. 客户机建立起与服务器的连接。建立一次连接的过程是这样的．客户机打开一个套接字（Socket）并把它约束在一个端口上。打开一个套接字就是建立一个虚拟文件，当向文件上写完数据后，数据在网络上传输。在这之前，HTTP 服务器已在运行，监听某个端口（通常是 80 ）等待连接的建立。它们通过 TCP 三次握手进行连接
+1. 客户机向服务器发出请求，指出要检索的文档。连接建立以后，客户机就可以发出请求将请求数据发送到服务器指定的端口。例如：`GET <URI> HTTP/1.1`。其中`GET`是方法。用于从服务器请求一个由`<URI>`标识的资源对象。如果对象是文档或文件，GET 将请求其内容，如果对象是程序或脚本．GET 将请求程序的运行结果或脚本的输出。
+1. 服务器发出响应，包括状态码和文档的正文。当服务器接收到浏览器发出的请求时，搜索客户所需资源并响应。
+1. 客户机或者服务器任一方断开连接。
+
+有关 HTTP 协议的更多信息，请参见 [超文本传输协议 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE)
+
+#### 基于 GET、POST 方法的代理
+如前所述，HTTP 协议具有代理功能。其中最常用的便是基于 GET 和 POST 方法的代理。它们主要用于代理 HTTP 协议，结合缓存可以大大提高效率
+
+在 HTTP 协议中规定了与代理相关的三个实体：
+1. 客户机(Client)：一个用于发送 HTTP 请求数据的应用程序。例如浏览器
+1. 服务器(Server)：一个接受 HTTP 请求数据并返回相应响应数据的应用程序。例如 Apache、Nginx 等
+1. 代理(Proxy)：一个中间程序，它可以充当一个服务器（接受客户机的请求）．也可以充当一个客户机（向服务器发起请求）。
+
+当客户端是用通常的代理模式时（即使用 GET 或者 POST 方法发出请求），在客户端与代理服务器建立连接后，代理服务器将收到请求命令。这时代理服务器应该截取主机名部分进行域名解析，并同该主机建立连接，将去掉主机名部分的请求命令转发给它，等待它做出响应，然后将得到的响应转发给客户端，最后断开连接。其工作下图所示：
+
+<!--picture 基于GET-POST方法的HTTP代理原理.png -->
+
+注：
+* 1．客户连接代理服务器，并发出客户请求；
+* 2．在本地缓存中无此资源时。连接到Internet；
+* 3. 从Internet上获得所请求的资源；
+* 4．将客户所请求的资源发送给客户；
+* 2'．代理服务系统检索缓存数据库；
+* 3'．如果客户请求的资源在数据库中．则直接将请求的资源发给代理服务器。
+
+由于 GET 和 POST 方法是工作在 HTTP 本层内，对代理服务器而言，接受或发送的数据都是可以理解的，这样它就可以将服务器应答的网页信息存储起来，当再有相同请求的时候，代理就可以快速的将客户端所需内容发送给客户端了。这个方法极大的提高了代理服务器的效率。
+
+#### 基于 CONNECT 方法的代理
+在 HTTP 代理中，还有一种隧道代理方式，那就是使用 CONNECT 方法来请求并建立隧道。CONNECT 方法请求代理服务器为客户端和目标服务器建立一个连接通道。这种方法可以用来代理任意应用层协议，如 SSH 等。类似于 SOCKS 协议
+
+在 CONNECT 方法中，请求命令行的请求 URI 部分总是指明请求连接的目的主机名和端口号，由冒号分隔。例如：
+
+```
+CONNECT example．com：80 HTYP／1．1
+Host：example．com：80
+```
+
+在代理服务器作出成功的响应后，由客户端到服务器的隧道就被建立起来了。这种代理方式实际上是工作在应用层之下，因此代理服务器并不能对客户端与服务器发送来的数据进行理解．而只是简单的转发，所以基于 CONNECT 方法的代理方法不能进行缓存，但是它能够进行级联，也就是可以连接到下一个代理服务器进行中转。
+
+#### 在 VPS 上搭建 HTTP 代理
+使用 apache、Nginx 均可，不过如果只是为了实现 HTTP 代理，它们显得过于庞大了。作为替代，可以选择使用 [tinyproxy](https://github.com/tinyproxy/tinyproxy)。tinyproxy 是一个小巧且高效的 HTTP/HTTPS 代理服务器。
+
+但是由于这种方法已经过时，故本文不会细讲，只是提一下，加深对代理的理解
+
+### SOCKS 代理
+Socks 代理协议是从 1990 年开始发展的，此后，就一直作为 Internet RFC 中的开放标准。目前，主要有两个版本的 Socks 协议，版本4和版本5。Socks版本4被简写为“Socks4”，Socks版本5被简写为“Socks5”。与 HTTP 协议不同，Socks 协议实际上是一个纯代理协议。Socks 协议从概念上来讲是介于应用层和传输层之间的“中介层(shim—layer)”，因而实际上是一个“全能”的代理协议，可以代理各种应用层协议，而不仅仅局限于代理 HTTP 协议。
+
+#### Socks 协议模型
+Socks4 协议执行三个功能：连接请求、代理链路的建立和应用数据中转。Socks5协议增加了鉴别功能。其控制流程图如下所示：
+
+<!--picture SOCKS协议控制流程图.png -->
+
+上图显示了 Socks5 控制流模型，虚线框中的部分代表 Socks4 的功能。
+
+当应用客户在需请求外部网络的应用服务器服务时，首先与 Socks 服务器建立连接。它向 Socks 服务器发出连接请求及相关的信息，如所支持的鉴别方法列表。Socks 服务器接到消息后，检查安全配置策略，返回服务器选择的安全鉴别方法。Socks 客户再对服务器所作选择进行验证．Socks 客户及服务器分别根据选择的鉴别方法进行处理。Socks 客户向 Socks 服务器发送代理请求。Socks 服务器处理客户的请求，设置代理链路，建立与应用服务器的连接，并向 Socks 客户发送设置状态。而后。Socks 服务器在 Socks 客户与应用服务器之间中转数据。 
+
+更多相关信息请参见 [SOCKS - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/SOCKS)
+
+#### Socks协议的优缺点
+优点：
+1. Socks 协议是一个纯代理协议，因此比 HTTP 更高效。它可以进行级联。
+1. Socks4 协议由于较为简单．只能简单的按源地址进行访问控制；而 Socks5 协议可以有多种访问控制机制，还可以进行域名地址解析，更进一步减少了客户端的工作量。
+
+缺点：
+1. Socks协议不是应用层代理协议．它并不能理解所代理的网络协议内容，因此不能通过进行本地缓存来提高访问速度。
+
+#### 在 VPS 上搭建 SOCKS 代理
+使用 [SS5](http://ss5.sourceforge.net/) 即可
+
+但是由于这种方法已经过时，故本文不会细讲，只是提一下，加深对代理的理解
+
+### 其它代理
+该部分是笔者自己的理解，为了为后文作铺垫，仅供参考。
+
+上述的两种代理（HTTP 和 SOCKS）是极为常见的代理方式。但是它们都不提供额外加密（更不提供混淆）的功能，即如果要访问的目标服务器使用的是 HTTP 协议（明文传输，不安全），则客户端和代理服务器间的数据也是明文。因此如果在你（客户端）和你的 VPS（代理服务器）间使用 HTTP 或 SOCKS 协议，那么 GFW 很容易检测到相关特征（如对于明文可以直接进行内容过滤、对于 HTTPS 可以使用 SNI 阻断等）。因此，就需要能对流量进行额外加密的代理协议，比如 SSH、SS、SSR、V2Ray 等等。这些正是后文要讲的内容
+
+SSH, SS, SSR, V2Ray 在的原理总体上和上述的两种代理一样，都是由客户端发送数据到代理服务器，再由代理服务器向目标站点发出请求。但是在客户端这个地方有个本地代理（`127.0.0.1 1080`），这是上述的两种代理所没有的。原因也很简单，因为上述协议都比较复杂，浏览器等应用程序不可能实现它们的客户端（而浏览器等应用通常实现了 SOCKS 代理客户端，即将 HTTP 请求数据转换为 SOCKS 数据再发送给 SOCKS 代理服务器），所以需要一个独立的客户端应用程序作为中介
+
+对于 SSH （主要指它的动态端口转发，即`-D`参数）而言，这个中介就是 SSH 客户端，如 OpenSSH Client、Putty 等。由浏览器发出的数据通过浏览器本身将 HTTP 请求转换为 SOCKS 数据再发送给 SSH 客户端，再由 SSH 客户端将发来的数据加密通过 SSH 隧道传输到代理服务器，再由代理服务器向目标站点请求数据。
+
+类似地，对于 SS 而言，这个中介就是 SS 客户端，例如用于 Windows 的 shadowsocks-windows，用于 Linux 的 shadowsocks-libev 中的`ss-local`等。由浏览器发出的数据通过浏览器本身将 HTTP 请求转换为 SOCKS 数据再发送给 SS 客户端，再由 SS 客户端将发来的数据加密，然后将加密后的数据发送到代理服务器，再由代理服务器向目标站点请求数据。
+
+而 SSR、V2Ray 也类似，故不再赘述
+
+### 小结
+本文对进行 www 访问使用的几种代理方式：基于 HTTP 的代理、SOCKS 代理、其它代理（包括 SSH、SS、SSR、V2Ray），分析了它们各自的工作过程。结果显示，基于 HTTP 协议的代理方式由于可以使用缓存机制，能够达到较好的代理性能：而 socks 代理则功能最强，可以进行级联。然而，它们现在都已经不能用于科学上网，相应地，其它代理则更能满足科学上网的需求，包括 SS、SSR、V2Ray 等等
+
 
 ## SSH 的`-D`参数
 ### 简介
@@ -326,7 +461,7 @@ plink -batch -N -D 1080 -load <your_saved_session> #for Windows + PuTTY
 
 此方法截止 2018-10-20 已不可用。建议使用本文中的其它方法（可以逐个尝试）
 
-2019-06-30 更新： 事实上，`shadowsocks`并非真的不可用了，毕竟现在 [shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev) 还在更新（其开发相当活跃），而且不少机场都是用的`shadowsocks`（如搬瓦工官方机场[justmysocks](https://justmysocks1.net/members/index.php)）。所以当时我那个服务器上的`shadowsocks`不可用了应该另有其它原因
+2019-06-30 更新： 事实上，`shadowsocks`并非真的不可用了，毕竟现在 [shadowsocks-libev](https://github.com/shadowsocks/shadowsocks-libev) 还在更新（其开发相当活跃），而且不少机场都是用的`shadowsocks`（如搬瓦工官方机场[justmysocks](https://justmysocks1.net/members/index.php)）。所以当时我那个服务器上的`shadowsocks`不可用了应该另有其它原因。另外 2017 年 IHMSC 上发表的[使用机器学习探测 shadowsocks 流量的论文](https://ieeexplore.ieee.org/document/8048116)存在[争议](https://www.zhihu.com/question/66531978)
 
 ### 是什么
 > &emsp;&emsp;Shadowsocks（简称SS）是一种基于Socks5代理方式的加密传输协议，也可以指实现这个协议的各种开发包。当前包使用Python、C、C++、C#、Go语言等编程语言开发，大部分主要实现（iOS平台的除外）采用Apache许可证、GPL、MIT许可证等多种自由软件许可协议开放源代码。Shadowsocks分为服务器端和客户端，在使用之前，需要先将服务器端程序部署到服务器上面，然后通过客户端连接并创建本地代理。
@@ -648,6 +783,9 @@ systemctl enable shadowsocks-libev-local@client
 
 上述所有信息来源于 [shadowsocksrr](https://github.com/shadowsocksrr)
 
+**温馨提示**：对于 shadowsocksr-csharp（Windows SSR 客户端）而言，它的本地代理是个全能代理，同一端口支持socks4/socks4a/socks5/http（通过 privoxy）（参见 [BRITE'S BLOG.人生在世，看得穿，又看得远者prevail everywhere.: ShadowsocksR CSharp](http://www.briten.info/2015/09/shadowsocksr-csharp.html)）
+
+
 注意其中的服务器和客户端一栏，通常而言，可用于服务器端的话就能用于客户端，所以 shadowsocksr 和 shadowsocks-libev 均为`both`。此外令人震惊的是，上述所有软件的最近一次更新全是由 [Akkariiin (Akkariiin)](https://github.com/Akkariiin ) 完成的，当然，也可能只是因为他恰好负责打包和发布这一工作
 
 ### 使用方法
@@ -662,6 +800,8 @@ systemctl enable shadowsocks-libev-local@client
   * 使用的 SSR 客户端：shadowsocksr（Python 版）。
 
 ##### SSR Local 连接到 SSR Server
+2019-07-05 更新： 该部分阐述了如何让 SSR Local 连接到 SSR Server。在 SSR Local 和 SSR Server 通信的过程中使用的协议为 SSR
+
 使用 Python 版之所以使用 Python 版，是因为我只找到 Python 版的，/笑哭。 这一步是最重要的，后面的方法都建立在这个基础之上
 
 2019-07-03 更新：事实上，SSR 现在可用的 Linux 客户端有三个，shadowsocksr, shadowsocksr-libev, electron-ssr，参见前面的 [SSR 实现](#实现-1)部分
@@ -729,7 +869,7 @@ systemctl enable shadowsocks-libev-local@client
    简要说一下上面那个函数`ssr`的用法：直接在 bash 中输入`ssr`后回车则后台启动（关闭终端也能继续运行）ssr客户端，输入`ssr <任意字符>`则关闭已启动的ssr客户端。
 
 ##### PC 连接到 SSR Local
-2019-07-03 更新： 该部分阐述了如何让 SSR Local 监听到数据，即如何让程序走代理
+2019-07-03 更新： 该部分阐述了如何让 SSR Local 监听到数据，即如何让程序走代理。也被称作本地代理，使用的协议为 socks5。
 
 ###### 浏览器全局代理
 2019-07-04 更新：本部分的目标在于让浏览器浏览所有网页时都走代理。只需在浏览器中设置手动代理即可
@@ -737,33 +877,118 @@ systemctl enable shadowsocks-libev-local@client
 以 FireFox 为例：
 
 1. 找到浏览器中的手动代理设置的位置：点击右上角的菜单，选择**Preferences**，选择**General**，滑到最下面，选择**Network Proxy**标签下的**Settings**，选择**Manual proxy configuration**
-1. 配置：找到**SOCKS Host**一栏，填入`127.0.0.1`和`1080`，在下面选择**SOCKS v5**，并在之后的**No Proxy for**中填入不需要代理的网址或IP地址或网段。
+1. 配置：找到**SOCKS Host**一栏，填入`127.0.0.1`和`1080`，在下面选择**SOCKS v5**，其它栏留空（如**HTTP Proxy**）。并在之后的**No Proxy for**中填入不需要代理的网址或 IP 地址或网段（例如 127.0.0.1、192.168.0.0/16等）。
 
-   2019-07-04 更新：记得勾选下方的**Proxy DNS when using SOCKS v5**以防止 GFW 的 DNS 污染
+   2019-07-04 更新：记得勾选下方的**Proxy DNS when using SOCKS v5**以防止 GFW 的 DNS 污染。此外，对第 2 步的手动配置代理中的说明如下：
+
+   **HTTP Proxy**：HTTP 代理服务器地址。须知，使用前面的方法在`127.0.0.1 1080`处搭建的代理服务器是 SOCKS 代理服务器（不是 HTTP 代理服务器），且使用的是 socks5 协议（不是 socks4/socks4a 协议）。所以在这里填写`127.0.0.1 1080`将无法访问（即必须留空）
+   **SSL Proxy**：访问 HTTPS 站点时使用的代理服务器地址，其实就是 HTTP 代理服务器地址。留空原因同上
+   **FTP Proxy**：访问 FTP 站点时使用的代理服务器地址，其实就是 HTTP 代理服务器地址（不过需要注意的是 FTP 代理是存在的，例如使用工具`ftp.proxy`）。留空原因同上
+   **SOCKS Host**：访问任意站点时使用的代理服务器地址。
 
 完！
 
 这时便可以访问<https://www.google.com>了，简单吧？
 
-###### 浏览器自动代理
-2019-07-04 更新：本部分的目标在于让浏览器根据浏览的网站的不同自动选择是否走代理，例如对于国外网站走代理，对于国内网站不走代理。方法也很简单，使用浏览器插件即可，FireFox 用 FoxyProxy，Chrome 用 SwitchyOmega。
+###### 系统全局代理
+在系统设置中的网络代理方式设为**手动**，并将相应的**Socks Host**改为`127.0.0.1 1080`即可。具体步骤如下：
 
-FoxyProxy 是 Firefox 浏览器中的一个非常好用的代理插件。因为有科学上网需求的主要是浏览器，故若只是为了让浏览器科学上网，则可采用此方法。当然，如果用的是 Chrome ，则可采用 Chrome + SwitchyOmega 的方案替代之。
+1. 设置系统手动代理：设置->网络->网络代理，方式改为**手动**，**SOCKS Host**改为`127.0.0.1 1080`，其它留空（留空的理由和前文类似）
+   
+   **温馨提示**：该处的设置依赖于`network-manager`服务，应确保其正在运行。（有的人因为`network-manager.service`和`networking.service`冲突所以采取网上的建议将`network-manager.service`给禁用了，结果导致系统设置中和网络相关的设置均不可用。好吧，说的就是我自己`-_-`）可以使用`systemctl`命令查看`network-manager.service`的状态，如下所示：
+   ```
+   root@kali:~# systemctl status network-manager.service 
+   ● NetworkManager.service - Network Manager
+      Loaded: loaded (/lib/systemd/system/NetworkManager.service; enabled; vendor preset: enabled)
+      Active: active (running) since Thu 2019-07-04 23:30:33 CST; 19h ago
+        Docs: man:NetworkManager(8)
+    Main PID: 396 (NetworkManager)
+       Tasks: 3 (limit: 4695)
+      Memory: 13.8M
+      CGroup: /system.slice/NetworkManager.service
+              └─396 /usr/sbin/NetworkManager --no-daemon
+   
+   7月 04 23:30:35 kali.abc.com NetworkManager[396]: <info>  [1562254235.6270] manager: NetworkManager state is now CONNECTED_GLOBAL
+   7月 04 23:30:35 kali.abc.com NetworkManager[396]: <info>  [1562254235.7143] modem-manager: ModemManager available
+   7月 04 23:30:35 kali.abc.com NetworkManager[396]: <info>  [1562254235.7188] device (eth0): state change: disconnected -> prepare (reason 'none', sys-iface-state: 'external')
+   7月 04 23:30:35 kali.abc.com NetworkManager[396]: <info>  [1562254235.7203] device (eth0): state change: prepare -> config (reason 'none', sys-iface-state: 'external')
+   7月 04 23:30:35 kali.abc.com NetworkManager[396]: <info>  [1562254235.7210] device (eth0): state change: config -> ip-config (reason 'none', sys-iface-state: 'external')
+   7月 04 23:30:35 kali.abc.com NetworkManager[396]: <info>  [1562254235.7215] device (eth0): state change: ip-config -> ip-check (reason 'none', sys-iface-state: 'external')
+   7月 04 23:30:35 kali.abc.com NetworkManager[396]: <info>  [1562254235.7226] device (eth0): state change: ip-check -> secondaries (reason 'none', sys-iface-state: 'external')
+   7月 04 23:30:35 kali.abc.com NetworkManager[396]: <info>  [1562254235.7233] device (eth0): state change: secondaries -> activated (reason 'none', sys-iface-state: 'external')
+   7月 04 23:30:35 kali.abc.com NetworkManager[396]: <info>  [1562254235.8065] device (eth0): Activation: successful, device activated.
+   7月 04 23:30:35 kali.abc.com NetworkManager[396]: <info>  [1562254235.8200] manager: startup complete
+   root@kali:~# 
+   ```
+   
+   另外，这一步中的设置完成后，每次打开新终端的时候，检查代理相关的环境变量，你会发现：
+   ```
+   root@kali:~# env|grep -i proxy
+   ALL_PROXY=socks://127.0.0.1:1080/
+   no_proxy=
+   NO_PROXY=
+   all_proxy=socks://127.0.0.1:1080/
+   root@kali:~# 
+   ```
 
-1. 安装`FoxyProxy`插件：<https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/>
-2. 设置`FoxyProxy`选项：
-   1. **Add Proxy**: `Proxy Type`选`SOCKS5`，`IP address`填`127.0.0.1`，`Port`填`1080`，记得最后点下`Save`
-   2. 添加`Patterns`: 在选项主界面，点击刚刚添加的`Proxy`的`Patterns`，根据自己的需要添加`Patterns`
-3. 启用`FoxyProxy`：单击浏览器中右上角相应的图标，选择`Use Enabled Proxies By Patterns and Priority`
-4. 测试：输入网址`www.google.com`看是否访问成功
+   所以这个步骤的实质只是设置了下环境变量 :joy:
+
+   假如你在系统的网络代理设置中将所有代理均设置为`127.0.0.1 1080`且**Ignore Hosts**设置为`127.0.0.1, 192.168.0.0/16`，那么在新打开的终端中检查代理相关的环境变量，你会发现：
+   ```
+   root@kali:~# env|grep -i proxy
+   HTTP_PROXY=http://127.0.0.1:1080/
+   FTP_PROXY=http://127.0.0.1:1080/
+   https_proxy=http://127.0.0.1:1080/
+   http_proxy=http://127.0.0.1:1080/
+   ALL_PROXY=socks://127.0.0.1:1080/
+   no_proxy=127.0.0.1,192.168.0.0/16
+   NO_PROXY=127.0.0.1,192.168.0.0/16
+   HTTPS_PROXY=http://127.0.0.1:1080/
+   all_proxy=socks://127.0.0.1:1080/
+   ftp_proxy=http://127.0.0.1:1080/
+   root@kali:~# 
+   ```
+   
+   同样印证了上述结论——在 Kali 系统设置中的网络代理设置处进行手动代理设置实质上是修改了代理相关的环境变量
+
+   需要注意的是（如前文所述），通用代理只有两种：HTTP 代理（使用 http 协议）和 SOCKS 代理（使用 socks4/socks4a/socks5 协议）。即代理相关环境变量中，每个变量`=`后面的协议部分必需是`http/socks4/socks4a/socks5`之一（对于`curl`还支持`socks5h`）
+   
+   
+2. 测试：打开浏览器，输入网址`www.google.com`看是否访问成功
+   
+   2019-07-05 更新：如果使用的浏览器是 FireFox，则还需要将网络代理设置为**Use system proxy settings**。同样要记得勾选下方的**Proxy DNS when using SOCKS v5**以防止 GFW 的 DNS 污染
+
+###### 真·系统全局代理（透明代理）
+如前所述，在 Kali 系统设置中的网络代理设置处进行手动代理设置实质上是修改了代理相关的环境变量。对于 linux 下不支持代理的程序而言，前面的设置并没有什么用，即并非真的实现了全局代理。那么如果要实现真正意义上的全局代理，即让所有应用都经过代理服务器该怎么办？答案是使用 tsocks：
+
+* [tsocks 官网](http://tsocks.sourceforge.net/)
+* [tsocks 下载链接](https://sourceforge.net/projects/tsocks/files/tsocks/)
+* [tsocks 手册](https://linux.die.net/man/8/tsocks)
+
+> tsocks 利用 LD_PRELOAD 机制，代理程序里的`connect`函数，然后就可以代理所有的 TCP 请求了。不过对于 dns 请求，默认是通过 udp 来发送的，所以 tsocks 不能代理 dns 请求。
+> 
+> 默认情况下，tsocks 会先加载`~/.tsocks.conf`，如果没有，再加载`/etc/tsocks.conf`。对于 local ip 不会代理。
+> 
+> 使用方法：
+> 
+> ```
+> sudo apt-get install tsocks
+> LD_PRELOAD=/usr/lib/libtsocks.so wget http://www.facebook.com
+> ```
+> 
+> ——引用自[科学上网的一些原理 \| 横云断岭的专栏](http://hengyunabc.github.io/something-about-science-surf-the-internet/)
+
+###### 通过 SOCKS 代理进行 DNS 查询
+使用 [dns2socks](https://sourceforge.net/projects/dns2socks/)（Github 上也有其项目地址<https://github.com/qiuzi/dns2socks>）或 [overture](https://github.com/shawn1m/overture)
+
+具体步骤就不详述了
 
 ###### 转换 SOCKS 代理为 HTTP 代理
-2019-07-04 更新：相关的工具有很多。这里使用的工具是 Polipo
+2019-07-04 更新：相关的工具有很多，例如 Polipo、privoxy等。这里使用的工具是 Polipo。需要注意的是 Polipo 最后一次更新是在 2014-05-15（参见 [Polipo - Wikipedia](https://en.wikipedia.org/wiki/Polipo)）
 
-####### 安装并配置 Polipo
-> **温馨提示**：由于网页只支持到 6 级标题，所以这个 7 级标题变成了这个样子 :joy:
+如前所述，通用代理只有两种：HTTP 代理（使用 HTTP 协议）和 SOCKS 代理（使用 socks4/socks4a/socks5 协议）。最常见且最普及的是前者，有的应用不支持后者。所以为了让那些不支持 SOCKS 代理的应用程序使用代理，需要将 SOCKS 转换为 HTTP 代理。
 
-`Polipo`可以用来将`SOCKS`的代理转换为`HTTP`的代理，从而使那些只支持`HTTP`代理的软件（如`wget`，部分浏览器，部分操作系统的全局代理）也可以科学上网
+`Polipo`可以用来将`SOCKS`的代理转换为`HTTP`的代理，从而使那些只支持`HTTP`代理的软件（如`wget`，部分浏览器，部分操作系统（如 Windows 就只支持 http 代理和 socks4 代理，这是我通过抓包分析发现的））也可以科学上网
 
 1. 安装`polipo`:
    ```
@@ -785,17 +1010,32 @@ FoxyProxy 是 Firefox 浏览器中的一个非常好用的代理插件。因为�
    ```
 4. 验证 polipo 是否正常工作：
    ```
-   export http_proxy="http://127.0.0.1:8123/"
+   export http_proxy=http://127.0.0.1:8123/
    curl www.google.com
    ```
    如果正常，就会返回抓取到的 Google 网页内容。可通过`man polipo`查看其帮助文档。
   
-###### 全局系统代理
-在系统设置中的网络代理方式设为手动即可：
-1. 设置系统手动代理：设置->网络->网络代理，方式改为**手动**，HTTP、HTTPS、FTP均改为`0.0.0.0 8123`,SOCKS改为`127.0.0.1 1080`
-2. 测试：打开浏览器，输入网址`www.google.com`看是否访问成功
+###### 浏览器自动代理
+2019-07-04 更新：本部分的目标在于让浏览器根据浏览的网站的不同自动选择是否走代理，例如对于国外网站走代理，对于国内网站不走代理。方法也很简单，使用浏览器插件即可，FireFox 用 FoxyProxy，Chrome 用 SwitchyOmega。
 
-###### PAC 代理配置
+FoxyProxy 是 Firefox 浏览器中的一个非常好用的代理插件。因为有科学上网需求的主要是浏览器，故若只是为了让浏览器科学上网，则可采用此方法。当然，如果用的是 Chrome ，则可采用 Chrome + SwitchyOmega 的方案替代之。
+
+1. 安装`FoxyProxy`插件：<https://addons.mozilla.org/en-US/firefox/addon/foxyproxy-standard/>
+2. 设置`FoxyProxy`选项：
+   1. **Add Proxy**: `Proxy Type`选`SOCKS5`，`IP address`填`127.0.0.1`，`Port`填`1080`，记得最后点下`Save`
+   2. 添加`Patterns`: 在选项主界面，点击刚刚添加的`Proxy`的`Patterns`，根据自己的需要添加`Patterns`
+3. 启用`FoxyProxy`：单击浏览器中右上角相应的图标，选择`Use Enabled Proxies By Patterns and Priority`
+4. 测试：输入网址`www.google.com`看是否访问成功
+
+###### PAC（代理自动配置）
+> &emsp;&emsp;代理自动配置（英语：Proxy auto-config，简称PAC）是一种网页浏览器技术，用于定义浏览器该如何自动选择适当的代理服务器来访问一个网址。
+> 
+> &emsp;&emsp;一个PAC文件包含一个JavaScript形式的函数“FindProxyForURL(url, host)”。这个函数返回一个包含一个或多个访问规则的字符串。用户代理根据这些规则适用一个特定的代理器或者直接访问。当一个代理服务器无法响应的时候，多个访问规则提供了其他的后备访问方法。浏览器在访问其他页面以前，首先访问这个PAC文件。PAC文件中的URL可能是手工配置的，也可能是是通过网页的网络代理自动发现协议（WPAD）自动配置的。
+> 
+> &emsp;&emsp;——引用自[代理自动配置 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE)
+
+2019-07-06 更新：另外还可参见 [breakwa11/gfw_whitelist: gfw_whitelist](https://github.com/breakwa11/gfw_whitelist) 了解关于 PAC 的更多信息
+
 此方法主要使用了`genpac`（GENerate PAC file）生成 PAC 文件，并将系统设置中的网络代理方式改为自动，将其`Configuration URL`指向相应的 PAC 文件位置。具体过程如下：
 
 1. 安装`genpac`：
@@ -819,7 +1059,7 @@ FoxyProxy 是 Firefox 浏览器中的一个非常好用的代理插件。因为�
 
 ###### 关于终端下的代理设置
 ####### 终端代理环境变量
-
+如前文所述，通用代理只有两种：HTTP 代理（使用 http 协议）和 SOCKS 代理（使用 socks4/socks4a/socks5 协议）。即代理相关环境变量中，每个变量`=`后面的协议部分必需是`http/socks4/socks4a/socks5`之一（对于`curl`还支持`socks5h`）。如下所示则全将其设置为了`socks5`：
 ```
 # Set Proxy
 function sp(){
@@ -879,7 +1119,6 @@ function up() {
 
 3. `wget`: 似乎只支持`http`协议代理，支持上述的终端代理环境变量。不可单独设置代理以覆盖全局变量
    
-
 ## 通过已经可以科学上网的电脑实现科学上网
 也就是说，如果你有一台设备通过上述的方法之一实现了科学上网，那么你就可以借助那台设备轻松地让其它和那台设备**属于同一局域网的设备**实现科学上网。比如你的实体机实现了科学上网，那么对于你的kali虚拟机你就没必要想尽各种办法让它与你的实体机进行类似的配置以实现科学上网。具体方法如下：
 
@@ -908,6 +1147,25 @@ function up() {
 * `nc`。作为网络调试中的瑞士军刀，其功能非常强大。初始版本过旧，建议使用衍生版本，如`Ncat`（Nmap 官方出品）
 
 ### 常用工具
+#### 本地工具
+* `arp`（二层——数据链路层）
+* `ifconfig`, `ip`, `ipconfig`（三层——网络层）
+* `ping`, `traceroute`（三层——网络层）
+* `netstat`, `ss`（四层——传输层）
+* `telnet`, `nc`（四层——传输层）
+* `nslookup`, `dig`（五层——应用层）
+* `dhcpclient`（五层——应用层）
+
+
+#### 在线工具
+* 域名到期查询、whois、ip、同IP网站、DNS、网站备案、ping、网站测速、traceroute、CDN观测: <http://ping.chinaz.com/>
+* IP 可用性检测工具: <https://www.toolsdaquan.com/ipcheck/>
+* IP Location: <https://iplocation.com/>
+* 备案、IP地址、WHOIS、nslookup查询：<https://www.sojson.com/ip/>
+* 网站测速、ping、traceroute、nslookup、网速测试：<http://www.webkaka.com/shanxi.aspx>
+* traceroute, ping, webping, asn（自制系统编号）, cdn, httphead, dns, nslookup, ICP, IPv6, BT监测, 坐标拾取, IP与时间转换：<https://tools.ipip.net/httphead.php>
+* ping, traceroute, nslookup, whois, portcheck, reverse lookup, proxy checker, Bandwidth meter, Network calculator, Network mask calculator, Country by IP, Unit converter <https://ping.eu/>
+* 速度测试：<https://www.speedtest.net/>
 
 ### 科学上网问题测试思路
 1. 确保你的服务器可以访问谷歌，使用如下命令：
@@ -1029,7 +1287,23 @@ function up() {
    在其中找到你设置的本地端口号（SS Local），通常为 1080。
    
 如果上述测试均成功，那可能是你的配置文件有问题，包括服务器和客户端，请仔细检查
+
+## 进一步阅读
+* [目前热门科学上网方式介绍及优缺点简评 - 飞羽博客](https://cokebar.info/archives/236)
+* [科学上网原理与方案 \| upupming 的博客](https://upupming.site/2019/04/30/bypass-gfw/#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99)
+* [上网限制和翻墙基本原理 \| superxlcr's notebook](https://superxlcr.github.io/2018/07/01/%E4%B8%8A%E7%BD%91%E9%99%90%E5%88%B6%E5%92%8C%E7%BF%BB%E5%A2%99%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/)
+* [科学上网原理 · Issue #28 · Pines-Cheng/blog](https://github.com/Pines-Cheng/blog/issues/28)
+* [Tecrobe's Blog](https://tecrobe.github.io/blog/)
+* [科学上网的一些原理 \| 横云断岭的专栏](http://hengyunabc.github.io/something-about-science-surf-the-internet/)
    
+## 总结
+
+> 最后引用 SS 作者 clowwindy 的一段话：
+> 
+> 维护这个项目到现在大概总共回复过几千个问题，开始慢慢想清楚了一件事，为什么会存在GFW。从这些提问可以看出，大部分人的自理能力都很差，只是等着别人帮他。特别是那些从AppStore下载了App用着公共服务器的人，经常发来一封只有四个字的邮件：“不能用了？”我觉得这是一个社会常识，花一分钟写的问题，不能期待一个毫无交情的陌生人花一个小时耐心地问你版本和操作步骤，模拟出你的环境来帮你分析解决。Windows版加上GFWList功能以来，我反复呼吁给GFWList提交规则，但是一个月过去了竟然一个提交都没有。如果没有人做一点什么，它自己是不会更新的啊，没有人会义务地帮你打理这些。我觉得，政府无限的权力，都是大部分人自己放弃的。假货坑爹，让政府审核。孩子管不好，让政府关网吧。房价太高，让政府去限购。我们的文化实在太独特，创造出了家长式威权政府，GFW正是在这种背景下产生的，一个社会矛盾的终极调和器，最终生活不能自理的你每天做的每一件事情都要给政府审查一遍，以免伤害到其他同样生活不能自理的人。这是一个零和游戏，越和这样的用户打交道，越对未来持悲观态度，觉得GFW可能永远也不会消失，而墙内的这个局域网看起来还似乎生机勃勃的自成一体，真是让人绝望。
+> 
+> ——引用自[Linux 科学上网指南 \| Firmy’s blog](https://firmianay.github.io/2015/12/14/linux_ss.html)
+
 ## 链接
 下面总结了本文中使用的所有链接：
 

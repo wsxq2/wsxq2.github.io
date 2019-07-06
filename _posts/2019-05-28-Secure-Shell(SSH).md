@@ -1,6 +1,6 @@
 ---
 tags: [SSH,Secure Shell, OpenSSH, Dropbear, 非对称加密, TODO]
-last_modified_time: 2019-06-10 13:22:13 +0800
+last_modified_time: 2019-07-06 21:06:04 +0800
 ---
 
 Secure Shell（SSH）是一种加密的应用层网络协议，用于在**不安全的网络**上**安全地**运行网络服务。典型应用包括**远程命令行登录**和**远程命令执行**。事实上，可以使用 SSH 保护任何网络服务。
@@ -34,6 +34,10 @@ SSH 被设计为替代 Telnet 和其它不安全的远程 shell 协议，例如 
         * [Ubuntu](#ubuntu)
         * [CentOS](#centos)
       * [Windows 10](#windows-10)
+  * [PuTTY](#putty)
+    * [遇到的问题](#遇到的问题)
+      * [`pscp`无响应？](#pscp无响应)
+      * [`pscp`复制文件到 Linux 后中文文件名乱码？](#pscp复制文件到-linux-后中文文件名乱码)
   * [Dropbear](#dropbear)
 * [链接](#链接)
 
@@ -143,7 +147,23 @@ Install-Module -Force OpenSSHUtils -Scope AllUsers
 
 如果依然发现不能使用公钥/私钥登录你的 Windows 服务器，可参见如下链接： [ssh - Setting up OpenSSH for Windows using public key authentication - Stack Overflow](https://stackoverflow.com/questions/16212816/setting-up-openssh-for-windows-using-public-key-authentication#answer-50502015)
 
+### PuTTY
+官网：<https://www.putty.org/>
+最新版下载链接：<https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html>
+
+#### 遇到的问题
+##### `pscp`无响应？
+检查你的服务器上的`.bashrc`文件，看其中是否有输出命令（例如使用了`echo`），有输出的话将相关语句删除。参见 [PuTTY FAQ](https://the.earth.li/~sgtatham/putty/0.71/htmldoc/AppendixA.html#faq-trouble)中`PSCP`相关内容
+
+##### `pscp`复制文件到 Linux 后中文文件名乱码？
+使用`convmv`工具将文件名编码从`gbk`变为`utf8`：
+```
+yum install convmv -y
+convmv -f gbk -t utf8 -r --notest .
+```
+
 ### Dropbear
+
 
 ## 链接
 下面总结了本文中使用的所有链接：
