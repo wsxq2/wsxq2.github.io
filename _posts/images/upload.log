@@ -1792,3 +1792,142 @@
 2019/07/07 16:44:36 [I]             Skipped:        99
 2019/07/07 16:44:36 [I]            Duration:  11.766245337s
 2019/07/07 16:44:36 [I] ----------------------------------------
+2019/08/04 21:49:09 [I] Listing local sync dir, this can take a long time for big directory, please wait patiently
+2019/08/04 21:49:09 [I] Walk `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images` start from 2019-08-04 21:49:09.926606248 +0800 CST m=+1.786835258
+2019/08/04 21:49:09 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images`
+2019/08/04 21:49:09 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/16位汇编程序设计`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/ARP协议分析与攻击`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/DHCP协议分析与攻击`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/HTTP协议分析与攻击`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/Kali-Linux科学上网`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/LEDE软路由U盘制作并实现科学上网`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/U盘安装多个操作系统——理论`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/WoL技术`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/kali-linux-live-usb-persistence`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/关于在电脑商城购买电脑可能存在的套路`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/微信小程序《西电失物招领》`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/数据库设计——实践`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/数据库设计——理论`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/科学上网`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/组网与运维相关知识`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/网络编程笔记`
+2019/08/04 21:49:10 [I] Walking through `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/让你的博客能被搜索到`
+2019/08/04 21:49:10 [I] Walk `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images` end at 2019-08-04 21:49:10.692252027 +0800 CST m=+2.552481009
+2019/08/04 21:49:10 [I] Walk `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images` last for 765.792212ms
+2019/08/04 21:49:10 [I] Total file count cached 105
+2019/08/04 21:49:12 [I] File `16位汇编程序设计/8086处理器体系结构.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:12 [I] File `16位汇编程序设计/主存的分段结构之段寄存器的使用.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:12 [I] File `16位汇编程序设计/主存的双体结构.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:13 [I] File `16位汇编程序设计/主存结构.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:14 [I] File `16位汇编程序设计/寄存器结构.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:14 [I] File `16位汇编程序设计/寄存器结构说明.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:14 [I] File `16位汇编程序设计/汇编程序做了什么.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:15 [I] File `16位汇编程序设计/汇编程序做了什么2.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:15 [I] File `16位汇编程序设计/直接内存操作数.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:15 [I] File `16位汇编程序设计/编译链接和运行程序.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:16 [I] File `ARP协议分析与攻击/Linux查看ARP缓存表.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:16 [I] File `ARP协议分析与攻击/Windows查看ARP缓存表.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:17 [I] File `ARP协议分析与攻击/arpspoof的Python实现（命令帮助）.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:18 [I] File `ARP协议分析与攻击/arpspoof的Python实现（执行效果）.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:19 [I] File `ARP协议分析与攻击/arpspoof的Python实现（源码部分）.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:19 [I] File `ARP协议分析与攻击/kali使用arpspoof工具发起ARP欺骗攻击.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:19 [I] File `ARP协议分析与攻击/kali开启内核转发功能.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:20 [I] File `ARP协议分析与攻击/wireshark抓ARP包（攻击后）.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:20 [I] File `ARP协议分析与攻击/wireshark抓ARP应答报文.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:21 [I] File `ARP协议分析与攻击/wireshark抓ARP查询报文.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:21 [I] File `ARP协议分析与攻击/受害者使用ping访问外网.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:22 [I] File `ARP协议分析与攻击/受害者本地ARP缓存表（攻击后）.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:22 [I] File `ARP协议分析与攻击/受害者的本地缓存表（攻击之前）.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:23 [I] File `ARP协议分析与攻击/网络拓扑图（攻击前）.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:23 [I] File `ARP协议分析与攻击/网络拓扑图（攻击后）.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:25 [I] File `DHCP协议分析与攻击/DHCP协议攻击原理图.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:25 [I] File `DHCP协议分析与攻击/DHCP协议运行过程.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:25 [I] File `DHCP协议分析与攻击/DHCP服务器端日志分析.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:26 [I] File `DHCP协议分析与攻击/DHCP服务配置报错ignored（not-authoritative）解决方法.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:26 [I] File `DHCP协议分析与攻击/DHCP服务配置时报错：ignored（not-authoritative）.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:27 [I] File `DHCP协议分析与攻击/Ubuntu-server上安装DHCP服务实验拓扑图.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:28 [I] File `DHCP协议分析与攻击/Ubuntu-server安装DHCP服务.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:28 [I] File `DHCP协议分析与攻击/Ubuntu-server配置DHCP服务器.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:29 [I] File `DHCP协议分析与攻击/Ubunu-server查看DHCP服务状态.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:29 [I] File `DHCP协议分析与攻击/Windows10作DHCP客户端结果演示.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:29 [I] File `DHCP协议分析与攻击/Windows10客户端配置DHCP.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:30 [I] File `DHCP协议分析与攻击/Yersinia工具界面.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:30 [I] File `DHCP协议分析与攻击/linux临时开启路由转发功能.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:31 [I] File `DHCP协议分析与攻击/wireshark抓DHCP包.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:32 [I] File `DHCP协议分析与攻击/yersinia工具显示的DHCP包结构.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:32 [I] File `DHCP协议分析与攻击/使用ping命令和wireshark抓包验证DHCP欺骗攻击.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:33 [I] File `DHCP协议分析与攻击/使用tracert命令验证DHCP欺骗攻击.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:33 [I] File `DHCP协议分析与攻击/使用wireshark验证DHCP饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:34 [I] File `DHCP协议分析与攻击/使用yersinia发起DHCP饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:34 [I] File `DHCP协议分析与攻击/在Ubuntu-server上安装DHCP服务之客户端（win10）网络设置.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:35 [I] File `DHCP协议分析与攻击/在Ubuntu-server上安装DHCP服务之客户端（win10）网络设置2.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:35 [I] File `DHCP协议分析与攻击/在kali上安装并配置DHCP服务.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:36 [I] File `DHCP协议分析与攻击/在kali中开启DHCP服务并确认.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:36 [I] File `DHCP协议分析与攻击/在yersinia中停止DHCP饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:37 [I] File `DHCP协议分析与攻击/被攻击网络的拓扑图.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:37 [I] File `DHCP协议分析与攻击/让受害者强行受害后其获得的IP及网关信息.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:37 [I] File `DHCP协议分析与攻击/通过查看官方DHCP服务器的日志文件验证饥饿攻击.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:38 [I] File `HTTP协议分析与攻击/HTTP协议概览.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:38 [I] File `HTTP协议分析与攻击/HTTP响应头.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:39 [I] File `HTTP协议分析与攻击/HTTP请求头.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:40 [I] File `HTTP协议分析与攻击/wireshark抓HTTP响应包.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:40 [I] File `HTTP协议分析与攻击/wireshark抓HTTP请求包.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:40 [I] File `HTTP协议分析与攻击/wireshark跟踪HTTP流.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:41 [I] File `HTTP协议分析与攻击/获取成绩脚本运行结果.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:41 [I] File `Kali-Linux科学上网/bwg主机信息界面.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:42 [I] File `Kali-Linux科学上网/ss-qt5主界面.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:42 [I] File `LEDE软路由U盘制作并实现科学上网/rufus_lede.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:43 [I] File `LEDE软路由U盘制作并实现科学上网/网络拓扑图.pkt` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:44 [I] File `LEDE软路由U盘制作并实现科学上网/网络拓扑图.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:45 [I] File `U盘安装多个操作系统——理论/GUID_Partition_Table_Scheme.svg` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:45 [I] File `U盘安装多个操作系统——理论/UEFI_Shell_Spec_2_0.pdf` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:46 [I] File `WoL技术/wol-wireshark.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:46 [I] File `kali-linux-live-usb-persistence/rufus3.4p截图.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:46 [I] Skip by fixed string `.log` for local file path `upload.log`
+2019/08/04 21:49:46 [I] File `关于在电脑商城购买电脑可能存在的套路/戴尔G3笔记本15PR-7645BR京东秒杀报价.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:47 [I] File `关于在电脑商城购买电脑可能存在的套路/戴尔G3笔记本3579京东秒杀报价.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:47 [I] File `微信小程序《西电失物招领》/detailed-info页面.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:47 [I] File `微信小程序《西电失物招领》/find页面.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:48 [I] File `微信小程序《西电失物招领》/mine页面.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:48 [I] File `微信小程序《西电失物招领》/my-info页面.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:49 [I] File `微信小程序《西电失物招领》/release页面.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:49 [I] File `微信小程序《西电失物招领》/全局变量.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:50 [I] File `微信小程序《西电失物招领》/小程序流程图.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:50 [I] File `数据库设计——实践/公交安全管理系统E-R图.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:51 [I] File `数据库设计——实践/公交安全管理系统物理模型.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:51 [I] File `数据库设计——实践/公交安全管理系统逻辑模型.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:52 [I] File `数据库设计——实践/公交安全管理系统题目要求1.PNG` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:52 [I] File `数据库设计——实践/公交安全管理系统题目要求2.PNG` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:52 [I] File `数据库设计——实践/公交安全管理系统题目要求3.PNG` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:53 [I] File `数据库设计——实践/公交安全管理系统题目要求4.PNG` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:53 [I] File `数据库设计——理论/三个实体型之间的联系示例.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:54 [I] File `数据库设计——理论/两个实体的三类联系.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:54 [I] File `数据库设计——理论/单个实体型内的一对多联系示例.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:54 [I] File `数据库设计——理论/完整的E-R图.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:55 [I] File `数据库设计——理论/数据库设计各个阶段的数据设计描述.jpg` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:55 [I] File `数据库设计——理论/数据库设计的基本步骤.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:56 [I] File `数据库设计——理论/数据库设计过程中的各级模式.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:56 [I] File `数据库设计——理论/联系的属性.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:56 [I] Uploading file /mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/科学上网/IE中设置SOCKS代理后系统设置中的手动代理设置处的变化.png => wsxq2 : 科学上网/IE中设置SOCKS代理后系统设置中的手动代理设置处的变化.png
+2019/08/04 21:49:57 [I] Uploading file /mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/科学上网/IE设置SOCKS代理（SOCKS4）.png => wsxq2 : 科学上网/IE设置SOCKS代理（SOCKS4）.png
+2019/08/04 21:49:57 [I] File `科学上网/SOCKS协议控制流程图.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:57 [I] File `科学上网/V2Ray工作原理.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:58 [I] File `科学上网/基于GET-POST方法的HTTP代理原理.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:49:58 [I] Uploading file /mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/科学上网/系统设置中的手动代理设置为127.0.0.1时IE中代理设置的变化.png => wsxq2 : 科学上网/系统设置中的手动代理设置为127.0.0.1时IE中代理设置的变化.png
+2019/08/04 21:50:04 [I] Upload file `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/科学上网/IE中设置SOCKS代理后系统设置中的手动代理设置处的变化.png` => `wsxq2 : 科学上网/IE中设置SOCKS代理后系统设置中的手动代理设置处的变化.png` success
+2019/08/04 21:50:04 [I] File `组网与运维相关知识/刀片式服务器.jpg` exists in bucket, hash match, ignore this upload
+2019/08/04 21:50:05 [I] File `组网与运维相关知识/戴尔塔式服务器.jpg` exists in bucket, hash match, ignore this upload
+2019/08/04 21:50:05 [I] Upload file `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/科学上网/IE设置SOCKS代理（SOCKS4）.png` => `wsxq2 : 科学上网/IE设置SOCKS代理（SOCKS4）.png` success
+2019/08/04 21:50:05 [I] File `组网与运维相关知识/戴尔机架式服务器.jpg` exists in bucket, hash match, ignore this upload
+2019/08/04 21:50:05 [I] File `网络编程笔记/DNS层次结构.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:50:06 [I] Upload file `/mnt/c/Users/wsxq2/Documents/MY/workspace/wsxq2.github.io/_posts/images/科学上网/系统设置中的手动代理设置为127.0.0.1时IE中代理设置的变化.png` => `wsxq2 : 科学上网/系统设置中的手动代理设置为127.0.0.1时IE中代理设置的变化.png` success
+2019/08/04 21:50:06 [I] File `网络编程笔记/UDP编程模型.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:50:06 [I] File `让你的博客能被搜索到/xxxx站点的Google搜索结果.png` exists in bucket, hash match, ignore this upload
+2019/08/04 21:50:06 [I] -------------Upload Result--------------
+2019/08/04 21:50:06 [I]               Total:       105
+2019/08/04 21:50:06 [I]             Success:         3
+2019/08/04 21:50:06 [I]             Failure:         0
+2019/08/04 21:50:06 [I]        NotOverwrite:         0
+2019/08/04 21:50:06 [I]             Skipped:       102
+2019/08/04 21:50:06 [I]            Duration:  58.560889866s
+2019/08/04 21:50:06 [I] ----------------------------------------
