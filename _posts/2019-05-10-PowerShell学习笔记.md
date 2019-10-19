@@ -1,6 +1,6 @@
 ---
 tags: [Powershell,TODO]
-last_modified_time: 2019-09-12 17:20:28 +0800
+last_modified_time: 2019-10-12 09:56:27 +0800
 ---
 
 
@@ -9,6 +9,7 @@ last_modified_time: 2019-09-12 17:20:28 +0800
 
 * [重要链接](#重要链接)
 * [遇到的问题](#遇到的问题)
+  * [rename adapter?](#rename-adapter)
   * [Equivalent of Unix find command on Windows?](#equivalent-of-unix-find-command-on-windows)
   * [获取某个命令的路径？（如`bash`中的`which`）](#获取某个命令的路径如bash中的which)
     * [使用 `Get-Command`](#使用-get-command)
@@ -26,6 +27,13 @@ last_modified_time: 2019-09-12 17:20:28 +0800
 * 非官方教程: [PowerShell 在线教程 – PowerShell 中文博客](https://www.pstips.net/powershell-online-tutorials)
 
 ## 遇到的问题
+### rename adapter?
+```
+PS C:\WINDOWS\system32> Rename-NetAdapter "以太网 5" HostOnly
+```
+
+参见`help Rename-NetAdapter`
+
 ### Equivalent of Unix find command on Windows?
 ```
 PS> dir -recurse -ea 0 | % FullName | sls <grep_string>

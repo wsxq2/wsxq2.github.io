@@ -332,7 +332,7 @@ YEAR-MONTH-DAY-title.MARKUP
 2018-03-22-GitHub-Pages-独立博客搭建教程.md
 ```
 
-生成 URL 时，它会自动处理你的标题使其符合 URL 规范。比如将`《`和`》`变为`-`（如 [《learn Vimscript The Hard Way》学习笔记](http://master:8888/blog/2019/02/01/Learn-Vimscript-the-Hard-Way-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/)）。常见的处理如下：
+生成 URL 时，它会自动处理你的标题使其符合 URL 规范。比如将`《`和`》`变为`-`（如 [《learn Vimscript The Hard Way》学习笔记](https://wsxq2.55555.io/blog/2019/02/01/Learn-Vimscript-the-Hard-Way-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/)）。常见的处理如下：
 * 将`《`和`》`转换为`-`
 * 将`——`转换为`-`
 
