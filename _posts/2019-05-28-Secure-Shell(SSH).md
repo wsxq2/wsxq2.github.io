@@ -1,6 +1,6 @@
 ---
 tags: [SSH,Secure Shell, OpenSSH, Dropbear, 非对称加密, TODO]
-last_modified_time: 2019-07-06 21:06:04 +0800
+last_modified_time: 2019-11-15 22:25:50 +0800
 ---
 
 Secure Shell（SSH）是一种加密的应用层网络协议，用于在**不安全的网络**上**安全地**运行网络服务。典型应用包括**远程命令行登录**和**远程命令执行**。事实上，可以使用 SSH 保护任何网络服务。
@@ -35,6 +35,10 @@ SSH 被设计为替代 Telnet 和其它不安全的远程 shell 协议，例如 
         * [CentOS](#centos)
       * [Windows 10](#windows-10)
   * [PuTTY](#putty)
+    * [基本使用](#基本使用)
+    * [保存设置](#保存设置)
+    * [界面配置](#界面配置)
+    * [配置公私钥登录](#配置公私钥登录)
     * [遇到的问题](#遇到的问题)
       * [`pscp`无响应？](#pscp无响应)
       * [`pscp`复制文件到 Linux 后中文文件名乱码？](#pscp复制文件到-linux-后中文文件名乱码)
@@ -148,8 +152,62 @@ Install-Module -Force OpenSSHUtils -Scope AllUsers
 如果依然发现不能使用公钥/私钥登录你的 Windows 服务器，可参见如下链接： [ssh - Setting up OpenSSH for Windows using public key authentication - Stack Overflow](https://stackoverflow.com/questions/16212816/setting-up-openssh-for-windows-using-public-key-authentication#answer-50502015)
 
 ### PuTTY
-官网：<https://www.putty.org/>
-最新版下载链接：<https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html>
+* 官网：<https://www.putty.org/>
+* 最新版下载链接：<https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html>
+
+PuTTY 是一个软件包，包含如下组件:
+
+> * `PuTTY`: the Telnet, rlogin, and SSH client itself, which can also connect to a serial port
+> * `PSCP`: an SCP client, i.e. command-line secure file copy. Can also use SFTP to perform transfers
+> * `PSFTP`: an SFTP client, i.e. general file transfer sessions much like FTP
+> * `PuTTYtel`: a Telnet-only client
+> * `Plink`: a command-line interface to the PuTTY back ends. Usually used for SSH Tunneling
+> * `Pageant`: an SSH authentication agent for PuTTY, PSCP and Plink
+> * `PuTTYgen`: an RSA, DSA, ECDSA and EdDSA key generation utility
+> * `pterm`: (Unix version only) an X11 client which supports the same terminal emulation as PuTTY
+> 
+> ——引用自 [PuTTY - Wikipedia](https://en.wikipedia.org/wiki/PuTTY)
+
+#### 基本使用
+打开 PuTTY，在**Host Name**中填写你的服务器的 IP 地址，在**Port**处填写你的服务器的 SSH 服务使用的端口，在**Connection type**处选择**SSH**（默认使用的就是**SSH**，这里提一下是为了以防万一）
+
+然后点击 **Open** 即可
+
+#### 保存设置
+很多新人使用 PuTTY 时都会为如何保存设置而感到苦恼，事实上非常简单：
+1. 打开 PuTTY
+2. 设置。包含**Host Name**等等
+3. 在 **Saved Sessions** 处输入一个你喜欢的名字，点击右边的 **Save** 即可
+4. 此后只需双击你保存的 Session 名就可以了
+
+#### 界面配置
+可以看到，PuTTY 默认的界面和字体极为丑陋。但我们只需简单设置一下就可以让它变得相对好看：
+1. 打开 PuTTY。`Win+S` -> 输入`putty` -> 回车
+2. 在左侧的 **Category** 的 **Windows** 下点击 **Appearance**
+3. 设置字体。在 **Font setting** 处点击 **Change**，字体选择 **Consolas**（笔者推荐，你也可以选择自己喜欢的），大小选择 **14**
+4. 设置其他内容。
+5. 保存。保存方法参见上一节
+
+#### 配置公私钥登录
+上传 SSH 客户端的公钥到服务器以方便以后登录（即使用公私钥认证而非用户密码认证，公私钥认证的优点在于不需要每次手动输入密码）。具体方法如下（以 Windows10 上的 PuTTY 客户端为例）：
+1. 使用`PuTTYgen`工具生成公私钥对。具体步骤如下：
+   1. 打开 PuTTYgen。按快捷键`Win+S`->输入`puttygen`->回车
+   1. 生成公私钥对。点击 **Generate**->随意晃动鼠标以生成随机参数->生成完成
+1. 复制公钥到剪贴板。全选**Public key for pasting into OpenSSH authorized_keys file**下面的文本框中的内容，按`Ctrl+C`复制到剪贴板
+1. 保存私钥到安全的位置。点击 **Save private key**->点击**确定**（为了方便不设置 passphrase，passphrase 相当于一个用于保护私钥文件的密码，如果设置了的话，每次使用私钥文件时都会要求输入 passphrase，除非使用 Pageant 工具）->选定要保存到的目录（建议放到个人目录`C:\Users\<username>\putty`中，注意其中`<username>`要替换成你自己的用户名）->**确定**
+1. 上传公钥到 VPS。使用 PuTTY 以用户密码的登录方式登录你的 VPS。登录成功后，使用如下命令：
+   ```
+   echo '<公钥>' >> ~/.ssh/authorized_keys
+   ```
+   其中`<公钥>`是你之前生成的公私钥对中的**Public key**，在 PuTTY 中可以使用`Shift+Insert`粘贴剪贴板的内容（`Ctrl+Insert`是复制）
+1. 配置 PuTTY。具体步骤如下：
+   1. 打开 PuTTY。`Win+S`->输入`putty`->回车
+   1. 设置主机和端口。在主界面输入**Host Name**、**Port**
+   1. 设置默认登录用户名。在 PuTTY 主界面点击左侧的**Connection**中的**Data**，在**Login Details**处的**Auto-login username**处输入`root`（通常是使用`root`登录 VPS）
+   1. 设置使用的私钥文件。点击左侧的**Connection**中的**SSH**中的**Auth**，在**Authentication Parameters**处点击**Browse**，选择你刚刚保存的私钥文件
+   1. 设置字体和大小（可选）。PuTTY 默认的字体和字体大小过于丑陋，可以简单设置一下。点击**Window**中的**Apprearance**中**Font setting**处的**Change**，**Font**处输入`consolas`，**Size**选择`14`，点击**OK**
+   1. 保存为一个会话。点击左侧的**Session**回到主界面，在**Saved session**处输入`bwg`（或者一个你喜欢的名字），然后点击右下侧的**Save**。
+1. 使用公私钥登录。打开 PuTTY，双击**Saved session**中的`bwg`即可
 
 #### 遇到的问题
 ##### `pscp`无响应？
