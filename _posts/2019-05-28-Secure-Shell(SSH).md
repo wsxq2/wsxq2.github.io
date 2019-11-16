@@ -1,6 +1,6 @@
 ---
 tags: [SSH,Secure Shell, OpenSSH, Dropbear, 非对称加密, TODO]
-last_modified_time: 2019-11-15 22:25:50 +0800
+last_modified_time: 2019-11-16 16:10:08 +0800
 ---
 
 Secure Shell（SSH）是一种加密的应用层网络协议，用于在**不安全的网络**上**安全地**运行网络服务。典型应用包括**远程命令行登录**和**远程命令执行**。事实上，可以使用 SSH 保护任何网络服务。
@@ -29,11 +29,14 @@ SSH 被设计为替代 Telnet 和其它不安全的远程 shell 协议，例如 
 * [实现](#实现)
   * [OpenSSH](#openssh)
     * [简介](#简介-1)
-    * [安装和配置](#安装和配置)
+    * [Server](#server)
       * [Linux](#linux)
         * [Ubuntu](#ubuntu)
         * [CentOS](#centos)
       * [Windows 10](#windows-10)
+    * [Client](#client)
+      * [Linux](#linux-1)
+      * [Windows](#windows)
   * [PuTTY](#putty)
     * [基本使用](#基本使用)
     * [保存设置](#保存设置)
@@ -116,17 +119,19 @@ OpenSSH 套件包括以下命令行实用程序和守护程序：
 
 详情参见 [OpenSSH - 维基百科](https://en.wikipedia.org/wiki/OpenSSH)
 
-#### 安装和配置
+#### Server
+本部分讲述如何使用 OpenSSH 搭建 SSH 服务器，关键的命令是`sshd`
+
 ##### Linux
 ###### Ubuntu
 ```
-apt install openssh-server openssh-client
+apt install openssh-server
 ```
 相关配置文件在`/etc/ssh/`目录中，其中用于客户端的主配置文件为`/etc/ssh/ssh_config`，用于服务器端的主配置文件为`/etc/ssh/sshd_config`。
 
 ###### CentOS
 ```
-yum install openssh-server openssh-clients openssh
+yum install openssh-server
 ```
 和 Ubuntu 相同：相关配置文件在`/etc/ssh/`目录中，其中用于客户端的主配置文件为`/etc/ssh/ssh_config`，用于服务器端的主配置文件为`/etc/ssh/sshd_config`。
 
@@ -151,7 +156,34 @@ Install-Module -Force OpenSSHUtils -Scope AllUsers
 
 如果依然发现不能使用公钥/私钥登录你的 Windows 服务器，可参见如下链接： [ssh - Setting up OpenSSH for Windows using public key authentication - Stack Overflow](https://stackoverflow.com/questions/16212816/setting-up-openssh-for-windows-using-public-key-authentication#answer-50502015)
 
+#### Client
+本部分讲述如何使用 OpenSSH 连接到 SSH 服务器，关键的命令是`ssh`
+
+##### Linux
+安装：
+```
+apt install openssh-client # for Ubuntu
+yum install openssh-clients # for CentOS
+```
+
+使用：
+```
+ssh -p PORT USER@HOST
+```
+
+例如：
+```
+ssh -p 7722 root@192.168.9.20
+```
+
+##### Windows
+Windows 以前一直没有自带的 SSH 客户端，但较新版本有了 OpenSSH 客户端。
+
+对于 Windows 10 较新版本，自带 OpenSSH 客户端，可在 Powershell 或 CMD 中直接使用，如`ssh -p 22 wsxq2@192.168.56.11`
+
 ### PuTTY
+PuTTY 是一个小巧精干的 Windows SSH **客户端**
+
 * 官网：<https://www.putty.org/>
 * 最新版下载链接：<https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html>
 
