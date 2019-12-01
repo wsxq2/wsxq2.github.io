@@ -25,9 +25,9 @@ $(function() {
         });
     });
 
-    if(isPC()){
-        $('#sidebar-catalog').css("left","0px");
-    } else{
+    if(!isPC()){
+        $('header').css("left", "0px");
+        $('article').css("left", "0px");
         $('#sidebar-catalog').css("left","-300px");
     }
     let toc=document.querySelector("#markdown-toc+ul");
