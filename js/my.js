@@ -26,6 +26,7 @@ $(function() {
     });
 
     if(!isPC()){
+        $('footer').css("left", "0px");
         $('header').css("left", "0px");
         $('article').css("left", "0px");
         $('#sidebar-catalog').css("left","-300px");
@@ -43,10 +44,12 @@ $(function() {
             $('#sidebar-catalog').animate({left:"+=300px"},300);
             $('article').animate({left:'+=150px'},300);
             $('header').animate({left:'+=150px'},300);
+            $('footer').animate({left:'+=150px'},300);
         } else {
             $('#sidebar-catalog').animate({left:"-=300px"},300);
             $('article').animate({left:'-=150px'},300);
             $('header').animate({left:'-=150px'},300);
+            $('footer').animate({left:'-=150px'},300);
         }
     });
 
