@@ -70,4 +70,6 @@ $(function() {
     modalImg.onclick=function() {
         modal.style.display = "none";
     }
+
+    $("table.rouge-table").removeClass("table-hover");
 });

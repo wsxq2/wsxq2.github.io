@@ -1,6 +1,6 @@
 ---
 tags: [Wireshark, 抓包]
-last_modified_time: 2020-06-15 16:30:00 +0800
+last_modified_time: 2020-06-16 09:16:08 +0800
 ---
 
 本文介绍了世界闻名的包嗅探器 Wireshark
@@ -54,6 +54,8 @@ last_modified_time: 2020-06-15 16:30:00 +0800
 
 ## 使用技巧
 本部分内容来自《Wireshark网络分析就这么简单》中的**初试锋芒**中的**你一定喜欢的技巧**一节
+
+另请参见 [Wireshark使用技巧及数据包分析方法 - FreeBuf专栏·合天智汇](https://www.freebuf.com/column/155600.html)
 
 ### 抓包
 #### 只抓包头
