@@ -1,6 +1,6 @@
 ---
 tags: [Vim, vim-autoformat, Vim插件]
-last_modified_time: 2019-06-10 13:20:23 +0800
+last_modified_time: 2021-08-22 22:32:21 +0800
 ---
 
 <p id="markdown-toc"></p>
@@ -9,14 +9,14 @@ last_modified_time: 2019-06-10 13:20:23 +0800
 * [vim-autoformat 是什么？](#vim-autoformat-是什么)
 * [安装 vim-autoformat](#安装-vim-autoformat)
 * [使用 vim-autoformat](#使用-vim-autoformat)
-  * [通用配置](#通用配置)
-  * [`clang-format`](#clang-format)
-  * [`autopep8`](#autopep8)
-  * [`sqlformat`](#sqlformat)
-    * [安装](#安装)
-    * [配置](#配置)
-    * [遇到的问题](#遇到的问题)
-  * [总的配置文件](#总的配置文件)
+    * [通用配置](#通用配置)
+    * [`clang-format`](#clang-format)
+    * [`autopep8`](#autopep8)
+    * [`sqlformat`](#sqlformat)
+        * [安装](#安装)
+        * [配置](#配置)
+        * [遇到的问题](#遇到的问题)
+    * [总的配置文件](#总的配置文件)
 
 <!-- vim-markdown-toc -->
 
@@ -86,6 +86,8 @@ let g:formatters_c = ['clangformat_google']
 此后使用 Vim 编辑 C 源文件时，使用`:Autoformat`即可格式化代码。
 
 关于`clang-format`的高级使用（如自定义风格等）可参考 [Clang-Format格式化选项介绍][csdn-clang-format]
+
+亦可参考官网教程：[ClangFormat — Clang 13 documentation](https://clang.llvm.org/docs/ClangFormat.html)
 
 [csdn-clang-format]:https://blog.csdn.net/softimite_zifeng/article/details/78357898
 
