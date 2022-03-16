@@ -1,6 +1,6 @@
 ---
 tags: [FROM_DOCX, robot framework, 自动化测试]
-last_modified_time: 2022-03-16 15:30:47 +0800
+last_modified_time: 2022-03-16 15:53:48 +0800
 title: robot framework学习笔记
 ---
 
@@ -54,8 +54,6 @@ title: robot framework学习笔记
 -   [robotframework - How to stop Robot Framework test execution if first testcase FAIL? - Stack Overflow](https://stackoverflow.com/questions/33319992/how-to-stop-robot-framework-test-execution-if-first-testcase-fail)
 
 -   [selenium - How to fix "Non-existing setting" error from robotframework and seleniumlibrary? - Stack Overflow](https://stackoverflow.com/questions/59010766/how-to-fix-non-existing-setting-error-from-robotframework-and-seleniumlibrary)
-
--   
 
 ## 修订记录
 
