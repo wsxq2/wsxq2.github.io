@@ -1,6 +1,6 @@
 ---
 tags: [Arch Linux, pacman]
-last_modified_time: 2022-04-21 22:23:45 +0800
+last_modified_time: 2022-04-21 23:18:16 +0800
 title: Arch Linux 使用笔记
 ---
 
@@ -20,7 +20,7 @@ title: Arch Linux 使用笔记
 ## 基础学习
 * [Arch Linux](https://archlinux.org/)：大致浏览官网各个页面，从而可以了解到 Arch Linux 的几乎所有内容都可以从官网找到，这点是非常好的
 * [Help:Reading (简体中文) - ArchWiki](https://wiki.archlinux.org/title/Help:Reading_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))：讲述了如何读 ArchWiki
-* [Arch Linux (简体中文) - ArchWiki](https://wiki.archlinux.org/title/Arch_Linux_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)：讲述了 Arch Linux 的原则和历史
+* [Arch Linux (简体中文) - ArchWiki](https://wiki.archlinux.org/title/Arch_Linux_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))：讲述了 Arch Linux 的原则和历史
 
 ## 安装
 * [Installation guide (简体中文) - ArchWiki](https://wiki.archlinux.org/title/Installation_guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))：官方教程。讲述了如何从 ISO 安装 Arch Linux
@@ -30,6 +30,9 @@ title: Arch Linux 使用笔记
 * [pacman (简体中文) - ArchWiki](https://wiki.archlinux.org/title/Pacman_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))：官方教程
 * [Pacman (简体中文)/Rosetta (简体中文) - ArchWiki](https://wiki.archlinux.org/title/Pacman_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)/Rosetta_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))：与其他 Linux 发行版包管理器的比较
 * [pacman (简体中文)/Tips and tricks (简体中文) - ArchWiki](https://wiki.archlinux.org/title/Pacman_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)/Tips_and_tricks_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))
+
+遇到过的问题：
+* [Get history of package installation / Pacman & Package Upgrade Issues / Arch Linux Forums](https://bbs.archlinux.org/viewtopic.php?id=88600)
 
 ## 网络配置
 * [systemd-networkd (简体中文) - ArchWiki](https://wiki.archlinux.org/title/Systemd-networkd_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))：官方教程
@@ -46,6 +49,18 @@ title: Arch Linux 使用笔记
 - 设置 root 密码
 - 创建用户并设置密码
 - 部署常用配置文件（vimrc等）：MyProfile
+  ```bash
+  sudo pacman -S python python-pip socat minicom tmux bear
+  ```
+  
 - 配置 ssh 公私钥
 - 磁盘大小是否合适
 - 共享 Windows 文件夹
+- 搭建本地博客环境
+  ```bash
+  install_rvm
+  sudo pacman -S base-devel clang
+  deploy_local_github_pages_environment
+  jes
+  ```
+  
