@@ -1,0 +1,62 @@
+---
+tags: [Qt]
+last_modified_time: 2024-10-12 09:00:00 +0800
+---
+
+本文是笔者使用Qt时遇到的一些难题和解决方法的记录。
+
+## QModbusTcpClient 不好用？
+
+### 初探保持怀疑
+
+在为我的 Qt 应用程序选择 Modbus Tcp 库时，我倾向于使用 Qt 官方库 QModbusTcpClient 及相关库。但搜索后发现，网络上存在大量文章说 QModbusTcpClient 不好用，存在bug。如：
+
+* [Qt基于QTcpSocket写的ModBusTcp模块，Qt自带的modbusTCP并不能用_qtmodbustcp资源-CSDN文库](https://download.csdn.net/download/qq_37033647/88617067?spm=1001.2101.3001.6650.11&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-11-88617067-blog-135190691.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-11-88617067-blog-135190691.235%5Ev43%5Econtrol&utm_relevant_index=17)
+* [QT+ModbusTCP 全网唯一好用，基于QTcpSocket纯手搓modbustcp协议_qt modbus tcp-CSDN博客](https://blog.csdn.net/qq_37033647/article/details/134037271)
+* ……
+
+听到这样的言论我第一反应是保持怀疑态度，因为 Qt 作为一个成熟的平台，其大量模块都非常稳定可靠，而 Modbus Tcp 也并非很难的功能，怎么会存在不好用的问题。而且关键在于这些言论并没有提出详细严谨的论据，因此我并没有相信这些言论，而选择相信 Qt。依然选择 QModbusTcpClient 作为项目的 Modbus Tcp 库。
+
+### 实操遇见问题
+
+实际使用过程中发现，写代码还是非常方便的，但调试期间确实出现了一个问题：当Windows上的Qt程序和汇川PLC进行Modbus TCP通信时出现 request timeout 的错误。这里明确下，我是在 Windows 平台上开发的，Qt版本为5.9.5，Qt Creator 版本为 4.5.2（就是和 Qt 5.9.5 绑定的那个版本）。
+
+### 问题原因分析
+
+通过Wireshark抓包分析，发现当一个请求报文中包含了多个 ADU 时才会出现超时现象，比如连续调用了两次QModbusTcpClient类的sendWriteRequest方法。请求报文类似下图所示（图中不只两个）：
+
+[QModbusTcpClient连续两次调用sendWriteRequest时发出的报文.png](https://i.sstatic.net/1pRbQ.png)
+
+搜索网上相关资源如下：
+
+* [Qt modbus开发中遇到的Request timeout错误_qt modbus bug-CSDN博客](https://blog.csdn.net/aicamel/article/details/131186347)
+* [Qt5.9 Modbus request timeout 0x5异常解决_qt modbus 模块存在bug-CSDN博客](https://blog.csdn.net/qq_27998025/article/details/124053699)
+* [Qt Modbus request timeout异常解决_qt modbus response timeout-CSDN博客](https://blog.csdn.net/Hello___Sunshine/article/details/125276294)
+* [QT modbus长时间报Request timeout. (code: 0x5)_qt modbus总是接收超时-CSDN博客](https://blog.csdn.net/qq_42522740/article/details/131410320?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-131410320-blog-125276294.235%5ev43%5econtrol&spm=1001.2101.3001.4242.1&utm_relevant_index=3)
+
+其中大多和我遇到的情况并不相同，大多用的是Modbus RTU，最后一个用的虽然是 Modbus TCP，但原因不一样，所以均无法参考相应的解决方案。当然，也参考过升级Qt版本的解决方法，但并无作用。
+
+后续搜索其它关键字时找到了这篇文章（前面也提及过）：
+* [QT+ModbusTCP 全网唯一好用，基于QTcpSocket纯手搓modbustcp协议_qt modbus tcp-CSDN博客](https://blog.csdn.net/qq_37033647/article/details/134037271)
+
+该文章中提到的原因和我的相似：
+
+> 于是自己写了一个tcp server，抓取QModbusTcpClient写数据的报文，和modbuspoll上的对比，果然对不上，qt中的报文比modbuspoll上的多出来一截，想必是协议错误了。
+
+它这里简单描述为多出一截，没有更多细节，我这边抓包后发现其实多出的那截也是合法的 ADU。只是这种一个报文包含两个ADU的情形是否合法确实是个问题，即它是符合协议标准的，Qt没错，还是不符合协议标准，是Qt的bug。通过一翻搜索，我找到了这个：
+
+* [wireshark - Can there be several application layer (Modbus) PDUs in one TCP segment? - Stack Overflow](https://stackoverflow.com/questions/70208079/can-there-be-several-application-layer-modbus-pdus-in-one-tcp-segment)
+
+该问题正是我想问的，下面有个回答非常严谨，引用了官方协议标准：
+
+> Yes - Modbus TCP runs at the application layer and supports multiple simultaneous transactions over a single connection (see page 10 of the [spec](https://modbus.org/docs/Modbus_Messaging_Implementation_Guide_V1_0b.pdf))
+
+由此可见，并非 Qt 的 bug，而汇川 PLC 实现Modbus TCP Server 时并没有严格按照此标准来。当然，不严格执行标准并非罕见的事，我感觉Qt也应该加个配置或者选项，可以修改此行为，从而提高其兼容性，回头可以试着提下这个请求。总而言之，就此问题而言，Qt 不背主要的锅。
+
+那么问题的根因是什么呢？为什么 Qt 在连续调用 sendWriteRequest 时会出现前述现象？通过分析 Qt SerialBus 模块的源码，找到了原因：sendWriteRequest 底层直接调用 QTcpSocket 的 write 方法，写入了ADU，而后没有调用 flush 方法确保当前 Tcp payload 被发出，从而当再调用 sendWriteRequest 时调用的 write 方法会将另一个 ADU 追加到 Tcp payload，然后 Qt 的事件机制在下次发送事件时就一次性发送了包含这两个 ADU 的报文。
+
+### 寻找解决方法
+
+问题的根本原因找到后解决方法也是显而易见的，即在 write 调用后添加一个 flush 调用，确保当前 ADU 被发出。但事实上，这并不算一个优秀的解决方法，优秀的方法应该是添加一个选项配置此行为，因为不 flush 也有它的好处，且协议标准本身是支持的。修改相应代码后再提交一个 MR 给 Qt 官方。但目前没那么多时间，后续再说吧。
+
+先说回当前的简单解决方法，修改代码后怎么构建并应用到自己的程序中呢？其实非常简单，构建的话直接用 Qt Creator 中的构建功能即可，然后将生成的 Qt5SerialBusd.dll 覆盖部署后的程序所在目录中同名的文件（部署后才会生成程序依赖的 dll 文件）
