@@ -18,7 +18,6 @@
 _site/
 *.swp
 *.swo
-Gemfile
 Gemfile.lock
 todo.md
 _posts/images/
