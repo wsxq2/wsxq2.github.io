@@ -2,38 +2,7 @@
 tags: [Vim,Vimscript]
 ---
 
-<p id="markdown-toc"></p>
-<!-- vim-markdown-toc GFM -->
-
-* [1 `echo`](#1-echo)
-    * [Exercises](#exercises)
-* [2 Options](#2-options)
-    * [2.1 Boolean Options](#21-boolean-options)
-    * [2.2 Options with Values](#22-options-with-values)
-    * [2.3 Setting Multiple Options at Once](#23-setting-multiple-options-at-once)
-    * [Exercises](#exercises-1)
-* [3 `map`](#3-map)
-    * [Exercises](#exercises-2)
-* [4 Modal Mapping](#4-modal-mapping)
-    * [Exercises](#exercises-3)
-* [5 Strict Mapping](#5-strict-mapping)
-    * [5.1 Side Effects](#51-side-effects)
-    * [5.2 Nonrecursive Mapping](#52-nonrecursive-mapping)
-    * [Exercises](#exercises-4)
-* [6 Leaders](#6-leaders)
-    * [6.1 `<leader>`](#61-leader)
-    * [6.2 `<localleader>`](#62-localleader)
-    * [Exercises](#exercises-5)
-* [7 Editing Your Vimrc](#7-editing-your-vimrc)
-    * [Exercises](#exercises-6)
-* [8 Abbreviations](#8-abbreviations)
-    * [8.1 Keyword Characters](#81-keyword-characters)
-    * [8.2 More Abbreviations](#82-more-abbreviations)
-    * [Exercises](#exercises-7)
-* [9](#9)
-* [链接](#链接)
-
-<!-- vim-markdown-toc -->
+# 《Learn Vimscript the Hard Way》学习笔记
 
 本文是学习[《Learn Vimscript the Hard Way》](http://learnvimscriptthehardway.stevelosh.com/chapters/01.html)一文的笔记。 Vimscript 的大多数命令都可以在 VIM 的命令行模式（`:`）中运行（如`:echo "Hello the world!"`）
 
@@ -60,7 +29,7 @@ tags: [Vim,Vimscript]
 ### 2.2 Options with Values
 `set <name>=<value>`: 设置带值的选项。如`set numberwidth=10`
 ### 2.3 Setting Multiple Options at Once
-```
+```vim
 :set number numberwidth=6
 ```
 ### Exercises
@@ -112,7 +81,7 @@ Add that mapping to your ~/.vimrc file.
 `*map`的副作用：
 * 存在递归风险
 * 安装插件时插件按键映射时存在引用的风险。如：
-  ```
+  ```vim
   :nmap - dd
   :nmap \ -
   ```
@@ -126,13 +95,13 @@ Read :help unmap.
 
 ## 6 Leaders
 ### 6.1 `<leader>`
-```
+```vim
 let mapleader = "-"
 nnoremap <leader>d dd
 ```
 
 ### 6.2 `<localleader>`
-```
+```vim
 let maplocalleader = "\\"
 nnoremap <leader>d dd
 ```
@@ -147,7 +116,7 @@ Set mapleader and maplocalleader in your ~/.vimrc file.
 Convert all the mappings you added to your ~/.vimrc file in the previous chapters to be prefixed with <leader> so they don't shadow existing commands.
 
 ## 7 Editing Your Vimrc
-```
+```vim
 " Edit my Vimrc file
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " Source my Vimrc file
@@ -162,18 +131,18 @@ Try them out a few times, adding dummy mappings each time.
 Read :help myvimrc.
 
 ## 8 Abbreviations
-```
+```vim
 iabbrev adn and
 iabbrev waht what
 iabbrev tehn then
 ```
 
 ### 8.1 Keyword Characters
-```
+```vim
 set iskeyword?
 ```
 ### 8.2 More Abbreviations
-```
+```vim
 iabbrev @@    wsxq2@qq.com
 iabbrev ccopy Copyright 2019 wsxq2, all rights reserved.
 ```
@@ -186,14 +155,3 @@ Add abbreviations for your own email address, website, and signature as well.
 
 Think of some pieces of text you type very often and add abbreviations for them too.
 
-## 9 
-## 链接
-下面总结了本文中使用的所有链接：
-
-<!-- link start -->
-
-<!-- link end -->
-
-<!-- abbreviations start -->
-
-<!-- abbreviations end -->
