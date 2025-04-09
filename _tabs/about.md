@@ -4,5 +4,8 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-> Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
-{: .prompt-tip }
+欢迎来到我的个人博客，我的网络昵称是`wsxq2`, `wsxq2`是中文“我是小强2”的首拼，其中的`2`是因为我在注册某个平台账户时发现`wsxq`已经被注册了，所以添加了一个`2`。
+
+我于2020年毕业于西安电子科技大学计算科学与技术专业，毕业后一直从事嵌入式领域相关工作，熟悉嵌入式领域相关技能，包括 Linux 移植和应用开发、单片机开发（STM32、GD32、ZYNQ等）、QT应用开发、各种通信接口和协议（TCP/IP、UART、SPI、CAN、MODBUS等）等。主要使用 C/C++ 和 Python 编程语言，对其他语言也有所涉猎，包括 Java、Javascript、PHP、Lua 等。我非常热爱计算机相关技术，非常欢迎志同道合的朋友一起讨论，共同进步。
+
+我的博客主要涉及计算机相关技术，包括但不限于嵌入式、网络安全、Web 开发，此外，也会写一些杂谈，还可能会讨论算法和数据结构、数学相关理论等，以作为学习和工作的总结。如果这里的文章有帮助到你，我会感到非常高兴。如有不当之处，还望指正。
