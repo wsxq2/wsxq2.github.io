@@ -91,11 +91,11 @@ last_modified_time: 2019-07-07 16:31:11 +0800
 #### 配置
 4. 安装后在`bash`中输入`ss-qt5`, 完成配置, 配置好后的图如下：
 
-   ![ss-qt5](http://wsxq12.55555.io/Kali-Linux科学上网/ss-qt5主界面.png)
+   ![ss-qt5](/Kali-Linux科学上网/ss-qt5主界面.png)
 
    图中使用的服务器账号是我花**180元/年**租用的搬瓦工的 VPS (见下图)（大家也可以搭建一个属于自己的 SS 服务器，可以学到不少东西）
 
-   ![bwg](http://wsxq12.55555.io/Kali-Linux科学上网/bwg主机信息界面.png)
+   ![bwg](/Kali-Linux科学上网/bwg主机信息界面.png)
 
 #### 设置 PAC
 4. 获得 pac 文件：
@@ -558,11 +558,11 @@ function up() {
 * [Polipo - Wikipedia](https://en.wikipedia.org/wiki/Polipo)
 * [Shadowsocks - Implementations](https://shadowsocks.org/en/spec/Implementations.html)
 * [breakwa11/gfw_whitelist: gfw_whitelist](https://github.com/breakwa11/gfw_whitelist)
-* [bwg](http://wsxq12.55555.io/Kali-Linux科学上网/bwg主机信息界面.png)
+* [bwg](/Kali-Linux科学上网/bwg主机信息界面.png)
 * [dns2socks](https://sourceforge.net/projects/dns2socks/)
 * [overture](https://github.com/shawn1m/overture)
 * [shadowsocks-qt5](https://github.com/shadowsocks/shadowsocks-qt5)
-* [ss-qt5](http://wsxq12.55555.io/Kali-Linux科学上网/ss-qt5主界面.png)
+* [ss-qt5](/Kali-Linux科学上网/ss-qt5主界面.png)
 * [tsocks 下载链接](https://sourceforge.net/projects/tsocks/files/tsocks/)
 * [tsocks 官网](http://tsocks.sourceforge.net/)
 * [tsocks 手册](https://linux.die.net/man/8/tsocks)

@@ -48,7 +48,7 @@ README                                             14-Jan-2019 13:57            
 
 
 设置如下图所示即可：
-![rufus3.4p截图.png](http://wsxq12.55555.io/kali-linux-live-usb-persistence/rufus3.4p截图.png)
+![rufus3.4p截图.png](/kali-linux-live-usb-persistence/rufus3.4p截图.png)
 
 
 ## 设置 Live USB Persistence

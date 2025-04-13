@@ -96,7 +96,7 @@ theme_mode: # [light | dark]
 # will be added to all media resources (site avatar, posts' images, audio and video files) paths starting with '/'
 #
 # e.g. 'https://cdn.com'
-cdn:
+cdn: "https://wsxq21.55555.io"
 
 # the avatar on sidebar, support local or CORS resources
 avatar: assets/img/favicons/favicon.svg
@@ -183,6 +183,7 @@ defaults:
       # DO NOT modify the following parameter unless you are confident enough
       # to update the code of all other post links in this project.
       permalink: blog/:year/:month/:day/:title/
+      media_subpath: /blog_media/
   - scope:
       path: _drafts
     values:

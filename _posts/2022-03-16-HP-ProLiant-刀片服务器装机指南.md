@@ -111,7 +111,7 @@ iLO既能使用DHCP，也能使用静态IP。推荐使用静态IP，因为DHCP�
 
 以上快捷键在以下界面处可用：
 
-![image1.png](http://wsxq12.55555.io/HP-ProLiant-刀片服务器装机指南/image1.png)
+![image1.png](/HP-ProLiant-刀片服务器装机指南/image1.png)
 
 ##### 后续界面（具体忘了）
 
