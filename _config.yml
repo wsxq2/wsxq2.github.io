@@ -227,4 +227,6 @@ jekyll-archives:
     tag: /tags/:name/
     category: /categories/:name/
 
-emoji: true
+# 启用 Jekyll 官方 emoji 支持
+plugins:
+  - jekyll-emoji
