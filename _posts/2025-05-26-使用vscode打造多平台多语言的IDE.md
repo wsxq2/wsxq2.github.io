@@ -52,7 +52,9 @@ winget install Microsoft.VisualStudioCode
 
 谈到 vscode 的使用，我觉得最重要的便是它的“命令面板”，如何唤出呢？最简单的方式是使用快捷键`Ctrl + Shift + p`。下面详细说明“命令面板”这一伟大的功能。
 
-#### `Ctrl + Shift + p`
+#### 常用快捷键
+
+##### `Ctrl + Shift + p`
 
 打开命令面板的快捷键是 vscode 中必记的快捷键，其他所以快捷键都可以遗忘，唯有这个不能。因为“命令面板”几乎可以做所有事情，甚至帮你记快捷键。
 
@@ -62,11 +64,11 @@ winget install Microsoft.VisualStudioCode
 
 你也可以在命令面板中输入`help`查看感兴趣的帮助文档。
 
-#### `Ctrl + p`
+##### `Ctrl + p`
 
 在当前工程中搜索文件
 
-#### `Ctrl + Shift + f`
+##### `Ctrl + Shift + f`
 
 在当前工程中搜索所有文件中的内容
 
@@ -78,7 +80,7 @@ vscode 中集成了 Terminal 功能，可以方便地打开你喜欢的终端，
   "terminal.integrated.shell.windows": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
 ```
 
-pwsh 是个值得推荐的 shell，最初只用于 Windows，后来已经跨平台了。需要注意的是，pwsh 通常指跨平台版本，和 Windows 中内置的 powershell 有一定区别，主要是版本差异，pwsh 处于活跃状态，推荐使用。
+pwsh 是个值得推荐的 shell，最初只用于 Windows，后来已经跨平台了。需要注意的是，pwsh 通常指跨平台版本，和 Windows 中内置的 powershell 有一定区别。pwsh 处于活跃状态，推荐使用。
 
 #### Task
 
@@ -101,7 +103,8 @@ vscode 中提供了非常多的视图，其中包括浏览视图、搜索视图�
 一些心得：
 
 * vscode 的插件不使用代理时下载得更快。
-* 遇到问题时优先尝试更新 vscode 或 vscodej插件的版本，常常有奇效，对于某些插件，还可尝试其 Pre-Release 版本
+* 遇到问题时优先尝试更新 vscode 或 vscode 插件的版本，常常有奇效，对于某些插件，还可尝试其 Pre-Release 版本
+* 对于 vscode 的插件，最好使用 ID 来表达，因为 ID 具有唯一性，而名称是可能重复的，而且 vscode 也支持通过 ID 来搜索指定插件，直接在搜索框中输入 ID 即可。
 
 纸上得来终觉浅，建议还是自行探索一番，更能发现一些 vscode 内置的有趣的功能。
 
@@ -154,7 +157,7 @@ winget install Microsoft.VisualStudio.2022.BuildTools
 
 STM32 应用开发主要使用的是 C 语言，核心插件是 cortex-debug。
 
-#### 准备工作
+### 准备工作
 
 1. 安装 STM32CubeMX：去[官网](https://www.st.com/en/development-tools/stm32cubemx.html)下载安装即可。
 1. 在 vscode 中安装以下插件：
@@ -178,17 +181,17 @@ STM32 应用开发主要使用的是 C 语言，核心插件是 cortex-debug。
      ```
 
      当然，如果你安装了 STM32CubeProgrammer，且默认安装在了 C 盘，那么 cortex-debug 插件会自动找到，无需上述配置。
-     
+
    * github copilot：提供 AI 代码补全功能，提高代码编写效率
    * github copilot chat：提供 AI 聊天功能，辅助代码编写
    * STM32 VS Code Extension（又名STM32Cube for Visual Studio Code）: ST 官方插件，结合 STM32CubeMX 提供代码生成、文档查看等功能。它依赖于[STM32CubeCLT](https://www.st.com/en/development-tools/stm32cubeclt.html)，这个需要手动下载安装，它比较大，建议安装在 D 盘
 
-#### 使用步骤
+### 使用步骤
 
 1. 使用 STM32CubeMX 生成代码时选择 cmake 方式
 1. 在 vscode 中打开 STM32 项目文件夹，vscode 会提示 CMakeLists.txt 选择，此处选择对应板子的 CMakeLists.txt 即可（如果没提示，就是它自己找到了，不用管），然后它会提示配置预设项（CMake presets），选择 Debug 即可。然后项目会自动配置和初始化。过程中遇到的问题根据 vscode 的提示进行操作即可。
 
-#### 使用技巧
+### 使用技巧
 
 * 编译：`F7`
 * 下载：`F8`。这个快捷键需要手动设置下：
@@ -205,7 +208,7 @@ STM32 应用开发主要使用的是 C 语言，核心插件是 cortex-debug。
      ```
   
   1. 此外，还需要在`.vscode`目录下添加`tasks.json`，其中定义`Flash STM32`，如下所示：
-     
+
      ```json
      {
         "version": "2.0.0",
