@@ -442,7 +442,167 @@ vscode 引进了一个个人认为非常先进的（但也非常危险的）概�
 
 ## Qt 应用开发
 
-TODO.
+当前（2025-06-17）的 Qt 有两个大版本，Qt5 和 Qt 6。Qt5 较老，最新版本为5.15.16，目前官方只提供安全更新，Qt 6 较新，但也使用了好几年了，趋于稳定，所以可以考虑迁移到 Qt 6。
+
+此外，Qt6 引入了新的开发方式，即 Qml，目前我还没深入研究。
+
+另外，在很早之前，就有 Python 版本的 Qt，用 Python 开发 Qt 应用比较快，目前我还未尝试。Python 的 Qt 库有两种，PySide 和 PyQt，前者是官方提供的，后者是社区驱动的。后续推荐使用 PySide。
+
+还需要注意的是，Qt5 从 Qt5.15 开始，官方不再提供编译好的二进制文件，要使用的话，需要自己在 Windows 上编译其源码，比较麻烦。但有些方式可以获得这样的二进制文件，如 vcpkg，它会自动下载并编译，所以 vcpkg 也逐渐成为一种 qt 官方支持的安装方式。
+
+### 相关插件
+
+- Qt Extension Pack：包含 Qt Core, Qt C++, Qt Qml, Qt UI
+- Qt Core：Qt 核心插件。其他 Qt 相关插件均依赖此插件。
+- Qt C++：C++ 开发方式插件
+- Qt Qml：Qml 开发方式插件
+- Qt UI：ui 文件相关插件
+- Qt for Python：非官方（前述插件都是 qt 官方的），但比较成熟，下载量较高（730k），用于 Python 语言开发 qt 界面，其中有两种库——pyside 和 pyqt，pyside 是官方支持的，推荐使用。
+  
+以上官方插件相关文档可参见：[Qt Extension for VS Code](https://doc.qt.io/vscodeext/index.html)
+
+### 使用
+
+我之前有个基于 Qt5 的工程，准确地说，是 Qt 5.14.2。一直以来我都希望在 vscode 中开发它，但尝试了许多思路，都未达到理想的效果，下面简单罗列下（Windows平台）：
+
+- 使用官方的 Qt 离线安装方式安装 Qt 5.14.2，然后使用 MSVC 2022 编译器，结合 vcpkg.json 和 CMakePreset.json，其中 vcpkg.json 主要是用于安装依赖库 ceres，CMakePreset.json 用于进行 kits 相关的配置（其中配置 cmake 生成器为 `Visual Studio 17 2022`， `CMAKE_TOOLCHAIN_FILE` 为 `D:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake`），这样能成功 cmake configure 和 编译，但无法运行。（现在想来，应该可以通过 windeployqt 处理后直接运行，如果需要调试，则需要添加 launch.json 文件，并配置 PATH 环境变量，让其能找到 Qt 的动态库文件，通常是`C:\Qt\Qt5.14.2\5.14.2\msvc2017_64\bin`）
+- 使用 vcpkg 方式安装 Qt5.15.16，同样使用 vcpkg.json 和 CMakePreset.json 方式，但常常卡在 cmake configure 阶段，该阶段报各种错，尝试许多方法没有得到解决。（现在想来，可以在其中添加 `"CMAKE_CXX_COMPILER": "cl.exe"`相关配置，vscode 就会自动导入 VS 2022 开发环境，从而成功配置和编译）
+
+尝试了上述思路无果后，我觉得可能是 Qt5 较老，不受待见导致的，于是尝试 Qt6，大致步骤如下：
+
+1. 我先按照官方推荐的方式（即在线安装器）安装最新的 Qt6.9.1，其中勾选了 MSVC 2022 组件以及必要的库，如 SerialBus 等，以及勾选 Qt Designer Studio（或许也不需要勾选这个？），但未勾选 Qt Creator。
+1. 然后我安装并配置了上述 vscode 官方插件：先是直接安装那个 Qt Extension Pack，然后在配置文件中添加了以下内容：
+
+   ```
+   "qt-core.qtInstallationRoot": "D:\\Qt",
+   ```
+   
+1. 然后我直接重命名 vcpkg.json 为 vcpkg.json.bak，CMakePreset.json 为 CMakePreset.json.bak，这样的重命名相当于删除这两个文件，让 vscode 不做相应的解析。
+1. 重新用 vscode 打开那个工程，配置并编译，发现配置成功，但编译失败，编译报错通常咨询 AI 发现是 Qt 5 迁移到 Qt6 导致的问题，即代码需要做相应的调整，于是我新建了一个 git 分支，并根据指导做了相应修改，再编译发现编译成功
+1. 编写类似如下的调试文件（launch.json）：
+   
+   ```json
+   {
+       "version": "0.2.0",
+       "configurations": [
+           {
+               "name": "Launch Program",
+               "type": "cppvsdbg",
+               "request": "launch",
+               "program": "${command:cmake.launchTargetPath}",
+               "args": [],
+               "stopAtEntry": false,
+               "cwd": "${workspaceFolder}",
+               "environment": [],
+           }
+       ]
+    }
+    ```
+
+1. 尝试调试，发现报错无法加载依赖的动态库，咨询 AI，说是需要添加相应的 PATH 环境变量，让其能找到 Qt 的动态库文件，我这里是`D:\Qt\6.9.1\msvc2022_64\bin`，然后就能成功调试了，打断点也是 OK 的
+
+至此，一个基本的功能打通了，可以用 vscode 进行 Qt 开发了。对了，差点忘了提 ui 文件相关的事，ui 文件可以使用插件 Qt UI 中自动配置的 qt widgets designer 打开编辑，不需要打开 Qt Creator，这个工具的路径为 `D:\Qt\6.9.1\msvc2022_64\bin\designer.exe`。
+
+而后，我还是希望使用 vcpkg.json 和 CMakePreset.json 的方式，通过一系列折腾，发现以下两个内容的相应文件是可用的：
+
+```json
+{
+  "dependencies": [
+    "ceres"
+  ],
+  "builtin-baseline": "cd124b84feb0c02a24a2d90981e8358fdee0e077"
+}
+```
+{: file="vcpkg.json" }
+
+```json
+{
+  "version": 4,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 19,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "ninja-debug",
+      "displayName": "Ninja Debug",
+      "generator": "Ninja",
+      "description": "Use Ninja generator for Debug build",
+      "binaryDir": "${sourceDir}/build/ninja-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "VCPKG_TARGET_TRIPLET": "x64-windows",
+        "VCPKG_MANIFEST_MODE": "OFF",
+        "QT_USE_VCPKG": "ON",
+        "CMAKE_CXX_COMPILER": "cl.exe",
+        "CMAKE_TOOLCHAIN_FILE": "D:/Qt/6.9.1/msvc2022_64/lib/cmake/Qt6/qt.toolchain.cmake"
+      }
+    }
+  ]
+}
+```
+{: file="CMakePreset.json" }
+
+其中由于我在`CMakePreset.json`中设置了`"VCPKG_MANIFEST_MODE": "OFF"`，所以其实 vcpkg.json 没有派上它的用场，我是使用 classic mode（即全局安装） 安装的 ceres 库，但这无伤大雅。其它几个变量都非常重要：
+
+- VCPKG_TARGET_TRIPLET: vcpkg 使用 triplet 概念决定工具链（编译器），非常重要。
+- QT_USE_VCPKG: 和 后面的 CMAKE_TOOLCHAIN_FILE 相关，那里使用了 qt.toolchain.cmake，该 cmake 中会检测 QT_USE_VCPKG 变量，如果为 ON 则会导入 vcpkg 的工具链 cmake
+- CMAKE_CXX_COMPILER：编译器，不指定可能会使用错误的编译器，这里不需要指定 MSVC 的全路径，直接写可执行文件名称即可，即使不在 PATH 环境变量中，vscode 检测到后也会自动导入 VS 2022 的开发环境，从而得到其全路径。
+- CMAKE_TOOLCHAIN_FILE：工具链 cmake，非常重要，例如使用 vcpkg 时就需要设置为 `D:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake`
+
+后续我想不依赖在线安装器安装 Qt 这一方式，改为使用 vcpkg 进行 Qt 的安装，但折腾一段时间后，使用以下 CMakePreset 能编译通过，但无法调试（就改了下 CMAKE_TOOLCHAIN_FILE 的值）:
+
+```json
+{
+  "version": 4,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 19,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "ninja-debug",
+      "displayName": "Ninja Debug",
+      "generator": "Ninja",
+      "description": "Use Ninja generator for Debug build",
+      "binaryDir": "${sourceDir}/build/ninja-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "VCPKG_TARGET_TRIPLET": "x64-windows",
+        "VCPKG_MANIFEST_MODE": "OFF",
+        "QT_USE_VCPKG": "ON",
+        "CMAKE_CXX_COMPILER": "cl.exe",
+        "CMAKE_TOOLCHAIN_FILE": "D:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake"
+      }
+    }
+  ]
+}
+```
+{: file="CMakePreset.json" }
+
+调试时报错：
+
+```
+qt.qpa.plugin: Could not find the Qt platform plugin "windows" in ""
+This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+
+Debug Error!
+
+Program: ...\sprayingrobot\sprayingrobotpc\build\ninja-debug\Qt6Cored.dll
+Module: 6.8.3
+File: D:\vcpkg\buildtrees\qtbase\src\here-src-6-9f44591ee6.clean\src\gui\kernel\qguiapplication.cpp
+Line: 1327
+
+This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
+
+(Press Retry to debug the application)
+```
+
+又结合 AI 的建议尝试了许多思路，发现依然没有解决。感觉太难了，回头再说吧。
+
+至少已经找出一个思路，即使用在线安装器安装 Qt 最新版本，然后可使用 vcpkg.json + CMakePreset 的方式进行开发，也可删除这两个文件，安装了前述插件的 vscode 会自动处理。
 
 ## GitHub Pages 博客
 
