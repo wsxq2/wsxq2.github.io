@@ -501,7 +501,7 @@ vscode 引进了一个个人认为非常先进的（但也非常危险的）概�
 
 1. 尝试调试，发现报错无法加载依赖的动态库，咨询 AI，说是需要添加相应的 PATH 环境变量，让其能找到 Qt 的动态库文件，我这里是`D:\Qt\6.9.1\msvc2022_64\bin`，然后就能成功调试了，打断点也是 OK 的
 
-至此，一个基本的功能打通了，可以用 vscode 进行 Qt 开发了。对了，差点忘了提 ui 文件相关的事，ui 文件可以使用插件 Qt UI 中自动配置的 qt widgets designer 打开编辑，不需要打开 Qt Creator，这个工具的路径为 `D:\Qt\6.9.1\msvc2022_64\bin\designer.exe`。
+至此，一个基本的功能打通了，可以用 vscode 进行 Qt 开发了。对了，差点忘了提 ui 文件相关的事，ui 文件可以使用插件 Qt UI 中自动配置的 qt widgets designer 打开编辑（可能会提示你选择 kits，选择正确的即可，例如我的是 msvc 2022），不需要打开 Qt Creator，这个工具的路径为 `D:\Qt\6.9.1\msvc2022_64\bin\designer.exe`。
 
 而后，我还是希望使用 vcpkg.json 和 CMakePreset.json 的方式，通过一系列折腾，发现以下两个内容的相应文件是可用的：
 
@@ -533,10 +533,10 @@ vscode 引进了一个个人认为非常先进的（但也非常危险的）概�
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "VCPKG_TARGET_TRIPLET": "x64-windows",
-        "VCPKG_MANIFEST_MODE": "OFF",
+        "VCPKG_MANIFEST_MODE": "ON",
         "QT_USE_VCPKG": "ON",
         "CMAKE_CXX_COMPILER": "cl.exe",
-        "CMAKE_TOOLCHAIN_FILE": "D:/Qt/6.9.1/msvc2022_64/lib/cmake/Qt6/qt.toolchain.cmake"
+        "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
       }
     }
   ]
@@ -544,45 +544,7 @@ vscode 引进了一个个人认为非常先进的（但也非常危险的）概�
 ```
 {: file="CMakePreset.json" }
 
-其中由于我在`CMakePreset.json`中设置了`"VCPKG_MANIFEST_MODE": "OFF"`，所以其实 vcpkg.json 没有派上它的用场，我是使用 classic mode（即全局安装） 安装的 ceres 库，但这无伤大雅。其它几个变量都非常重要：
-
-- VCPKG_TARGET_TRIPLET: vcpkg 使用 triplet 概念决定工具链（编译器），非常重要。
-- QT_USE_VCPKG: 和 后面的 CMAKE_TOOLCHAIN_FILE 相关，那里使用了 qt.toolchain.cmake，该 cmake 中会检测 QT_USE_VCPKG 变量，如果为 ON 则会导入 vcpkg 的工具链 cmake
-- CMAKE_CXX_COMPILER：编译器，不指定可能会使用错误的编译器，这里不需要指定 MSVC 的全路径，直接写可执行文件名称即可，即使不在 PATH 环境变量中，vscode 检测到后也会自动导入 VS 2022 的开发环境，从而得到其全路径。
-- CMAKE_TOOLCHAIN_FILE：工具链 cmake，非常重要，例如使用 vcpkg 时就需要设置为 `D:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake`
-
-后续我想不依赖在线安装器安装 Qt 这一方式，改为使用 vcpkg 进行 Qt 的安装，但折腾一段时间后，使用以下 CMakePreset 能编译通过，但无法调试（就改了下 CMAKE_TOOLCHAIN_FILE 的值）:
-
-```json
-{
-  "version": 4,
-  "cmakeMinimumRequired": {
-    "major": 3,
-    "minor": 19,
-    "patch": 0
-  },
-  "configurePresets": [
-    {
-      "name": "ninja-debug",
-      "displayName": "Ninja Debug",
-      "generator": "Ninja",
-      "description": "Use Ninja generator for Debug build",
-      "binaryDir": "${sourceDir}/build/ninja-debug",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "VCPKG_TARGET_TRIPLET": "x64-windows",
-        "VCPKG_MANIFEST_MODE": "OFF",
-        "QT_USE_VCPKG": "ON",
-        "CMAKE_CXX_COMPILER": "cl.exe",
-        "CMAKE_TOOLCHAIN_FILE": "D:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake"
-      }
-    }
-  ]
-}
-```
-{: file="CMakePreset.json" }
-
-调试时报错：
+后续我想不依赖在线安装器安装 Qt 这一方式，改为使用 vcpkg 进行 Qt 的安装（`vcpkg.json` 中添加 qt 相关包，如`qtbase`等），但折腾一段时间后，能编译通过，但无法调试。调试时报错：
 
 ```
 qt.qpa.plugin: Could not find the Qt platform plugin "windows" in ""
@@ -602,7 +564,7 @@ This application failed to start because no Qt platform plugin could be initiali
 
 又结合 AI 的建议尝试了许多思路，发现依然没有解决。感觉太难了，回头再说吧。
 
-至少已经找出一个思路，即使用在线安装器安装 Qt 最新版本，然后可使用 vcpkg.json + CMakePreset 的方式进行开发，也可删除这两个文件，安装了前述插件的 vscode 会自动处理。
+至少目前已经找出一个思路，即使用在线安装器安装 Qt 最新版本，然后可使用 vcpkg.json + CMakePreset 的方式进行开发，也可删除这两个文件，安装了前述插件的 vscode 会自动处理。
 
 ## GitHub Pages 博客
 
@@ -629,6 +591,152 @@ This application failed to start because no Qt platform plugin could be initiali
 * nvim：17k+ 下载量
 
 其中最值得使用的是 VSCode Neovim（ID 为 `asvetliakov.vscode-neovim`），它是当前（2025-06-16）更新最频繁，且最先进的 vim 相关插件。
+
+该插件使用下来，发现还是有不少 bug 的，比如写 markdown 时容易出现些没有的字符，或者说字符错乱，以及有时会卡死，`jkl`都用不了，不管如何，该插件提供了一个重启的命令（`Neovim: Restart Extension`），重启可以解决以上问题。总体使用起来还是非常方便的。
+
+### vcpkg
+
+官方文档：[vcpkg 文档 \| Microsoft Learn](https://learn.microsoft.com/zh-cn/vcpkg/)
+
+> vcpkg 是由 Microsoft 开发的跨平台 C/C++ 包管理工具，旨在简化 C/C++ 库的获取、安装和管理流程。它支持 Windows、Linux 和 macOS，可以自动下载、编译并集成第三方库到你的项目中。
+> 
+> **主要特点：**
+> - 跨平台支持，适用于主流操作系统。
+> - 丰富的库仓库，内置数千个常用 C/C++ 库。
+> - 易于集成，支持 CMake、MSBuild 等主流构建系统。
+> - 支持清单模式（manifest mode），可通过 `vcpkg.json` 文件声明依赖，方便团队协作和环境一致性。
+> 
+> **VS Code 相关支持：**
+> - VS Code 的 [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools) 扩展可以自动检测并集成 vcpkg 安装的库，无需手动配置 include 路径和链接库。
+> - 通过 vcpkg 安装的库会自动被 VS Code 的 C/C++ 扩展（如 Microsoft C/C++ 扩展）识别，提供代码补全、跳转定义等智能提示功能。
+> - 支持调试和构建集成，结合 vcpkg 管理依赖后，VS Code 可以无缝进行编译、调试和运行，无需手动配置复杂的依赖路径。
+> - 在 VS Code 设置中搜索 `vcpkg`，可以看到如 `C_Cpp.vcpkg.enabled` 等相关配置项，方便集成和管理。
+> 
+> **总结：**
+> vcpkg 极大简化了 C/C++ 项目的依赖管理流程，并与 VS Code 实现了深度集成，提升了开发效率和体验。对于使用 VS Code 进行 C/C++ 开发的用户，推荐结合 vcpkg 管理第三方库依赖。
+> 
+> ——引用自 AI
+
+一些使用心得：
+
+- triplet 是 vcpkg 中非常重要的概念，它决定了编译 C++ 库时使用的工具链（编译器），如 x64-windows 表示使用 MSVC 64 位编译器编译，如果要使用 mingw64 编译，则应将 triplet 设置为 x64-mingw-dynamic（动态链接） 或 x64-mingw-static（静态链接）。此外 x64-windows 默认包含 debug 和 release 两个版本，用于开发比较合适，因为通常需要先调试好再发布，调试期间可能用到 debug 版本的 C++ 库以便于定位问题。但如果不想要 debug 版本，可以使用 x64-windows-release 这一 triplet。关于 vcpkg 支持的 triplet 可以查看`vcpkg help triplet`
+- 使用 vcpkg 通常需要导入其工具链 cmake，通常位于 `$env:VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake`（pwsh 写法）
+- vcpkg 有两个重要的环境变量：
+
+  - VCPKG_ROOT：指示了 vcpkg 安装的根目录，如`D:\vcpkg\`
+  - VCPKG_DEFAULT_TRIPLET：指示了默认的 triplet，建议设置 x64-windows
+  
+  此外还需要添加 vcpkg.exe 所在目录到 PATH 环境变量，添加后可以这样检查：
+
+  ```pwsh
+  PS C:\Users\wsxq2> $env:PATH -split ';' |sls vcpkg
+
+  D:\vcpkg
+
+  PS C:\Users\wsxq2> ls D:\vcpkg\*.exe
+
+      Directory: D:\vcpkg
+
+  Mode                 LastWriteTime         Length Name
+  ----                 -------------         ------ ----
+  -a---           2025/6/17    11:00        8474680 vcpkg.exe
+
+  PS C:\Users\wsxq2> vcpkg --version
+  vcpkg package management program version 2025-06-02-145689e84b7637525510e2c9b4ee603fda046b56
+
+  See LICENSE.txt for license information.
+  PS C:\Users\wsxq2>
+  ```
+- vcpkg 有缓存机制：vcpkg 会把所有已编译的包（无论是 classic 还是 manifest 模式）都缓存到 `C:\Users\<你的用户名>\AppData\Local\vcpkg\archives` 目录下。当你用 manifest 方式（vcpkg.json）管理依赖时，如果请求的包和 triplet 在缓存中已存在，vcpkg 会直接从缓存恢复，无需重新下载和编译。这大大加快了依赖安装速度。
+- 推荐使用 manifest 模式，这也是官方推荐的使用方式，可以减少使用全局库造成的冲突和干扰，也更便于移植到另一台电脑
+- vcpkg 是一种被 qt 官方支持的安装 qt 的方式，包括 qt5 和 qt6，当前尝试后发现编译能通过了，但运行时报 DLL 相关错误，尝试多个思路未解决。如果能使用该方式安装 qt，则可以简化过程，节约时间，qt 官方提供的在线安装器实在太慢了，且安装的东西太多了。一个参考链接：[安装 Qt5（使用 vcpkg）（在 Windows 上）](https://www.kkaneko.jp/tools/win/qt5.html#)
+- vcpkg 类似于 python 中的 pip，用于安装 C++ 相关的库，由于 C++ 是编译型语言，预编译出二进制文件非常麻烦，且不通用，所以 vcpkg 选择的方式是下载源码并自动选择相应的工具链（由 triplet 决定，可设置系统环境变量 `VCPKG_DEFAULT_TRIPLET`）编译。
+- `vcpkg integrate install`命令对于 vscode 使用方式而言不是必须的，它主要用于 vs。
+- vcpkg 遇到编译失败问题时，优先更新编译器版本和 vcpkg 版本，后者主要通过以下几个命令完成：
+
+  1. `git pull`: 切换到安装目录执行该命令以拉取最新的 C++ 库信息
+  2. `vcpkg update`：列出可以升级的包。同样建议切换到安装目录执行，可添加 `./` 的前缀（即 `./vcpkg`），这会
+  3. `vcpkg upgrade`：升级所有包，这会重新构建所有过时的包，耗时较长
+
+- vcpkg 有强大的版本设置能力，详见 [教程：安装包的特定版本 | Microsoft Learn](https://learn.microsoft.com/zh-cn/vcpkg/consume/lock-package-versions?tabs=inspect-powershell)
+- vcpkg 可以使用代理（不使用代理时下载通常很慢，因为源代码通常在 GitHub 上），在 pwsh 直接设置环境变量即可，可以使用如下函数进行设置：
+  
+  ```pwsh
+  function Set-Proxy
+  {
+    param (
+      [string]$ProxyUrl,
+      [string]$Username,
+      [string]$Password
+    )
+
+    if ($Username -and $Password)
+    {
+      $ProxyUrl = "http://$Username`:$Password@$ProxyUrl"
+    }
+
+    $env:HTTP_PROXY = $ProxyUrl
+    $env:HTTPS_PROXY = $ProxyUrl
+
+    Write-Host "Proxy set to $ProxyUrl"
+  }
+  ```
+  
+  使用例子:
+  
+  ```pwsh
+  Set-Proxy http://127.0.0.1:7890
+  ```
+  
+  可以使用如下函数取消代理：
+  
+  ```pwsh
+  function Remove-Proxy
+  {
+    Remove-Item Env:HTTP_PROXY
+    Remove-Item Env:HTTPS_PROXY
+
+    Write-Host "Proxy removed"
+  }
+  ```
+  
+  然后执行 vcpkg 命令安装包时就会提示相关字样
+
+
+### CMakePresets.json
+
+官方文档：[cmake-presets(7) — CMake 4.0.3 Documentation](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html)
+
+> `CMakePresets.json` 是 CMake 官方引入的一种标准化配置文件格式，用于统一管理和保存 CMake 的构建预设（Presets）。通过该文件，可以方便地定义不同的构建配置（如 Debug、Release）、生成器、工具链、缓存变量等，提升项目的可移植性和团队协作效率。
+> 
+> **主要特点：**
+> - 支持多种构建预设（如不同平台、不同编译器、不同构建类型）。
+> - 配置集中、结构清晰，便于版本控制和共享。
+> - 支持继承和扩展，方便维护复杂项目的构建需求。
+> 
+> **VS Code 相关支持：**
+> - VS Code 的 [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools) 扩展原生支持 `CMakePresets.json`，可自动识别并加载其中定义的所有构建预设。
+> - 在 VS Code 中打开项目后，可以在命令面板或底部状态栏中直接选择和切换不同的 CMake Preset，无需手动修改配置。
+> - 支持与 vcpkg、远程开发等功能联动，提升跨平台和多环境开发体验。
+> 
+> **总结：**
+> `CMakePresets.json` 让 CMake 项目的构建配置更加标准化和易于管理，配合 VS Code 使用可以大幅提升 C/C++ 项目的开发效率和和协作体验。
+> 
+> ——引用自 AI
+
+一些使用心得：
+
+- 才开始使用时建议只添加一个配置，把这个配置调好后再添加其他配置，添加其他配置时如果有可以复用的就充分利用其 inherit 机制，将可复用的部分提取出来。
+- 其中尽可能多地添加相关配置和变量，以保证其可移植性，否则可能换个电脑就无法正常工作了。这里总结些遇到过的：
+
+  - VCPKG_MANIFEST_MODE: 决定是否使用 vcpkg 的清单模式（局部安装包），默认为 ON，可以设置为 OFF，从而强制使用 classic 模式，即全局安装的包。
+  - VCPKG_TARGET_TRIPLET: vcpkg 使用 triplet 概念决定工具链（编译器），非常重要。
+  - QT_USE_VCPKG: 和 后面的 CMAKE_TOOLCHAIN_FILE 相关，那里使用了 qt.toolchain.cmake，该 cmake 中会检测 QT_USE_VCPKG 变量，如果为 ON 则会导入 vcpkg 的工具链 cmake
+  - CMAKE_CXX_COMPILER：编译器，不指定可能会使用错误的编译器，这里不需要指定 MSVC 的全路径，直接写可执行文件名称即可，即使不在 PATH 环境变量中，vscode 检测到后也会自动导入 VS 2022 的开发环境，从而得到其全路径。
+  - CMAKE_TOOLCHAIN_FILE：工具链 cmake，非常重要，例如使用 vcpkg 时就需要设置为 `D:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake`
+
+- 如果暂时不希望 IDE 解析此文件但又不想删除，则可以将其重命名
+- `CMAKE_TOOLCHAIN_FILE` 只能设置一个值，但部分工具链 cmake 文件可以自动识别并处理其他工具链 cmake 文件，例如 qt 的工具链文件 `D:/Qt/6.9.1/msvc2022_64/lib/cmake/Qt6/qt.toolchain.cmake` 可以自动处理 vcpkg 的工具链文件 `D:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake`，前提是设置 `QT_USE_VCPKG` 变量为 `ON` 或者在其他地方设置了 `CMAKE_TOOLCHAIN_FILE`（如命令行或 CMakeLists.txt 文件中）。
 
 ### 为什么如此执着于一个优秀的开发环境和测试环境？
 
