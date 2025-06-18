@@ -42,11 +42,12 @@ winget install Microsoft.VisualStudioCode
 
 [VSCode官方配置文档]: https://code.visualstudio.com/docs/configure/settings
 
-这里讲几个好用的小细节：
+这里提一些个人使用心得：
 
 1. `Ctrl + ,`打开的默认是界面，不是对应的 json 文件，那么如何打开对应的 json 文件呢？答案很简单，直接点击该界面右上角的相应图标即可，至于具体是哪个图标，就等待你自己去探索了，:joy:。
-1. 某些情况下不只前述两个级别的配置文件，比如使用 remote 开发时，会多出一个远程 vscode server 的配置。
-1. 配置文件 json 本身不支持注释和后面多余的逗号，但 vscode 做了拓展，所以你可以放心地写`//`格式的注释了，以及添加多余的逗号，方便追加内容。
+2. 某些情况下不只前述两个级别的配置文件，比如使用 remote 开发时，会多出一个远程 vscode server 的配置。
+3. 配置文件 json 本身不支持注释和后面多余的逗号，但 vscode 做了拓展，所以你可以放心地写`//`格式的注释了，以及添加多余的逗号，方便追加内容。
+4. vscode 的配置并不总是全部生效，它和打开的文件类型或者工程类型相关，拓展的加载也和这个有关系。比如，打开非 C++ 工程，在配置界面中找不到 C/C++ 插件的配置，打开对应的 JSON 文件会发现相关的配置是暗的，表示未启用，将光标移过去时 vscode 也会有相关提示。可见 vscode 的细节做得非常好。
 
 ### 使用
 
@@ -203,7 +204,7 @@ winget install Microsoft.VisualStudio.2022.BuildTools
 * cmake tools：cmake 工程支持。
 * cpp reference: C++ 标准官方参考手册。
 
-> 官方提供的智能感知插件是 C/C++，其 ID 为 `ms-vscode.cpptools`，我这里推荐的是 clangd，这两个插件是互斥的，使用某一个时必须禁用或卸载另一个，可结合个人体验自行选择
+> 官方提供的智能感知插件是 C/C++，其 ID 为 `ms-vscode.cpptools`，我这里推荐的是 clangd，这两个插件在智能感知功能这块是互斥的，推荐使用 clangd 的智能感知，它依赖于 compile_commands.json，但解析 CPP 文件更快，这样需要禁用 C/C++ 插件的智能感知功能（在设置文件中添加`"C_Cpp.intelliSenseEngine": "disabled",`）。
 {: .prompt-tip }
 
 ## STM32 应用开发
@@ -582,6 +583,25 @@ This application failed to start because no Qt platform plugin could be initiali
 
 ## 其他
 
+### AI
+
+现在 AI 的功能非常强大，用来辅助编程和写博客都非常成熟了，在 vscode 的使用体验比在 neovim 中还要好很多（vscode 真的太牛了）。下面简单说明下个人的使用心得。
+
+这里主要指 LLM，即大语言模型。vscode 中的官方推荐的是 copilot ，copilot 也是微软出品，相关插件主要是 GitHub Copilot，它是个插件包，除了包含它本身外，还包含 GitHub Copilot Chat，所以安装前者即可，它会自动安装后者。
+
+Copilot 主要使用的是 OpenAI 的 ChatGPT，相比 deepseek 等，由于出的比较早，所以更加成熟，个人使用下来体验也非常不错，比较推荐。 Copilot 每月都有免费额度，基本够用了。
+
+下面简单说下 vscode 的 AI 插件（主要是指 GitHub Copilot）能做哪些事：
+
+1. 根据需求快速生成代码，需求描述得越清楚，则生成的代码越准确
+2. 评审代码，提供修改意见，并能一键应用
+3. 自动生成此次 commit 的 message
+4. 协助写文章，如提供一些基础组件的介绍。有时介绍得比官方还清楚。
+5. 协助解决问题，包括编译问题、工程问题、运行问题等，基本所有问题都能咨询它，还可以附上相关的上下文提供更准确的解决思路
+6. ……
+
+总之 AI 的功能非常强大，还有许多尚未发现。**但需要留意的是**，AI 可能犯常识性错误，或者一些低级错误，或者一些隐藏错误，因此，对于 AI 生成的东西，还是需要通过搜索引擎进一步验证。
+
 ### vim 相关插件
 
 由于我习惯了 vim 的操作方式，而且 vim 的操作方式确实非常高效，所以 vscode 中的 vim 插件就显得格外重要了，那么 vim 插件有哪些呢？下面罗列如下：
@@ -593,6 +613,8 @@ This application failed to start because no Qt platform plugin could be initiali
 其中最值得使用的是 VSCode Neovim（ID 为 `asvetliakov.vscode-neovim`），它是当前（2025-06-16）更新最频繁，且最先进的 vim 相关插件。
 
 该插件使用下来，发现还是有不少 bug 的，比如写 markdown 时容易出现些没有的字符，或者说字符错乱，以及有时会卡死，`jkl`都用不了，不管如何，该插件提供了一个重启的命令（`Neovim: Restart Extension`），重启可以解决以上问题。总体使用起来还是非常方便的。
+
+后续还发现一个非常有意思的事，就是 LazyVim 和 vscode neovim 插件可以完美配合，详见 [VS Code \| LazyVim](https://www.lazyvim.org/extras/vscode)
 
 ### vcpkg
 
