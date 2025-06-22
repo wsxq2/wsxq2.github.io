@@ -48,6 +48,11 @@ winget install Microsoft.VisualStudioCode
 2. 某些情况下不只前述两个级别的配置文件，比如使用 remote 开发时，会多出一个远程 vscode server 的配置。
 3. 配置文件 json 本身不支持注释和后面多余的逗号，但 vscode 做了拓展，所以你可以放心地写`//`格式的注释了，以及添加多余的逗号，方便追加内容。
 4. vscode 的配置并不总是全部生效，它和打开的文件类型或者工程类型相关，拓展的加载也和这个有关系。比如，打开非 C++ 工程，在配置界面中找不到 C/C++ 插件的配置，打开对应的 JSON 文件会发现相关的配置是暗的，表示未启用，将光标移过去时 vscode 也会有相关提示。可见 vscode 的细节做得非常好。
+5. 由于我使用过 LazyVim，它推荐的字体是 Nerd Font，然后发现 JetBrainsMono Nerd Font 是一个不错的选择，要在 vscode 中使用该字体，首先需要从 [Nerd Fonts](https://www.nerdfonts.com/font-downloads) 下载并安装，然后在 vscode 配置文件（`settings.json`）中添加以下内容：
+   
+   ```json
+   "editor.fontFamily": "JetBrainsMono Nerd Font Mono, consolas, 'Courier New', monospace",
+   ```
 
 ### 使用
 
@@ -412,7 +417,7 @@ ROS 插件主要依赖两个插件，Python 和 C/C++，因此能够支持 ROS �
 * 通过 catkin_create_pkg 脚本或 catkin create pkg 创建 catkin 包。  
 * 运行 rosrun 或 roslaunch。  
 * 通过 rosdep 快捷方式解决依赖关系。  
-* 为 .msg、.urdf 及其他 ROS 文件提供语法高亮。  
+* **为 .msg、.urdf 及其他 ROS 文件提供语法高亮**。
 * **自动添加 ROS C++ 头文件和 Python 导入路径**。  
 * **使用 ROS clang-format 风格格式化 C++ 代码**。  
 * **预览 URDF 和 Xacro 文件**。  
@@ -424,7 +429,86 @@ ROS 插件主要依赖两个插件，Python 和 C/C++，因此能够支持 ROS �
 > 务必使用最新版本的 ROS 插件，需要注意的是，当前最新版本的插件是 pre release 的**0.9.6**（2023-11-14更新），只需要在该插件页面点击“Switch to Pre-Release Version”按钮即可。
 {: .prompt-warning }
 
-实际使用下来，发现 ROS 插件对 cpp 文件解析非常慢，可能是 C/C++ 插件本身的性能有限导致的，后续可考虑改用 clangd 插件。
+下面就我用过的一些功能作一些配置说明。
+
+#### 预览 URDF 和 Xacro 文件
+
+该功能在旧版本有 bug，比如其默认的 release 版本，尝试预览时会发现一片空白，所以一定要“Switch to Pre-Release Version”。
+
+此外，还需要在`~/.bashrc`中导入当前工作空间的环境，即添加如下内容：
+
+```bash
+source /home/ubuntu/work/nav_car_ws/devel/setup.bash
+```
+
+否则会报以下错误（找不到相应的包）：
+
+```
+Command failed: bash --login -c "xacro '/home/ubuntu/work/nav_car_ws/src/nav_car/nav_car_description/urdf/nav_car.urdf.xacro' && env"
+error: resource not found: nav_car_description
+ROS path [0]=/opt/ros/noetic/share/ros
+ROS path [1]=/opt/ros/noetic/share
+when processing file: /home/ubuntu/work/nav_car_ws/src/nav_car/nav_car_description/urdf/nav_car.urdf.xacro
+```
+
+#### 代码智能感知
+
+实际使用下来，发现 ROS 插件对 cpp 文件解析非常慢，可能是 C/C++ 插件本身的性能有限导致的，故考虑改用 clangd 插件。
+
+如前所述，要避免 clangd 插件和 C/C++ 插件冲突，需要关闭 C/C++ 插件的智能感知功能：
+
+```json
+  "C_Cpp.intelliSenseEngine": "disabled",
+```
+
+然后安装 clangd 插件，安装好后可能会提示你“系统中未安装 clangd 程序，是否自动安装？”，这里对于 Linux 系统，建议手动安装，由于 ROS 一般运行在 Ubuntu 上，所以可以直接使用 apt 命令安装，但需要注意的是，有多个 clangd 版本可安装，建议安装最新版本，目前（2025-06-22）在 Ubuntu 20.04 上，最新版本是 clangd-18：
+
+```bash
+sudo apt install clangd-18
+```
+
+可使用`apt search clangd`查看有哪些版本可供安装。安装完成后需要在 vscode 配置其可执行文件路径，例如：
+
+```json
+  "clangd.path": "/usr/bin/clangd-18",
+```
+
+除此之外，clangd 还依赖于 `compile_commands.json` 文件，该文件很容易通过 cmake 的一个参数获得，该参数即 `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON`，如果使用`catkin`构建命令，则可以使用`catkin config`命令配置在当前工作空间总是启用该参数：
+
+```bash
+catkin config --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+```
+
+之后直接`catkin build`即可。
+
+如果使用 `catkin_make`，则可以在每次编译时使用以下命令生成`compile_commands.json`：
+
+```bash
+catkin_make --cmake-args '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
+```
+
+生成后的`compile_commands.json`通常位于 build/ 目录下，可以 cd 进去后使用 find 命令查找，通常每个包都有一个对应的`compile_commands.json`文件，这时在编辑特定包的代码时，就需要使用对应的该文件，实现的方式有许多，个人推荐使用 `.clangd` 文件的方式。例如当编辑`cartographer_ros`包的代码时可以在 vscode workspace 根目录下添加`.clangd`文件，并写入以下内容：
+
+```yaml
+CompileFlags:
+  CompilationDatabase: ./build/cartographer_ros/
+```
+{: file=".clangd" }
+
+完成后在命令面板执行命令（`Ctrl+Shift+p`）：`Restart language server`，然后打开相关的 CPP 文件（如`node.cc`），就可以看到下方状态栏会提示类似`indexing 1/32...`的字样，直到全部索引完成，完成后就能使用了，如跳转到函数定义（`Ctrl + Mouse Left`），查找某个 symbol 的所有引用（`Shift + F12`）等。
+
+这样一来，使用起来就非常流畅了。
+
+> 索引耗时取决于文件数量和 CPU 性能，一般 ARM CPU 性能较差，索引时间会比较长，但也只需要等一次，后续再打开工程时会使用缓存（通常位于`.cache/clangd`目录，比如对于前述的`cartographer_ros`包，相应的缓存位于`./build/cartographer_ros/.cache/clangd`），就不会这么慢了。由于使用了索引，后续使用时就会比较快，不像 C/C++ 插件一样等很久才能跳转到定义。
+{: .prompt-info }
+
+#### 一键格式化
+
+代码格式调整一直是个麻烦的事，但很久以前我就发现有许多自动化工具可以完成这一事项，使用这些工具可以大大提高效率，vscode 显然也支持类似的工具，如比较流行的 clang-format，有意思的是，clangd 在较新版本中内置了`clang-format`，所以我们不需要额外安装`clang-format`了，详见[clangd Features](https://clangd.llvm.org/features#formatting)
+
+安装并配置好 clangd 后，我们就可以使用它格式化代码了，直接使用 vscode 的相关快捷键 `Alt+Shift+f` 即可。值得一提的是，如果你安装了后面提到的 `asvetliakov.vscode-neovim` 插件，你可以直接使用 vim 中的 `=` 命令来格式化选中代码，个人感觉这非常 nice。
+
+此外，你也可以设置成保存时自动格式化，详见 `editor.formatOnSave` 设置。
 
 ### SSH 远程开发
 
@@ -616,6 +700,12 @@ Copilot 主要使用的是 OpenAI 的 ChatGPT，相比 deepseek 等，由于出�
 
 后续还发现一个非常有意思的事，就是 LazyVim 和 vscode neovim 插件可以完美配合，详见 [VS Code \| LazyVim](https://www.lazyvim.org/extras/vscode)
 
+### 文件夹比较
+
+有些时候会比较两个文件夹的需求，比如某个人改了开源代码（如 cartographer），这时我们需要知道他基于官方版本修改了哪些内容，这里就需要比较两个文件夹，修改后的和原本的，比较出名的工具是 Beyond Compare 5，但该工具只能免费试用 30 天（这点其实可以充分利用一下，它的 30 天是打开软件才算，不打开该软件是不计入的），所以需要找一个好用的 vscode 插件。
+
+通过简单的搜索，我们可以发现 **Compare Folders** 是一个不错的选择，该插件基于 [gliviu/dir-compare: Node JS directory compare](https://github.com/gliviu/dir-compare)，使用下来发现非常好用，强烈推荐
+
 ### vcpkg
 
 官方文档：[vcpkg 文档 \| Microsoft Learn](https://learn.microsoft.com/zh-cn/vcpkg/)
@@ -759,6 +849,24 @@ Copilot 主要使用的是 OpenAI 的 ChatGPT，相比 deepseek 等，由于出�
 
 - 如果暂时不希望 IDE 解析此文件但又不想删除，则可以将其重命名
 - `CMAKE_TOOLCHAIN_FILE` 只能设置一个值，但部分工具链 cmake 文件可以自动识别并处理其他工具链 cmake 文件，例如 qt 的工具链文件 `D:/Qt/6.9.1/msvc2022_64/lib/cmake/Qt6/qt.toolchain.cmake` 可以自动处理 vcpkg 的工具链文件 `D:\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake`，前提是设置 `QT_USE_VCPKG` 变量为 `ON` 或者在其他地方设置了 `CMAKE_TOOLCHAIN_FILE`（如命令行或 CMakeLists.txt 文件中）。
+
+### scoop vs winget vs choco
+
+这些都是 windows 上的包管理器，类似 Ubuntu 中的 apt、CentOS 中的 yum 等
+
+这些包管理器中首推 `scoop`，因为它是用户级的，不会污染系统环境，且更隔离方便，不会弹出安装窗口，不需要需要授权，更方便，更容易实现多版本安装，如 python 的多版本等。目前我通过 scoop 安装了 7zip, cmake, fzf, ninja, riggrep 等工具。如果要设置代理，可使用 `scoop config proxy 127.0.0.1:7890` 命令
+
+其次是 `winget`，因为它是微软官方支持的（在新的 Windows11 版本中无需手动安装）。事实证明，Windows 上的东西还是选择微软官方的比较好，比如 C++ 编译器 MSVC，况且现在的微软不比当年，已经做了许多开源方面的贡献，如 TypeScript、.Net 开源、VS Code、WSL、powershell开源等，甚至在许多方面提出了先进的理念，比如 LSP、DAP 等，因此现在的开源社区已经不再排斥微软。
+
+`choco`和`winget`的定位是类似的，既然选择了`winget`自然就不必考虑它了。
+
+### make vs ninja vs jom vs msbuild
+
+这些都是底层构建工具，cmake 是它们的上层，在 cmake 中它们叫做 Generator，即对应其 `-G` 参数。
+
+make 的特点是历史悠久，应用广泛，较为复杂，但兼容性强，功能强大；ninja 的特定是较新，由 Google 开发，追求极致速度，结合 MSVC 使用时需要导入 VS 的开发环境（Visual Studio 2022 Developer Command Prompt）；jom 是 qt 开发的，比 make 要快些；msbuild 是微软开发的，速率较慢，但兼容性更强，不需要导入 VS 的开发环境，对应 cmake 中的 `Visual Studio *` Generator（这里虽然名为 VS，但并非一定要打开 VS 才能使用）。
+
+对于新的项目，优先选择 ninja，因为它快，构建得快可以大大提高开发效率。其次是 make，它是通用之选。jom 并不受 cmake 支持，建议不考虑。msbuild 在构建 windows 应用时可考虑。
 
 ### 为什么如此执着于一个优秀的开发环境和测试环境？
 
