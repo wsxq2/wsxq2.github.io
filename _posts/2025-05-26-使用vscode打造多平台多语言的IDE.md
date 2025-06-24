@@ -429,6 +429,9 @@ ROS 插件主要依赖两个插件，Python 和 C/C++，因此能够支持 ROS �
 > 务必使用最新版本的 ROS 插件，需要注意的是，当前最新版本的插件是 pre release 的**0.9.6**（2023-11-14更新），只需要在该插件页面点击“Switch to Pre-Release Version”按钮即可。
 {: .prompt-warning }
 
+> 该插件似乎即将弃用，但其替代品目前还不够成熟，故还可暂用一段时间，详见 [This extension is being deprecated, replaced by Robot Developer Extensions · Issue #1306 · ms-iot/vscode-ros](https://github.com/ms-iot/vscode-ros/issues/1306)
+{: .prompt-tip }
+
 下面就我用过的一些功能作一些配置说明。
 
 #### 预览 URDF 和 Xacro 文件
@@ -770,7 +773,7 @@ Copilot 主要使用的是 OpenAI 的 ChatGPT，相比 deepseek 等，由于出�
   2. `vcpkg update`：列出可以升级的包。同样建议切换到安装目录执行，可添加 `./` 的前缀（即 `./vcpkg`），这会
   3. `vcpkg upgrade`：升级所有包，这会重新构建所有过时的包，耗时较长
 
-- vcpkg 有强大的版本设置能力，详见 [教程：安装包的特定版本 | Microsoft Learn](https://learn.microsoft.com/zh-cn/vcpkg/consume/lock-package-versions?tabs=inspect-powershell)
+- vcpkg 有强大的版本设置能力，详见 [教程：安装包的特定版本 \| Microsoft Learn](https://learn.microsoft.com/zh-cn/vcpkg/consume/lock-package-versions?tabs=inspect-powershell)
 - vcpkg 可以使用代理（不使用代理时下载通常很慢，因为源代码通常在 GitHub 上），在 pwsh 直接设置环境变量即可，可以使用如下函数进行设置：
   
   ```pwsh
