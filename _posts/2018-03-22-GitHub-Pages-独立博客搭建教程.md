@@ -1,6 +1,5 @@
 ---
-tags: [GitHub Pages,独立博客,jekyll]
-last_modified_time: 2019-05-12 11:56:30 +0800
+tags: [GitHub Pages, 博客, jekyll]
 ---
 
 **温馨提示**: 
@@ -9,44 +8,6 @@ last_modified_time: 2019-05-12 11:56:30 +0800
 2. 本文适合对象：对 git 和 GitHub 有一定了解，对 GitHub Pages 几乎完全不了解的**有强烈愿望**搭建独立博客的人。因为要学的东西超多，不过有的东西浅尝辄止即可，不要过于深入
 
 使用 GitHub Pages 搭建独立博客涉及以下内容：`git`、`GitHub Pages`、`GitHub`、`jekyll`、`markdown`、`liquid`、`YAML`、`ruby`
-
-<p id="markdown-toc"></p>
-
-<!-- vim-markdown-toc GFM -->
-
-* [概述](#概述)
-  * [独立博客是什么](#独立博客是什么)
-  * [为什么要搭建独立博客](#为什么要搭建独立博客)
-    * [为什么要搭建博客](#为什么要搭建博客)
-    * [为什么要搭建独立博客](#为什么要搭建独立博客-1)
-  * [如何搭建](#如何搭建)
-* [概念区分](#概念区分)
-  * [git](#git)
-  * [GitHub](#github)
-  * [GitHub Pages](#github-pages)
-* [最基本独立博客搭建](#最基本独立博客搭建)
-* [认识 Jekyll](#认识-jekyll)
-  * [基本结构](#基本结构)
-  * [调试](#调试)
-* [使用模板](#使用模板)
-  * [模板选择](#模板选择)
-  * [如何使用](#如何使用)
-* [搭建和 GitHub Pages 一致的本地 Jekyll 环境](#搭建和-github-pages-一致的本地-jekyll-环境)
-  * [将你的 GitHub Pages 对应的 repository 克隆到本地](#将你的-github-pages-对应的-repository-克隆到本地)
-  * [安装 ruby 语言开发环境](#安装-ruby-语言开发环境)
-  * [安装 bundle](#安装-bundle)
-  * [安装 GitHub Pages 需要的包](#安装-github-pages-需要的包)
-  * [运行](#运行)
-* [写博客](#写博客)
-  * [博客文章放置的位置及标记语言选择](#博客文章放置的位置及标记语言选择)
-  * [文章命名格式](#文章命名格式)
-  * [文章头信息](#文章头信息)
-* [自动化](#自动化)
-* [结语](#结语)
-* [链接](#链接)
-
-<!-- vim-markdown-toc -->
-
 
 ## 概述
 这一部分回答三个问题：独立博客是什么？为什么要搭建独立博客？如何搭建？
@@ -58,6 +19,7 @@ last_modified_time: 2019-05-12 11:56:30 +0800
 
 ### 为什么要搭建独立博客
 这个问题分成两点回答：为什么要搭建博客？为什么要搭建独立博客？
+
 #### 为什么要搭建博客
 1. 记录和分享。将一些东西存储下来，以便以后查阅
 
@@ -79,12 +41,12 @@ last_modified_time: 2019-05-12 11:56:30 +0800
 ### git
 git 是一个分布式版本控制软件，最初目的是为更好地管理Linux内核开发而设计。与 git 类似的还有 SVN（Apache Subversion）。详情参见 [git - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/Git)
 
-为学习 git 你可能需要[git教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)，如果已通过该网站学习过，则可参考我的另一篇博客 [git教程笔记](https://wsxq2.55555.io/blog/2018/04/02/Git教程笔记) 进行复习
+为学习 git 你可能需要[git教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)，如果已通过该网站学习过，则可参考我的另一篇博客 [git教程笔记](https://wsxq2.55555.io/blog/2018/04/02/Git教程笔记/) 进行复习
 
 ### GitHub
 GitHub 简介: 
 
-> &emsp;&emsp;GitHub is a **code hosting platform** for **version control and collaboration(合作)**. It lets you and others work together on projects from **anywhere**.
+> GitHub is a **code hosting platform** for **version control and collaboration(合作)**. It lets you and others work together on projects from **anywhere**.
 
 即 GitHub 是一个保存代码的，用于版本控制与合作的平台。它允许你和其他人共同对一个项目进行开发，而且不受地域限制（有网即可）
 
@@ -94,7 +56,7 @@ GitHub官网：[GitHub](https://github.com/)
 
 GitHub Pages 简介:
 
-> &emsp;&emsp;GitHub Pages is a **static site hosting service** designed to host your **personal, organization, or project pages** directly from a **GitHub repository**.
+> GitHub Pages is a **static site hosting service** designed to host your **personal, organization, or project pages** directly from a **GitHub repository**.
 
 即 GitHub Pages 是一个静态站点主机服务，目的在于直接通过 GitHub repository 寄存你的个人、组织、或项目文档。有用的相关链接如下：
 
@@ -136,7 +98,7 @@ Jekyll 使用`liquid`模板语言（[Shopify/liquid: Liquid markup language. Saf
 > 
 > 一个基本的 Jekyll 网站的目录结构一般是像这样的：
 > 
-> <pre>
+> ```
 > .
 > ├── _config.yml
 > ├── _drafts
@@ -154,7 +116,7 @@ Jekyll 使用`liquid`模板语言（[Shopify/liquid: Liquid markup language. Saf
 > ├── _site
 > ├── .jekyll-metadata
 > └── index.html
-> </pre>
+> ```
 > 
 > 来看看这些都有什么用：
 > 
@@ -250,13 +212,14 @@ gem source #查看正在使用的镜像
 ### 安装 GitHub Pages 需要的包
 
 1. 进入之前克隆到本地的`username.github.io`目录：
-   ```
+
+   ```bash
    cd username.github.io
    ```
 
 1. 创建`Gemfile`文件, 往其中加入以下内容：
 
-   ```
+   ```Gemfile
 	 source 'http://gems.ruby-china.com/'
 	 gem 'github-pages'
    ```
@@ -265,33 +228,39 @@ gem source #查看正在使用的镜像
 
    Bash 中可以直接使用如下代码：
    
-   <pre>
+   ```bash
    echo '
    source "http://gems.ruby-china.com/"
    gem "github-pages"
    ' >Gemfile
-   </pre>
+   ```
    
 1. 安装和 GitHub Pages 一样的 Jekyll 环境：
-   ```
+
+   ```bash
    bundle install
    ```
 
    命令会根据当前目录下的`Gemfile`，安装所需要的所有 ruby 软件包(使其和 GitHub Pages 环境一致), 这样可以方便本地调试博客，以确保它正确无误，然后再提交到 GitHub
 
    这一步可能出现以下错误：
+
    ```
    zlib is missing; necessary for building libxml2
    ```
+
    此时安装`zlib1g-dev`软件包即可：
-   ```
+
+   ```bash
    apt install zlib1g-dev
    ```
 
 1. （可选）更新本地 Jekyll 环境
+
    ```
    bundle update
    ```
+
    出现问题的时候，或者和 GitHub Pages 出现不一致的时候可以尝试一下
 
 ### 运行
@@ -409,46 +378,42 @@ function gp(){
 }
 ```
 
-## 结语
-> &emsp;&emsp;好了，至此我便可以在属于我自己的博客中写文章了。乍一看是不是觉得很简陋呢，但是我喜欢这个样子。我费了这了大力气搭建博客，并不是要向别人展现什么，我只是为了满足自己，为了记录和备忘。我的博客，我所写的文章会不会有人来看，这不重要，重要的是，我自己会看。我觉得我是一个记忆力非常不好的人，别人很容易记住的东西我要花很长时间才能记住。以前我总是会在书包里放一个笔记本，记录自己所看到的，所想到的。有些东西，如果你遇到了，但没有收藏，或许以后你就再也找不到他了；有些灵感，如果出现了，但没有记录，那将转瞬即逝再也捕捉不到。后来我就把我所想到的，所看到的，所学到的记录到了博客上。毕竟现在网络无处不在，当我需要的时候， 我会凭着我微弱的记忆到博客中寻找。
-> 
-> &emsp;&emsp;不知道从什么开始，我已经不再刻意的花大量的时间去记住某些东西了，我所做的是在为自己创建更多的“第二类记忆”（此概念出自一位教师所写的《忘记是最好的老师》一文，此后我将在博文中贴出此文）。我在相信，凡是你记不住的，都是本来就不需要记住的东西。
-> 
-> &emsp;&emsp;——引用自[博客搭建历程 \| Huoty's Blog](http://blog.konghy.cn/2015/05/06/process-blog-build/)
+## 升级
 
-## 链接
-下面总结了本文中使用的所有链接：
+自 2018 年搭建个人博客以来（现在是 2025-06-24），写博客对我而言一直是个麻烦的事情，由于最初我是在 Linux（Kali） 中搭建的开发环境和测试环境，且该 Linux 位于 VirtualBox 虚拟机中，就导致我每次写博客需要启动虚拟机，然后通过 putty 连接该虚拟机，再使用 vim 写文章，而且当时 vim 的插件并没有现在这么完善，许多功能我采用了比较原始的方法，如 vim 的宏录制，这就导致写个文章非常麻烦，此外当时选择的模板越看越丑，还缺少一些必要的功能，如自动生成目录等，导致我自行添加了相关的 JS 代码，就比较混乱，不能专注于写文章。而且当时自己还弄了个复杂的文章结构，比如必须包括概述、链接、缩略语等章节，搞得非常痛苦。所以工作后就很少写文章了。
 
-<!-- link start -->
+然而写文章的想法时不时萦绕于我的脑海，我是喜欢写文章的，因为我喜欢总结和分享。因此，在多次产生写文章的念头后，我决定重整我的博客网站，尤其是要使用一个先进的，但简约的模板，降低复杂度，将注意力迁移回写内容本身。
 
-* [Dependency versions \| GitHub Pages](https://pages.github.com/versions/)
-* [GitHub Pages Basics - GitHub Help](https://help.github.com/en/categories/github-pages-basics)
-* [GitHub Pages](https://pages.github.com/)
-* [GitHub Pages指南 GitHub Pages开发中文手册下载-极客学院Wiki](http://wiki.jikexueyuan.com/project/github-pages-basics/)
-* [GitHub](https://github.com/)
-* [Git教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/896043488029600)
-* [Git教程笔记](https://wsxq2.55555.io/blog/2018/04/02/Git教程笔记)
-* [Home · Shopify/liquid Wiki](https://github.com/Shopify/liquid/wiki)
-* [Jekyll Liquid Cheatsheet](https://gist.github.com/JJediny/a466eed62cee30ad45e2)
-* [Jekyll • Simple, blog-aware, static sites \| Transform your plain text into static websites and blogs](https://jekyllrb.com/)
-* [Jekyll • 简单静态博客网站生成器 - 将纯文本转换为静态博客网站](http://jekyllcn.com/)
-* [Liquid template language](https://shopify.github.io/liquid/)
-* [Ruby on Rails \| A web-application framework that includes everything needed to create database-backed web applications according to the Model-View-Controller (MVC) pattern.](https://rubyonrails.org/)
-* [Shopify/liquid: Liquid markup language. Safe, customer facing template language for flexible web apps.](https://github.com/Shopify/liquid)
-* [bundler vs RVM vs gems vs RubyGems vs gemsets vs system ruby - Stack Overflow](https://stackoverflow.com/questions/15586216/bundler-vs-rvm-vs-gems-vs-rubygems-vs-gemsets-vs-system-ruby)
-* [git - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/Git)
-* [github-pages \| RubyGems.org \| Ruby 社区 Gem 托管](https://rubygems.org/gems/github-pages)
-* [git教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
-* [git教程笔记](https://wsxq2.55555.io/blog/2018/04/02/Git教程笔记)
-* [http://jekyllthemes.org/](http://jekyllthemes.org/)
-* [https://github.com/cnfeat/blog.io][other_template_1]
-* [jekyll/jekyll: Jekyll is a blog-aware static site generator in Ruby](https://github.com/jekyll/jekyll)
-* [ruby - jekyll debug or print all variables - Stack Overflow](https://stackoverflow.com/questions/34048313/jekyll-debug-or-print-all-variables)
-* [博客搭建历程 \| Huoty's Blog](http://blog.konghy.cn/2015/05/06/process-blog-build/)
-* [安装ruby](https://www.ruby-lang.org/zh_cn/documentation/installation/)
-* [官方教程](https://pages.github.com/)
-* [插件 - Jekyll • 简单静态博客网站生成器](http://jekyllcn.com/docs/plugins/)
-* [欢迎 - Jekyll • 简单静态博客网站生成器](http://jekyllcn.com/docs/home/)
-* [用Jekyll搭建的Github Pages个人博客](http://louisly.com/2016/04/used-jekyll-to-create-my-github-blog/)
-* [目录结构 - Jekyll • 简单静态博客网站生成器](http://jekyllcn.com/docs/structure/)
-<!-- link end -->
+我花了一些时间升级我的博客，这里罗列下相关事项（也算是当前的升级思路，其中部分还未完成）：
+
+- [x] 找到新的优秀模板 [Chirpy](https://chirpy.cotes.page/)
+- [x] 参考模板官方文档实现了 vscode 部署和运行，效果还不错，兼容性也很好，后续可以考虑使用。另外遇到一个问题：**127.0.0.1 7890 无法访问**，这是因为模板官方使用了 Docker 容器远程开发的方式（dev container），而我的 Windows 开发机中给 git 设置了代理，即在 `~/.gitconfig` 中添加了 `127.0.0.1:7890`的代理（即开发机的 7890 端口），而 dev container 方式会将该配置文件复制到 Docker 容器中，复制后访问 `127.0.0.1`就是访问容器本身了，这自然就会出错，因此解决方法就是修改`~/.gitconfig`，把`127.0.0.1`改为`192.168.56.200`（这是我的 VitualBox 的 Host Only 网卡的 IP 地址）
+- [x] 进一步查阅模板官方文档
+- [ ] 迁移博客等
+  - [x] 相关文件调整，包括删除不必要的文件和添加必要的文件，事实上，调整后目录变得清爽了许多。完成并 push 后发现 GitHub Actions 并未构建成功，**报 gsub 错误**，从 deepseek 得到启发，它说通常是数字 tag 或 title 导致，使用 grep 查找纯数字的 tag，找到《16位汇编设计》中的 8086，修改后解决此问题，但遇到新问题：**htmlproofer 导致的 github actions 未通过**，检查相关文件（`.github/pages-deploy.yml`)，找到相应的命令行的执行位置，手动在本地环境中执行，发现确实有同样错误，从 htmlproofer 官方 github 中的 README 得到启发，可以使用 `--ignore-files` 参数暂时忽略相关文件，后续再进行处理，尝试后果然解决。之后暂无其他问题。之前还有个问题是 `.gitignore` 有问题，写得太草率导致许多关键文件未commit。
+  - [x] 清理小于 1kb 的文章，清理前检查
+  - [x] disqus 迁移，后续在 `_config.yaml` 中将 `permalink` 从 `/posts/:title/` 改为 `blog/:year/:month/:day/:title/`（即和之前一致）
+  - [x] 博客的上次修改时间保留，实际不再需要之前添加到 Front Matter 中的 `last_modified_time` 字段，chiry 模板会自动根据 `git log` 来获取上次修改时间。
+  - [x] avatar 添加：由于还涉及之前的图片，而之前的图片保存在七牛云，它比较坑，使用 https 需要付费，只使用 http 又会被主流浏览器出于安全原因屏蔽。最后使用自己搭建的服务器完美解决，这要求在`_config.yaml`中添加
+`cdn: "https://wsxq21.55555.io"`，这样所有的媒体资源都会从这里获取，包括站点头像、文章图片、音频和视频文件。
+  - [x] About页面添加。对比之前的查漏补缺
+  - [ ] 参考 [Writing a New Post \| Chirpy](https://chirpy.cotes.page/posts/write-a-new-post/) 写新文章，包括添加分类等
+  - [x] 图片上传问题解决（可以考虑使用自己搭建的服务器），或者看七牛云是否免费支持HTTPS？七牛云不支持。
+  - [ ] 无效文章进一步清理
+  - [x] twitter 的ID应是 `wsxq21`
+  - [x] 点击数，访问数等迁移：需要修改模板，比较麻烦，暂时放弃
+  - [x] permalink 迁移：还存在问题，博客间跳转会 404，复制链接后加上/即可访问，暂未全部处理
+  - [x] HTTPS问题，尤其是图片，和前面 avatar 添加相关
+  - [ ] 修复警告
+  - [ ] 修复 htmlproof 错误
+- [ ] 图表的学习和应用，尤其是 mermaid 和 markmap(MD to mindmap)，D2 还未成熟和普及，暂不考虑，visio 在项目文档中依然有其价值，pantUML 暂不深入。另可深入 Kroki，但需要注意的是，markdown 不原生支持 Kroki，且需要上传到远端服务器处理
+  
+完成升级后，写博客变得格外轻松和愉快了，Very Nice! :innocent:
+
+> 事实上，完成升级后，前面的许多内容都有所调整，
+
+## 感想
+
+随着时间的推移，我越发觉得写文章没必要事无巨细，相反，一定要突出重点，尤其重要的是你的思路。关于细节现在有很多方法可以获得，比如 AI、Google 搜索引擎等。所以很多时候，我们没必要面面倶到，只需要提一些关键词或者链接即可。换言之，我们只需要提供思路以及索引就足够了，这也是我后续写文章的目标。不能再像以前那样过于详细了，因为这样耗时的时间和精力都太多了，会让人疲惫和厌倦。
+
+总之，新的征程开始了……
