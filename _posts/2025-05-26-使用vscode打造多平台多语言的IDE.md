@@ -464,7 +464,7 @@ when processing file: /home/ubuntu/work/nav_car_ws/src/nav_car/nav_car_descripti
   "C_Cpp.intelliSenseEngine": "disabled",
 ```
 
-然后安装 clangd 插件，安装好后可能会提示你“系统中未安装 clangd 程序，是否自动安装？”，这里对于 Linux 系统，建议手动安装，由于 ROS 一般运行在 Ubuntu 上，所以可以直接使用 apt 命令安装，但需要注意的是，有多个 clangd 版本可安装，建议安装最新版本，目前（2025-06-22）在 Ubuntu 20.04 上，最新版本是 clangd-18：
+然后安装 clangd 插件，安装好后可能会提示你“系统中未安装 clangd 程序，是否自动安装？”，这里直接选“是”，如果失败，则可以手动安装，由于 ROS 一般运行在 Ubuntu 上，所以可以直接使用 apt 命令安装，但需要注意的是，有多个 clangd 版本可安装，建议安装最新版本，目前（2025-06-22）在 Ubuntu 20.04 上，最新版本是 clangd-18（如果没有找到较新版本，建议直接从相应的 [GitHub Release](https://github.com/clangd/clangd/releases/latest) 页面下载安装，详见 [clangd 官方安装指南](https://clangd.llvm.org/installation)）：
 
 ```bash
 sudo apt install clangd-18
@@ -490,7 +490,7 @@ catkin config --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 catkin_make --cmake-args '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
 ```
 
-生成后的`compile_commands.json`通常位于 build/ 目录下，可以 cd 进去后使用 find 命令查找，通常每个包都有一个对应的`compile_commands.json`文件，这时在编辑特定包的代码时，就需要使用对应的该文件，实现的方式有许多，个人推荐使用 `.clangd` 文件的方式。例如当编辑`cartographer_ros`包的代码时可以在 vscode workspace 根目录下添加`.clangd`文件，并写入以下内容：
+生成后的`compile_commands.json`通常位于 build/ 目录下，可以 `cd` 进去后使用 `find` 命令查找，通常每个包都有一个对应的`compile_commands.json`文件，这时在编辑特定包的代码时，就需要使用对应的该文件（也可合并多个 `compile_commands.json` 文件为一个，可使用 [Sarcasm/compdb](https://github.com/Sarcasm/compdb) 工具），实现的方式有许多，个人推荐使用 `.clangd` 文件的方式。例如当编辑`cartographer_ros`包的代码时可以在 vscode workspace 根目录下添加`.clangd`文件，并写入以下内容：
 
 ```yaml
 CompileFlags:
