@@ -1,5 +1,5 @@
 ---
-tags: [CentOS,shadowsocks]
+tags: [CentOS,ShadowSocks]
 ---
 
 **版权相关**: 本文截取自[在 CentOS 7 下安装配置 shadowsocks](https://morning.work/page/2015-12/install-shadowsocks-on-centos-7.html)

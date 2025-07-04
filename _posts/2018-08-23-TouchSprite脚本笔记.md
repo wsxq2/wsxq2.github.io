@@ -1,5 +1,5 @@
 ---
-tags: [note,TouchSprite,ADB,Lua,脚本]
+tags: [Note,TouchSprite,ADB,Lua,脚本]
 ---
 
 

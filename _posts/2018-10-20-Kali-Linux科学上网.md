@@ -1,5 +1,5 @@
 ---
-tags: [kali,shadowsocks,shadowsocksr,科学上网]
+tags: [kali,ShadowSocks,ShadowSocksR,科学上网]
 last_modified_time: 2019-07-07 16:31:11 +0800
 ---
 
@@ -178,7 +178,7 @@ systemctl enable shadowsocks-libev-local@config
 SSR 的诸多实现如下（和 SS 类似）：
 
 | 实现                 | 编程语言        | 适用平台            | 最近一次更新 | 服务器 or 客户端 |
-|----------------------|-----------------|---------------------|--------------|------------------|
+| -------------------- | --------------- | ------------------- | ------------ | ---------------- |
 | shadowsocksr         | Python          | Linux, OSX          | 2018-05      | both             |
 | shadowsocksr-libev   | C               | Linux, OSX, openwrt | 2018-03      | both             |
 | shadowsocksr-android | Java,Go         | Android             | 2018-03      | client           |
