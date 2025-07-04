@@ -278,7 +278,7 @@ git commit -m 'comment' #提交暂存区的内容到当前分支（如 master）
 git push #把本地库的所有内容推送到远程库上
 ```
 
-如果你对上述命令不熟悉，建议你参考 [Git教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/896043488029600) 和 我的另一篇博客——[Git教程笔记](https://wsxq2.55555.io/blog/2018/04/02/Git教程笔记)
+如果你对上述命令不熟悉，建议你参考 [Git教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/896043488029600) 和 我的另一篇博客——[Git教程笔记](https://wsxq2.55555.io/blog/2018/04/02/Git教程笔记/)
 
 ## 写博客
 写博客需要注意的东西有很多，包括`Jekyll`中的格式要求、好用的写作工具、写作风格、写出好文章的方法等。这里只讲述 Jekyll 模板系统中的格式要求。对于写作工具，如果使用`markdown`的话，任意选择一个你喜欢的编辑器即可（如`vim`）；对于写作风格，则因人而异；而如何写出好文章，我也正在学习
@@ -286,7 +286,7 @@ git push #把本地库的所有内容推送到远程库上
 ### 博客文章放置的位置及标记语言选择
 如前所述，博客对应的目录是`_posts`，在这个目录中，你可以写`markdown`、`Textile`、`html`等格式的文件。
 
-笔者建议使用 `markdown`，因为它简单易学且很流行（如被 GitHub 大力支持），本博客站点的所有文章的源文件均是 `markdown` 文件。如果需要学习 `markdown`，可参考我的另一篇博客 [markdown笔记](https://wsxq2.55555.io/blog/2018/04/07/markdown笔记)
+笔者建议使用 `markdown`，因为它简单易学且很流行（如被 GitHub 大力支持），本博客站点的所有文章的源文件均是 `markdown` 文件。如果需要学习 `markdown`，可参考我的另一篇博客 [markdown笔记](https://wsxq2.55555.io/blog/2018/04/07/markdown笔记/)
 
 ### 文章命名格式
 格式如下：

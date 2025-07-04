@@ -5,7 +5,7 @@ last_modified_time: 2019-07-07 16:31:11 +0800
 
 本文只讲解 Kali Linux 下针对 SS 和 SSR 的客户端配置。由于 Kali 基于 Debian，所以其它基于 Debian 的 Linux 类似，例如 Ubuntu。
 
-关于科学上网的具体介绍请参见我的另一篇博客 [科学上网](https://wsxq2.55555.io/blog/2019/07/07/科学上网)。本文是它的子集
+关于科学上网的具体介绍请参见我的另一篇博客 [科学上网](https://wsxq2.55555.io/blog/2019/07/07/科学上网/)。本文是它的子集
 
 **温馨提示**：如果你的 Kali Linux 在虚拟机中且主机已经实现了科学上网，那么你没必要再折腾，直接使用[通过已经可以科学上网的电脑实现科学上网](#通过已经可以科学上网的电脑实现科学上网)这个方法即可
 
@@ -567,7 +567,7 @@ function up() {
 * [tsocks 官网](http://tsocks.sourceforge.net/)
 * [tsocks 手册](https://linux.die.net/man/8/tsocks)
 * [代理自动配置 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE)
-* [科学上网](https://wsxq2.55555.io/blog/2019/07/07/科学上网)
+* [科学上网](https://wsxq2.55555.io/blog/2019/07/07/科学上网/)
 * [科学上网的一些原理 \| 横云断岭的专栏](http://hengyunabc.github.io/something-about-science-surf-the-internet/)
 * [请问在设置http/https代理后DNS的解析还是通过proxy吗?? · Issue #963 · FelisCatus/SwitchyOmega](https://github.com/FelisCatus/SwitchyOmega/issues/963#issuecomment-270055221)
 <!-- link end -->
