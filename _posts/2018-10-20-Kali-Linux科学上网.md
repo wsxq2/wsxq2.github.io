@@ -9,48 +9,6 @@ last_modified_time: 2019-07-07 16:31:11 +0800
 
 **温馨提示**：如果你的 Kali Linux 在虚拟机中且主机已经实现了科学上网，那么你没必要再折腾，直接使用[通过已经可以科学上网的电脑实现科学上网](#通过已经可以科学上网的电脑实现科学上网)这个方法即可
 
-<p id="markdown-toc"></p>
-<!-- vim-markdown-toc GFM -->
-
-* [SS](#ss)
-  * [使用 shadowsocks-qt5](#使用-shadowsocks-qt5)
-    * [简介](#简介)
-    * [安装](#安装)
-    * [配置](#配置)
-    * [设置 PAC](#设置-pac)
-    * [优化](#优化)
-  * [使用 shadowsocks-libev](#使用-shadowsocks-libev)
-    * [简介](#简介-1)
-    * [安装](#安装-1)
-    * [配置](#配置-1)
-    * [控制](#控制)
-    * [查看日志](#查看日志)
-    * [后续步骤](#后续步骤)
-* [SSR](#ssr)
-  * [shadowsocksr（Python 版）（SSR Local 连接到 SSR Server）](#shadowsocksrpython-版ssr-local-连接到-ssr-server)
-    * [安装](#安装-2)
-    * [配置](#配置-2)
-    * [启动](#启动)
-    * [测试](#测试)
-    * [自动化](#自动化)
-    * [后续步骤](#后续步骤-1)
-* [PC 连接到 SSR Local](#pc-连接到-ssr-local)
-  * [浏览器全局代理](#浏览器全局代理)
-  * [系统全局代理](#系统全局代理)
-  * [真·系统全局代理（透明代理）](#真系统全局代理透明代理)
-  * [通过 SOCKS 代理进行 DNS 查询](#通过-socks-代理进行-dns-查询)
-  * [转换 SOCKS 代理为 HTTP 代理](#转换-socks-代理为-http-代理)
-  * [浏览器自动代理](#浏览器自动代理)
-  * [PAC（代理自动配置）](#pac代理自动配置)
-  * [关于终端下的代理设置](#关于终端下的代理设置)
-    * [终端代理环境变量](#终端代理环境变量)
-    * [使用程序的代理相关参数](#使用程序的代理相关参数)
-* [通过已经可以科学上网的电脑实现科学上网](#通过已经可以科学上网的电脑实现科学上网)
-* [链接](#链接)
-* [缩略语](#缩略语)
-
-<!-- vim-markdown-toc -->
-
 ## SS
 本部分最后更新时间：2018-04-08。
 
@@ -548,29 +506,6 @@ function up() {
 1. 配置主机的 SSR 客户端，使其**允许来自局域网的连接**。于我而言，我是这么设置的：**右键小飞机->选项设置->勾选来自局域网的连接**
 2. 在虚拟机中，配置 FireFox 浏览器中的网络代理或系统代理，选择手动代理，在所有代理中填入主机的 IP 地址和其默认的端口（我的是`192.168.56.100`和`1080`）
 3. 完成
-
-## 链接
-下面总结了本文中使用的所有链接：
-
-<!-- link start -->
-
-* [CentOS 7 配置 shadowsocks-libev 服务器端进行科学上网 \| 鸣沙山侧 月牙泉畔](https://roxhaiy.wordpress.com/2017/08/04/430/)
-* [Polipo - Wikipedia](https://en.wikipedia.org/wiki/Polipo)
-* [Shadowsocks - Implementations](https://shadowsocks.org/en/spec/Implementations.html)
-* [breakwa11/gfw_whitelist: gfw_whitelist](https://github.com/breakwa11/gfw_whitelist)
-* [bwg](/Kali-Linux科学上网/bwg主机信息界面.png)
-* [dns2socks](https://sourceforge.net/projects/dns2socks/)
-* [overture](https://github.com/shawn1m/overture)
-* [shadowsocks-qt5](https://github.com/shadowsocks/shadowsocks-qt5)
-* [ss-qt5](/Kali-Linux科学上网/ss-qt5主界面.png)
-* [tsocks 下载链接](https://sourceforge.net/projects/tsocks/files/tsocks/)
-* [tsocks 官网](https://tsocks.sourceforge.net/)
-* [tsocks 手册](https://linux.die.net/man/8/tsocks)
-* [代理自动配置 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE)
-* [科学上网](https://wsxq2.55555.io/blog/2019/07/07/科学上网/)
-* [科学上网的一些原理 \| 横云断岭的专栏](https://hengyunabc.github.io/something-about-science-surf-the-internet/)
-* [请问在设置http/https代理后DNS的解析还是通过proxy吗?? · Issue #963 · FelisCatus/SwitchyOmega](https://github.com/FelisCatus/SwitchyOmega/issues/963#issuecomment-270055221)
-<!-- link end -->
 
 ## 缩略语
 <!-- abbreviations start -->
