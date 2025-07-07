@@ -19,7 +19,7 @@ kali官方网站：<https://www.kali.org>
 ## 下载 Kali Linux
 在[Kali Linux Downloads](https://www.kali.org/downloads/)下载`Kali Linux 64 Bit`（或32位）, 也可以在各大**开源镜像站**(比如[USTC Mirror - 中国科学技术大学][ustc-mirror])下载。
 
-[ustc-mirror]:http://www.url.com
+[ustc-mirror]: https://mirrors.ustc.edu.cn/
 
 通常在国内的开源镜像站下载要快得多，而国内开源镜像站的`kali`镜像目录及文件通常较多，常常让人眼花缭乱，但事实上都很有规律，下面简要说明一下（以[USTC Mirror][ustc-mirror]为例。
 

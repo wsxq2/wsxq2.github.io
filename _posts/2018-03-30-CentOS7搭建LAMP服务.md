@@ -105,7 +105,7 @@ CentOS 7 中，已经使用MariaDB替代了MySQL数据库
    
    其中`php-mysqlnd`即`mysql native driver`简写,即是由 PHP 源码提供的 mysql 驱动连接代码。它的目的是代替旧的`libmysql`驱动。详情参考： [PHP 5.3.0以上推荐使用mysqlnd驱动- 老张的自言自语- ITeye博客][mysqlnd]
    
-   [mysqlnd]:http://zhangxugg-163-com.iteye.com/blog/1894990
+   [mysqlnd]:https://zhangxugg-163-com.iteye.com/blog/1894990
    
 2. 重新启动`mariadb`和`httpd`以使其生效：
    ```bash

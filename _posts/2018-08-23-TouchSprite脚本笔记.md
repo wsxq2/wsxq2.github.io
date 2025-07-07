@@ -39,9 +39,9 @@ tags: [Note,TouchSprite,ADB,Lua,脚本]
 [Awesome Adb]: https://github.com/mzlogin/awesome-adb
 [adb命令模拟按键事件 KeyCode]: https://blog.csdn.net/jlminghui/article/details/39268419
 [触动精灵脚本开发Lua简明教程]: https://www.zybuluo.com/miniknife/note/317045
-[【雷电命令】雷电安卓模拟器修改信息及常用adb命令整理贴]: http://www.ldmnq.com/bbs/thread-32-1-1.html
+[【雷电命令】雷电安卓模拟器修改信息及常用adb命令整理贴]: https://www.ldmnq.com/bbs/thread-32-1-1.html
 [【新手指导】夜神安卓模拟器adb命令详解]: https://www.yeshen.com/faqs/H15tDZ6YW
-[触动精灵开发手册大全]: http://www.touchsprite.com/helpdoc
+[触动精灵开发手册大全]: https://www.touchsprite.com/helpdoc
 
 ## 1 学习路线
 1. 连接安卓模拟器：
