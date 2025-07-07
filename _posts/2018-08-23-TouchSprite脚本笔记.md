@@ -69,7 +69,7 @@ tags: [Note,TouchSprite,ADB,Lua,脚本]
 ## 2 常用链接
 1. 安卓模拟器：
    1. 雷电：
-      1. 官网：<http://www.ldmnq.com>
+      1. 官网：<https://www.ldmnq.com>
       2. [【雷电命令】雷电安卓模拟器修改信息及常用adb命令整理贴]
 
    2. 夜神：
@@ -89,9 +89,9 @@ tags: [Note,TouchSprite,ADB,Lua,脚本]
 	 4. lua语言中文手册：<http://manual.luaer.cn/>
 
 4. TS:
-	 1. 触动精灵官网：<http://www.touchsprite.com/>
-	 2. 触动精灵论坛：<http://bbs.touchsprite.com/forum.php>
-	 3. 触动精灵开发手册大全：<http://www.touchsprite.com/helpdoc>
+	 1. 触动精灵官网：<https://www.touchsprite.com/>
+	 2. 触动精灵论坛：<https://bbs.touchsprite.com/forum.php>
+	 3. 触动精灵开发手册大全：<https://www.touchsprite.com/helpdoc>
    4. 触动精灵脚本开发手册: <https://www.zybuluo.com/miniknife/note/212706>
 
 
