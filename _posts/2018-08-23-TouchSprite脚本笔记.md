@@ -86,7 +86,7 @@ tags: [Note,TouchSprite,ADB,Lua,脚本]
 	 1. [触动精灵脚本开发Lua简明教程]
 	 2. lua语言官方手册(英文)：<https://www.lua.org/manual/5.2/>
 	 3. [Programming in Lua (first edition)](https://www.lua.org/pil/contents.html)
-	 4. lua语言中文手册：<http://manual.luaer.cn/>
+	 4. lua语言中文手册：<https://manual.luaer.cn/>
 
 4. TS:
 	 1. 触动精灵官网：<https://www.touchsprite.com/>

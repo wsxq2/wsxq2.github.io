@@ -19,7 +19,7 @@ tags: [VirtualBox, MacOS]
 ### 1 安装 Virtual Box
 1. 下载：
    1. 官网：<https://www.virtualbox.org/>，进入后点击**Downloads**，再点击[**Windows hosts**](https://download.virtualbox.org/virtualbox/5.2.20/VirtualBox-5.2.20-125813-Win.exe)下载。不科学上网可能会很慢。
-   2. 西电开源镜像站（校外无法访问）：<https://linux.xidian.edu.cn/>，进入后点击**开源镜像**，滑到页面底端，点击**VirtualBox**，选择**[virtualbox-Win-latest.exe](https://linux.xidian.edu.cn/mirrors/virtualbox/virtualbox-Win-latest.exe)**以下载。开源镜像站几乎每个大学都有，强烈推荐使用本校的开源镜像站下载各种开源软件（速度超快）。当然也可以使用部分其它大学的，如中科大开源镜像站：<http://mirrors.ustc.edu.cn/>
+   2. 西电开源镜像站（校外无法访问）：<https://linux.xidian.edu.cn/>，进入后点击**开源镜像**，滑到页面底端，点击**VirtualBox**，选择**[virtualbox-Win-latest.exe](https://linux.xidian.edu.cn/mirrors/virtualbox/virtualbox-Win-latest.exe)**以下载。开源镜像站几乎每个大学都有，强烈推荐使用本校的开源镜像站下载各种开源软件（速度超快）。当然也可以使用部分其它大学的，如中科大开源镜像站：<https://mirrors.ustc.edu.cn/>
 2. 安装：一路**Next**即可。
 
 ### 2 下载 MacOS 虚拟机的 `.vmdk` 文件
