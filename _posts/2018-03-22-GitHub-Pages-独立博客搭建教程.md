@@ -397,16 +397,16 @@ function gp(){
   - [x] avatar 添加：由于还涉及之前的图片，而之前的图片保存在七牛云，它比较坑，使用 https 需要付费，只使用 http 又会被主流浏览器出于安全原因屏蔽。最后使用自己搭建的服务器完美解决，这要求在`_config.yaml`中添加
 `cdn: "https://wsxq21.55555.io"`，这样所有的媒体资源都会从这里获取，包括站点头像、文章图片、音频和视频文件。
   - [x] About页面添加。对比之前的查漏补缺
-  - [ ] 参考 [Writing a New Post \| Chirpy](https://chirpy.cotes.page/posts/write-a-new-post/) 写新文章，包括添加分类等
+  - [x] 参考 [Writing a New Post \| Chirpy](https://chirpy.cotes.page/posts/write-a-new-post/) 写新文章，包括添加分类等
   - [x] 图片上传问题解决（可以考虑使用自己搭建的服务器），或者看七牛云是否免费支持HTTPS？七牛云不支持。
   - [ ] 无效文章进一步清理
   - [x] twitter 的ID应是 `wsxq21`
   - [x] 点击数，访问数等迁移：需要修改模板，比较麻烦，暂时放弃
   - [x] permalink 迁移：还存在问题，博客间跳转会 404，复制链接后加上/即可访问，暂未全部处理
   - [x] HTTPS问题，尤其是图片，和前面 avatar 添加相关
-  - [ ] 修复警告
-  - [ ] 修复 htmlproof 错误
-- [ ] 图表的学习和应用，尤其是 mermaid 和 markmap(MD to mindmap)，D2 还未成熟和普及，暂不考虑，visio 在项目文档中依然有其价值，pantUML 暂不深入。另可深入 Kroki，但需要注意的是，markdown 不原生支持 Kroki，且需要上传到远端服务器处理
+  - [x] 修复警告
+  - [x] 修复 htmlproof 错误
+- [x] 图表的学习和应用，尤其是 mermaid 和 markmap(MD to mindmap)，D2 还未成熟和普及，暂不考虑，visio 在项目文档中依然有其价值，pantUML 暂不深入。另可深入 Kroki，但需要注意的是，markdown 不原生支持 Kroki，且需要上传到远端服务器处理
   
 完成升级后，写博客变得格外轻松和愉快了，Very Nice! :innocent:
 
