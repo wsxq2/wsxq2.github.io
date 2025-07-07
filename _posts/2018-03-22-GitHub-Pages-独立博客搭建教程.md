@@ -4,7 +4,7 @@ tags: [GitHub Pages, 博客, jekyll]
 
 **温馨提示**: 
 
-1. 本文所用平台： Kali Linux (基于 Debian)。对于 Mac OS 用户推荐参考 [用Jekyll搭建的Github Pages个人博客](http://louisly.com/2016/04/used-jekyll-to-create-my-github-blog/)。当然，结合本文食用应该效果更佳
+1. 本文所用平台： Kali Linux (基于 Debian)。对于 Mac OS 用户推荐参考 [用Jekyll搭建的Github Pages个人博客](https://louisly.com/2016/04/used-jekyll-to-create-my-github-blog/)。当然，结合本文食用应该效果更佳
 2. 本文适合对象：对 git 和 GitHub 有一定了解，对 GitHub Pages 几乎完全不了解的**有强烈愿望**搭建独立博客的人。因为要学的东西超多，不过有的东西浅尝辄止即可，不要过于深入
 
 使用 GitHub Pages 搭建独立博客涉及以下内容：`git`、`GitHub Pages`、`GitHub`、`jekyll`、`markdown`、`liquid`、`YAML`、`ruby`
@@ -63,7 +63,7 @@ GitHub Pages 简介:
 * GitHub Pages 官网： [GitHub Pages](https://pages.github.com/)
 * GitHub Pages 使用的依赖及版本：[Dependency versions \| GitHub Pages](https://pages.github.com/versions/)。该链接非常有用，它指出了 GitHub Pages 支持的插件及版本
 * [GitHub Pages Basics - GitHub Help](https://help.github.com/en/categories/github-pages-basics)
-* [GitHub Pages指南 GitHub Pages开发中文手册下载-极客学院Wiki](http://wiki.jikexueyuan.com/project/github-pages-basics/)。**注意中文版的内容可能严重滞后**
+* [GitHub Pages指南 GitHub Pages开发中文手册下载-极客学院Wiki](https://wiki.jikexueyuan.com/project/github-pages-basics/)。**注意中文版的内容可能严重滞后**
 
 GitHub Pages 大量使用 ruby 语言（比如其使用的模板系统 Jekyll 就主要是由 ruby 语言写的）
 
@@ -79,11 +79,11 @@ GitHub Pages 大量使用 ruby 语言（比如其使用的模板系统 Jekyll �
 
 * GitHub: [jekyll/jekyll: Jekyll is a blog-aware static site generator in Ruby](https://github.com/jekyll/jekyll)
 * 官网：[Jekyll • Simple, blog-aware, static sites \| Transform your plain text into static websites and blogs](https://jekyllrb.com/)
-* 中文官网：[Jekyll • 简单静态博客网站生成器 - 将纯文本转换为静态博客网站](http://jekyllcn.com/)
+* 中文官网：[Jekyll • 简单静态博客网站生成器 - 将纯文本转换为静态博客网站](https://jekyllcn.com/)
 
 `Jekyll`是一种简单的、适用于博客的、静态网站生成引擎。它使用一个模板目录作为网站布局的基础框架，支持`Markdown`、`Textile`等标记语言的解析，提供了模板、变量、插件等功能，最终生成一个完整的静态`Web`站点。说白了就是，只要按照`Jekyll`的规范和结构，不用写`html`，就可以生成网站。
 
-强烈建议浏览一下 Jekyll 的中文官方文档： [欢迎 - Jekyll • 简单静态博客网站生成器](http://jekyllcn.com/docs/home/)
+强烈建议浏览一下 Jekyll 的中文官方文档： [欢迎 - Jekyll • 简单静态博客网站生成器](https://jekyllcn.com/docs/home/)
 
 Jekyll 使用`liquid`模板语言（[Shopify/liquid: Liquid markup language. Safe, customer facing template language for flexible web apps.](https://github.com/Shopify/liquid)）来处理模板。对于`liquid`模板语言，有如下重要的相关链接：
 * GitHub: [Liquid template language](https://shopify.github.io/liquid/)
@@ -134,7 +134,7 @@ Jekyll 使用`liquid`模板语言（[Shopify/liquid: Liquid markup language. Saf
 > | Other Files/Folders                                        | 其他一些未被提及的目录和文件如  css 还有 images 文件夹，  favicon.ico 等文件都将被完全拷贝到生成的 site 中。这里有一些使用 Jekyll 的站点，如果你感兴趣就来看看吧。                                                                                      |
 > 
 > 
-> ——引用自 [目录结构 - Jekyll • 简单静态博客网站生成器](http://jekyllcn.com/docs/structure/)
+> ——引用自 [目录结构 - Jekyll • 简单静态博客网站生成器](https://jekyllcn.com/docs/structure/)
 {% endraw %}
 
 {% raw %}
@@ -160,7 +160,7 @@ Jekyll 使用`liquid`模板语言（[Shopify/liquid: Liquid markup language. Saf
 1. <https://github.com/onevcat/vno-jekyll>。一个相见恨晚的模板
 
 你也可以通过如下方式找到官方推荐的模板：
-1. [http://jekyllthemes.org/](http://jekyllthemes.org/)
+1. [http://jekyllthemes.org/](https://jekyllthemes.org/)
 2. 在你的 GitHub repositories 中找到和 GitHub Pages 相关联的 repository（通常为`username.github.io`），点击右边的`settings`，找到`options`下的`GitHub Pages`板块，点击`Choose a theme`即可看见大量的模板。
 
 ### 如何使用
@@ -189,7 +189,7 @@ Ruby 是一种面向对象、命令式、函数式、开源的、注重简洁和
 
 它非常适用于搭建网站，相应的代表是 [Ruby on Rails \| A web-application framework that includes everything needed to create database-backed web applications according to the Model-View-Controller (MVC) pattern.](https://rubyonrails.org/)
 
-自然地，在 GitHub Pages 中，ruby 被大量使用，如其模板系统 Jekyll 的主要代码便是 ruby。此外，放于`_plugins`目录中的文件通常为`*.rb`文件，即 ruby 源码文件。**不过 GitHub Pages 不支持自定义插件**，详情参见 [插件 - Jekyll • 简单静态博客网站生成器](http://jekyllcn.com/docs/plugins/)
+自然地，在 GitHub Pages 中，ruby 被大量使用，如其模板系统 Jekyll 的主要代码便是 ruby。此外，放于`_plugins`目录中的文件通常为`*.rb`文件，即 ruby 源码文件。**不过 GitHub Pages 不支持自定义插件**，详情参见 [插件 - Jekyll • 简单静态博客网站生成器](https://jekyllcn.com/docs/plugins/)
 
 ### 安装 bundle
 如果上一步顺利的话，这一步应该非常简单，执行如下命令即可：

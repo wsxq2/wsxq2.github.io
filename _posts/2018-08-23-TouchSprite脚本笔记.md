@@ -58,11 +58,11 @@ tags: [Note,TouchSprite,ADB,Lua,脚本]
    1. [触动精灵抓色器使用手册](https://www.zybuluo.com/miniknife/note/629913)
    1. [触动精灵字库工具使用手册](https://www.zybuluo.com/miniknife/note/629179)
    
-   1. [手机脚本开发实用技巧 - 触动精灵官网](http://www.touchsprite.com/docs/5026)
+   1. [手机脚本开发实用技巧 - 触动精灵官网](https://www.touchsprite.com/docs/5026)
    1. [触动精灵 Android 模拟器使用手册](https://www.zybuluo.com/miniknife/note/443336)
-   1. [触动精灵 Lua 脚本开发常用英文词汇大全 - 触动精灵官网](http://www.touchsprite.com/docs/5484)
-   1. [开发常见问题 - 触动精灵官网](http://www.touchsprite.com/docs/629)
-   1. [触动精灵常见问题 - 触动精灵官网](http://www.touchsprite.com/docs/531)
+   1. [触动精灵 Lua 脚本开发常用英文词汇大全 - 触动精灵官网](https://www.touchsprite.com/docs/5484)
+   1. [开发常见问题 - 触动精灵官网](https://www.touchsprite.com/docs/629)
+   1. [触动精灵常见问题 - 触动精灵官网](https://www.touchsprite.com/docs/531)
    1. [触动精灵脚本开发实例代码](https://www.zybuluo.com/miniknife/note/323513)
 
 

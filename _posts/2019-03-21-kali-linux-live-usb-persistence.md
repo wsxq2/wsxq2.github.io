@@ -79,7 +79,7 @@ README                                             14-Jan-2019 13:57            
 2. `NTFS`: `ntfsprogs`
 3. `ext2`,`ext3`: `e2label`
 
-详情：[重命名USB磁盘挂载分区卷标](http://wiki.ubuntu.org.cn/%E9%87%8D%E5%91%BD%E5%90%8DUSB%E7%A3%81%E7%9B%98%E6%8C%82%E8%BD%BD%E5%88%86%E5%8C%BA%E5%8D%B7%E6%A0%87)
+详情：[重命名USB磁盘挂载分区卷标](https://wiki.ubuntu.org.cn/%E9%87%8D%E5%91%BD%E5%90%8DUSB%E7%A3%81%E7%9B%98%E6%8C%82%E8%BD%BD%E5%88%86%E5%8C%BA%E5%8D%B7%E6%A0%87)
 
 
 ## 链接
@@ -89,7 +89,7 @@ README                                             14-Jan-2019 13:57            
 * [Kali Linux Downloads](https://www.kali.org/downloads/)
 * [rufus](https://rufus.ie/)
 * [Kali Linux Live USB Persistence](https://docs.kali.org/downloading/kali-linux-live-usb-persistence)
-* [重命名USB磁盘挂载分区卷标](http://wiki.ubuntu.org.cn/%E9%87%8D%E5%91%BD%E5%90%8DUSB%E7%A3%81%E7%9B%98%E6%8C%82%E8%BD%BD%E5%88%86%E5%8C%BA%E5%8D%B7%E6%A0%87)
+* [重命名USB磁盘挂载分区卷标](https://wiki.ubuntu.org.cn/%E9%87%8D%E5%91%BD%E5%90%8DUSB%E7%A3%81%E7%9B%98%E6%8C%82%E8%BD%BD%E5%88%86%E5%8C%BA%E5%8D%B7%E6%A0%87)
 * [USTC Mirror - 中国科学技术大学][ustc-mirror]
 
 <!-- link end -->

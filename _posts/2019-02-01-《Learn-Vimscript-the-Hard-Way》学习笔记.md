@@ -4,7 +4,7 @@ tags: [vim]
 
 # 《Learn Vimscript the Hard Way》学习笔记
 
-本文是学习[《Learn Vimscript the Hard Way》](http://learnvimscriptthehardway.stevelosh.com/chapters/01.html)一文的笔记。 Vimscript 的大多数命令都可以在 VIM 的命令行模式（`:`）中运行（如`:echo "Hello the world!"`）
+本文是学习[《Learn Vimscript the Hard Way》](https://learnvimscriptthehardway.stevelosh.com/chapters/01.html)一文的笔记。 Vimscript 的大多数命令都可以在 VIM 的命令行模式（`:`）中运行（如`:echo "Hello the world!"`）
 
 ## 1 `echo`
 

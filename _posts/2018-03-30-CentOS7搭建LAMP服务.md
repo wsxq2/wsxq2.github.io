@@ -173,7 +173,7 @@ CentOS 7 中，已经使用MariaDB替代了MySQL数据库
    事实上，我并未遇到这个问题
 
 ## 7 参考链接
-1. [mysqlnd 简介——官方文档](http://php.net/manual/zh/intro.mysqlnd.php)
+1. [mysqlnd 简介——官方文档](https://php.net/manual/zh/intro.mysqlnd.php)
 2. [How to Allow MySQL Traffic using firewalld on CentOS 7](https://wiki.mikejung.biz/Firewalld)
 3. [CentOS 7 安装配置LAMP服务器方法(Apache+PHP+MariaDB) ](https://my.oschina.net/sallency/blog/467647)
 4. [WIKI: LAMP][wiki-lamp]

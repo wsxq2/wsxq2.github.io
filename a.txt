@@ -1,0 +1,242 @@
+Running 3 checks (Images, Links, Scripts) in ["_site"] on *.html files ...
+
+
+Checking 2621 internal links
+Checking internal link hashes in 103 files
+Ran on 328 files!
+
+
+For the Links check, the following failures were found:
+
+* At _site/blog/2018/05/26/pipe笔记/index.html:935:
+
+  'a' tag is missing a reference
+
+* At _site/blog/2018/05/26/pipe笔记/index.html:1034:
+
+  'a' tag is missing a reference
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2723:
+
+  //zh.wikipedia.org/wiki/GUID%E7%A3%81%E7%A2%9F%E5%88%86%E5%89%B2%E8%A1%A8#endnote_guidord is a protocol-relative URL, use explicit https:// instead
+
+For the Links > Internal check, the following failures were found:
+
+* At _site/blog/2018/10/13/数据库设计-实践/index.html:1653:
+
+  internally linking to #公交安全管理系统题目要求1.PNG; the file exists, but the hash '公交安全管理系统题目要求1.PNG' does not
+
+* At _site/blog/2018/10/13/数据库设计-实践/index.html:1667:
+
+  internally linking to #公交安全管理系统题目要求2.PNG; the file exists, but the hash '公交安全管理系统题目要求2.PNG' does not
+
+* At _site/blog/2018/10/13/数据库设计-实践/index.html:1674:
+
+  internally linking to #公交安全管理系统题目要求2.PNG; the file exists, but the hash '公交安全管理系统题目要求2.PNG' does not
+
+* At _site/blog/2018/10/13/数据库设计-实践/index.html:1695:
+
+  internally linking to #公交安全管理系统题目要求3.PNG; the file exists, but the hash '公交安全管理系统题目要求3.PNG' does not
+
+* At _site/blog/2018/10/20/Kali-Linux科学上网/index.html:2146:
+
+  internally linking to /Kali-Linux科学上网/bwg主机信息界面.png, which does not exist
+
+* At _site/blog/2018/10/20/Kali-Linux科学上网/index.html:2150:
+
+  internally linking to /Kali-Linux科学上网/ss-qt5主界面.png, which does not exist
+
+* At _site/blog/2019/01/26/ARP协议分析与攻击/index.html:1950:
+
+  internally linking to #225arpspoof-的-python-实现; the file exists, but the hash '225arpspoof-的-python-实现' does not
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:1966:
+
+  internally linking to /wiki/%E5%AD%97%E8%8A%82, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:1969:
+
+  internally linking to /wiki/%E5%8D%81%E5%85%AD%E9%80%B2%E5%88%B6, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:1971:
+
+  internally linking to /wiki/%E5%85%AB%E9%80%B2%E5%88%B6, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:1973:
+
+  internally linking to /wiki/%E5%8D%81%E9%80%B2%E5%88%B6, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2077:
+
+  internally linking to /wiki/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2606:
+
+  internally linking to /wiki/CRC32, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2636:
+
+  internally linking to /wiki/%E9%A1%9EUNIX, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2636:
+
+  internally linking to /wiki/UUID, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2694:
+
+  internally linking to /wiki/%E5%B0%8F%E7%AB%AF%E5%BA%8F, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2709:
+
+  internally linking to /wiki/UTF-16, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2723:
+
+  internally linking to /wiki/GUID, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2738:
+
+  internally linking to /wiki/EFI%E7%B3%BB%E7%BB%9F%E5%88%86%E5%8C%BA, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2743:
+
+  internally linking to /w/index.php?title=BIOS%E5%BC%95%E5%AF%BC%E5%88%86%E5%8C%BA&action=edit&redlink=1, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2748:
+
+  internally linking to /wiki/Microsoft_Windows, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2755:
+
+  internally linking to #endnote_linwina; the file exists, but the hash 'endnote_linwina' does not
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2760:
+
+  internally linking to /w/index.php?title=%E9%80%BB%E8%BE%91%E8%BD%AF%E7%9B%98%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7&action=edit&redlink=1, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2775:
+
+  internally linking to /w/index.php?title=IBM%E9%80%9A%E7%94%A8%E5%B9%B6%E8%A1%8C%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F&action=edit&redlink=1, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2780:
+
+  internally linking to /wiki/Linux, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2782:
+
+  internally linking to #endnote_linwinb; the file exists, but the hash 'endnote_linwinb' does not
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2787:
+
+  internally linking to /wiki/RAID, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2792:
+
+  internally linking to /wiki/%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BA, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2797:
+
+  internally linking to /wiki/%E9%82%8F%E8%BC%AF%E6%8D%B2%E8%BB%B8%E7%AE%A1%E7%90%86%E5%93%A1, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2807:
+
+  internally linking to /wiki/Mac_OS_X, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2809:
+
+  internally linking to /wiki/HFS, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2814:
+
+  internally linking to /wiki/%E8%8B%B9%E6%9E%9C%E5%85%AC%E5%8F%B8, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2814:
+
+  internally linking to /wiki/UFS, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2819:
+
+  internally linking to /wiki/ZFS, which does not exist
+
+* At _site/blog/2019/03/24/U盘安装多个操作系统-理论/index.html:2819:
+
+  internally linking to #endnote_solmaca; the file exists, but the hash 'endnote_solmaca' does not
+
+* At _site/blog/2019/07/07/科学上网/index.html:3153:
+
+  internally linking to github.com, which does not exist
+
+* At _site/blog/2019/07/07/科学上网/index.html:3323:
+
+  internally linking to #代理; the file exists, but the hash '代理' does not
+
+* At _site/blog/2019/07/07/科学上网/index.html:5915:
+
+  internally linking to #v2ray--ws--cdn; the file exists, but the hash 'v2ray--ws--cdn' does not
+
+* At _site/blog/2019/07/07/科学上网/index.html:6044:
+
+  internally linking to #v2ray--ws--tls--cdn; the file exists, but the hash 'v2ray--ws--tls--cdn' does not
+
+* At _site/blog/2019/07/07/科学上网/index.html:6865:
+
+  internally linking to #v2ray--ws--cdn; the file exists, but the hash 'v2ray--ws--cdn' does not
+
+* At _site/blog/2019/07/07/科学上网/index.html:6865:
+
+  internally linking to #v2ray--ws--tls--cdn; the file exists, but the hash 'v2ray--ws--tls--cdn' does not
+
+* At _site/blog/2019/07/07/科学上网/index.html:6914:
+
+  internally linking to /科学上网/SOCKS协议控制流程图.png, which does not exist
+
+* At _site/blog/2019/07/07/科学上网/index.html:6924:
+
+  internally linking to /科学上网/V2Ray工作原理.png, which does not exist
+
+* At _site/blog/2019/07/07/科学上网/index.html:6930:
+
+  internally linking to /Kali-Linux科学上网/bwg主机信息界面.png, which does not exist
+
+* At _site/blog/2019/07/07/科学上网/index.html:6946:
+
+  internally linking to /Kali-Linux科学上网/ss-qt5主界面.png, which does not exist
+
+* At _site/blog/2019/07/07/科学上网/index.html:6967:
+
+  internally linking to /科学上网/基于GET-POST方法的HTTP代理原理.png, which does not exist
+
+* At _site/blog/2019/08/18/C语言笔记/index.html:4029:
+
+  internally linking to #链接; the file exists, but the hash '链接' does not
+
+* At _site/blog/2019/09/27/数据备份/index.html:906:
+
+  internally linking to #using-rsync-to-rename-files-during-copying-with---files-from; the file exists, but the hash 'using-rsync-to-rename-files-during-copying-with---files-from' does not
+
+* At _site/blog/2020/06/12/Nmap/index.html:1084:
+
+  internally linking to #--exclude-host1host2; the file exists, but the hash '--exclude-host1host2' does not
+
+* At _site/blog/2020/06/12/Nmap/index.html:1085:
+
+  internally linking to #---excludefile-exclude_file; the file exists, but the hash '---excludefile-exclude_file' does not
+
+* At _site/blog/2022/03/16/FTP相关知识总结/index.html:1722:
+
+  internally linking to #windows-ftpexe不支持被动模式-windows-ftpexe不支持被动模式; the file exists, but the hash 'windows-ftpexe不支持被动模式-windows-ftpexe不支持被动模式' does not
+
+* At _site/blog/2022/03/16/sqlite3学习笔记/index.html:953:
+
+  internally linking to #libsqlite3solib库-libsqlite3solib库; the file exists, but the hash 'libsqlite3solib库-libsqlite3solib库' does not
+
+* At _site/blog/2022/03/16/sqlite3学习笔记/index.html:957:
+
+  internally linking to #basec-basec; the file exists, but the hash 'basec-basec' does not
+
+* At _site/blog/2022/03/16/tcl学习笔记/index.html:753:
+
+  internally linking to #libraryexpect-libraryexpect; the file exists, but the hash 'libraryexpect-libraryexpect' does not
+
+
+HTML-Proofer found 57 failures!

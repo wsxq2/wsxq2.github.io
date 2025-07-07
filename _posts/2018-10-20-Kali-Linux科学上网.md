@@ -369,7 +369,7 @@ ssr
 ### 真·系统全局代理（透明代理）
 如前所述，在 Kali 系统设置中的网络代理设置处进行手动代理设置实质上是修改了代理相关的环境变量。对于 linux 下不支持代理的程序而言，前面的设置并没有什么用，即并非真的实现了全局代理。那么如果要实现真正意义上的全局代理，即让所有应用都经过代理服务器该怎么办？答案是使用 tsocks：
 
-* [tsocks 官网](http://tsocks.sourceforge.net/)
+* [tsocks 官网](https://tsocks.sourceforge.net/)
 * [tsocks 下载链接](https://sourceforge.net/projects/tsocks/files/tsocks/)
 * [tsocks 手册](https://linux.die.net/man/8/tsocks)
 
@@ -384,7 +384,7 @@ ssr
 > LD_PRELOAD=/usr/lib/libtsocks.so wget http://www.facebook.com
 > ```
 > 
-> ——引用自[科学上网的一些原理 \| 横云断岭的专栏](http://hengyunabc.github.io/something-about-science-surf-the-internet/)
+> ——引用自[科学上网的一些原理 \| 横云断岭的专栏](https://hengyunabc.github.io/something-about-science-surf-the-internet/)
 
 ### 通过 SOCKS 代理进行 DNS 查询
 使用 [dns2socks](https://sourceforge.net/projects/dns2socks/)（Github 上也有其项目地址<https://github.com/qiuzi/dns2socks>）或 [overture](https://github.com/shawn1m/overture)
@@ -564,11 +564,11 @@ function up() {
 * [shadowsocks-qt5](https://github.com/shadowsocks/shadowsocks-qt5)
 * [ss-qt5](/Kali-Linux科学上网/ss-qt5主界面.png)
 * [tsocks 下载链接](https://sourceforge.net/projects/tsocks/files/tsocks/)
-* [tsocks 官网](http://tsocks.sourceforge.net/)
+* [tsocks 官网](https://tsocks.sourceforge.net/)
 * [tsocks 手册](https://linux.die.net/man/8/tsocks)
 * [代理自动配置 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE)
 * [科学上网](https://wsxq2.55555.io/blog/2019/07/07/科学上网/)
-* [科学上网的一些原理 \| 横云断岭的专栏](http://hengyunabc.github.io/something-about-science-surf-the-internet/)
+* [科学上网的一些原理 \| 横云断岭的专栏](https://hengyunabc.github.io/something-about-science-surf-the-internet/)
 * [请问在设置http/https代理后DNS的解析还是通过proxy吗?? · Issue #963 · FelisCatus/SwitchyOmega](https://github.com/FelisCatus/SwitchyOmega/issues/963#issuecomment-270055221)
 <!-- link end -->
 
