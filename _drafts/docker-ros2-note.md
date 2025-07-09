@@ -630,3 +630,7 @@ AMD:
 ### PUTTY 无法使用 HOME 和 END 键?
 
 这个问题不算是 Docker 相关的问题，只是在使用 putty 过程中遇到的。解决方法非常简单：在 keyboard 界面设置 The function keys and keypad 为 `SCO`
+
+### `wsl --update` 太慢？
+
+`wsl --update` 命令会从 github 下载内容，所以会很慢，建议使用代理。但需要注意的是，在 pwsh 中设置代理环境变量 `$env:HTTP_PROXY` 并不起作用，需要设置系统代理才行。
