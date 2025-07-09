@@ -1,8 +1,8 @@
 
 ## ROS 官方镜像
 
-- 官方的、精简的、适用于生产环境的 DockerHub 镜像：[ros - Official Image | Docker Hub](https://hub.docker.com/_/ros)
-- 官方的、带GUI的、适用于开发的 DockerHub 镜像：[osrf/ros Tags | Docker Hub](https://hub.docker.com/r/osrf/ros/tags?ordering=-name&name=humble)
+- 官方的、精简的、适用于生产环境的 DockerHub 镜像：[ros - Official Image \| Docker Hub](https://hub.docker.com/_/ros)
+- 官方的、带GUI的、适用于开发的 DockerHub 镜像：[osrf/ros Tags \| Docker Hub](https://hub.docker.com/r/osrf/ros/tags?ordering=-name&name=humble)
 - ROS2 中关于 Docker 镜像的约定：[REP 2001 -- ROS 2 Variants (ROS.org)](https://www.ros.org/reps/rep-2001.html#humble-hawksbill-may-2022-may-2027)
 - ROS 所有 Docker 镜像的 Dockefile 的源码（例如 `ros:humble`，也即`ros:humble-ros-base`）：[docker_images/ros/humble/ubuntu/jammy/ros-base/Dockerfile at master · osrf/docker_images](https://github.com/osrf/docker_images/blob/master/ros/humble/ubuntu/jammy/ros-base/Dockerfile)
 
@@ -590,7 +590,7 @@ networks:
 - 一个非常重要的问答，有个回答者还讲了相关原因：[How to troubleshoot OpenGL on Ubuntu under Windows 10 (WSL) - Super User](https://superuser.com/questions/1487555/how-to-troubleshoot-opengl-on-ubuntu-under-windows-10-wsl)
 - ROS RVIZ 问题常见解决方案（即“不要使用 vcxsrv 中 Native OpenGl 选项”），和我的问题不同，但相关：[xorg - how to check and confirm a right opengl version with vcxsrv (for using ros2 rviz2) - Ask Ubuntu](https://askubuntu.com/questions/1435037/how-to-check-and-confirm-a-right-opengl-version-with-vcxsrv-for-using-ros2-rviz)
 - VirtualGL：尝试后报错，暂未找到解决方法，后续如果又出现此问题时，可再次尝试解决
-  - [TurboVNC+VirtualGL：实现服务器的多用户图形化访问与硬件加速 | 一颗栗子球](https://shaoyecheng.com/uncategorized/2020-04-08-TurboVNC-VirtualGL%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%A4%9A%E7%94%A8%E6%88%B7%E5%9B%BE%E5%BD%A2%E5%8C%96%E8%AE%BF%E9%97%AE%E4%B8%8E%E7%A1%AC%E4%BB%B6%E5%8A%A0%E9%80%9F.html)
+  - [TurboVNC+VirtualGL：实现服务器的多用户图形化访问与硬件加速 \| 一颗栗子球](https://shaoyecheng.com/uncategorized/2020-04-08-TurboVNC-VirtualGL%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%A4%9A%E7%94%A8%E6%88%B7%E5%9B%BE%E5%BD%A2%E5%8C%96%E8%AE%BF%E9%97%AE%E4%B8%8E%E7%A1%AC%E4%BB%B6%E5%8A%A0%E9%80%9F.html)
   - [User’s Guide for VirtualGL 3.1.3](https://rawcdn.githack.com/VirtualGL/virtualgl/3.1.3/doc/index.html)
   - [Releases · VirtualGL/virtualgl](https://github.com/VirtualGL/virtualgl/releases)
   - 尝试执行 `vglrun -display 192.168.3.107:0.0 glxgears` 时报错：**Error: couldn't get an RGB, Double-buffered visual**。参考了以下两个链接均未成功：
@@ -605,15 +605,15 @@ networks:
 如果一台主机是 Windows，另一台是 Linux，那么就很难解决，核心原因是 windows docker 不支持 host 网络模式。下面是相关链接：
 
 - [Networking \| Docker Docs](https://docs.docker.com/desktop/features/networking/#per-container-ip-addressing-is-not-possible)
-- [Host network driver | Docker Docs](https://docs.docker.com/engine/network/drivers/host/): **Only Linux containers are supported. Host networking does not work with Windows containers.**
+- [Host network driver \| Docker Docs](https://docs.docker.com/engine/network/drivers/host/): **Only Linux containers are supported. Host networking does not work with Windows containers.**
 
 ### Docker WSL2 方式支持容器中使用 GPU 吗？
 
 NVIDIA：
 
-- [GPU support | Docker Docs](https://docs.docker.com/desktop/features/gpu/)
+- [GPU support \| Docker Docs](https://docs.docker.com/desktop/features/gpu/)
 - [1. NVIDIA GPU Accelerated Computing on WSL 2 — CUDA on WSL 12.9 documentation](https://docs.nvidia.com/cuda/wsl-user-guide/index.html)。文中提到 Pascal 架构之后才支持，而通过官方参数得知：pascal 是 GTX 10 系列采用的架构。所以几乎所有都支持，包括笔记本。详见以下链接：
-  - [比较 GeForce 系列最新一代显卡和前代显卡 | NVIDIA](https://www.nvidia.cn/geforce/graphics-cards/compare/?section=compare-20)
+  - [比较 GeForce 系列最新一代显卡和前代显卡 \| NVIDIA](https://www.nvidia.cn/geforce/graphics-cards/compare/?section=compare-20)
   - [对比游戏笔记本电脑：GeForce RTX 40 系列](https://www.nvidia.cn/geforce/laptops/compare/)
 - [Docker - ArchWiki](https://wiki.archlinux.org/title/Docker#Run_GPU_accelerated_Docker_containers_with_NVIDIA_GPUs)
 - [Support for NVIDIA GPUs under Docker Compose · Issue #6691 · docker/compose](https://github.com/docker/compose/issues/6691)
