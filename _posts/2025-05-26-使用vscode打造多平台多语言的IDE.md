@@ -464,16 +464,29 @@ when processing file: /home/ubuntu/work/nav_car_ws/src/nav_car/nav_car_descripti
   "C_Cpp.intelliSenseEngine": "disabled",
 ```
 
-然后安装 clangd 插件，安装好后可能会提示你“系统中未安装 clangd 程序，是否自动安装？”，这里直接选“是”，如果失败，则可以手动安装，由于 ROS 一般运行在 Ubuntu 上，所以可以直接使用 apt 命令安装，但需要注意的是，有多个 clangd 版本可安装，建议安装最新版本，目前（2025-06-22）在 Ubuntu 20.04 上，最新版本是 clangd-18（如果没有找到较新版本，建议直接从相应的 [GitHub Release](https://github.com/clangd/clangd/releases/latest) 页面下载安装，详见 [clangd 官方安装指南](https://clangd.llvm.org/installation)）：
+然后安装 clangd 插件，安装好后可能会提示你“系统中未安装 clangd 程序，是否自动安装？”，关于`clangd`的安装是一个重点，推荐直接通过插件安装，即这里直接选“是”，安装过程中会从 github 下载，且文件较大，所以如果没有设置代理，则很有可能失败，这时可以在`~/.bashrc`中添加代理相关设置（如`export https_proxy=http://192.168.56.1:7890`），然后在 vscode 中使用`Ctrl+Shift+p`搜索`clangd download`找到相应命令点击，如果始终失败，则可以在系统中手动安装。下面说明下如何手动安装。
+
+由于 ROS 一般运行在 Ubuntu 上，所以最简单的方法是直接使用 apt 命令安装，但需要注意的是，有多个 clangd 版本可安装，建议安装 apt 中的最新版本，可使用`apt search clangd -n`查看有哪些版本可供安装。目前（2025-06-22）在 Ubuntu 20.04 上，最新版本是 clangd-15（我使用的是清华镜像），直接执行以下命令安装即可：
 
 ```bash
-sudo apt install clangd-18
+sudo apt install clangd-15
 ```
 
-可使用`apt search clangd`查看有哪些版本可供安装。安装完成后需要在 vscode 配置其可执行文件路径，例如：
+但事实上官方最新版本为 20.1.0，老版本的 clangd 可能存在 bug，建议始终使用最新版本。可以使用以下命令安装（需要使用 root 用户）：
+
+```bash
+CLANGD_VERSION=$(curl -s https://api.github.com/repos/clangd/clangd/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/') && \
+    curl -L -o /tmp/clangd-linux.zip "https://github.com/clangd/clangd/releases/download/${CLANGD_VERSION}/clangd-linux-${CLANGD_VERSION}.zip" && \
+    unzip /tmp/clangd-linux.zip -d /tmp/clangd-linux && \
+    cp -r /tmp/clangd-linux/*/{bin,lib} /usr/local && \
+    chmod +x /usr/local/bin/clangd && \
+    rm -rf /tmp/clangd-linux.zip /tmp/clangd-linux
+```
+
+安装完成后需要在 vscode 配置其可执行文件路径，例如：
 
 ```json
-  "clangd.path": "/usr/bin/clangd-18",
+  "clangd.path": "/usr/local/bin/clangd",
 ```
 
 除此之外，clangd 还依赖于 `compile_commands.json` 文件，该文件很容易通过 cmake 的一个参数获得，该参数即 `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON`，如果使用`catkin`构建命令，则可以使用`catkin config`命令配置在当前工作空间总是启用该参数：
