@@ -1076,6 +1076,14 @@ X11 远程场景说明：
 }
 ```
 
+如果非要用 Ninja 呢？毕竟 Ninja 是一个趋势。首先要明确的是该问题是 CMake 官方 bug，至今尚未解决，详见：[AUTOUIC: Ninja needs two passes to correctly build Qt project (#16776) · Issue · cmake/cmake](https://gitlab.kitware.com/cmake/cmake/-/issues/16776)。尝试了以下思路依然无果：
+
+1. [Issue 页面下 Sebastian Holtermann 提到的思路](https://gitlab.kitware.com/cmake/cmake/-/issues/16776#note_517250)
+1. 尝试最新的 cmake（4.0.3）
+1. 尝试最新的 ninja（1.13.1）
+
+因此在进行 Qt GUI 应用开发时，不建议使用 Ninja。
+
 ### 字体配置最佳实践
 
 #### 推荐字体搭配
