@@ -154,12 +154,12 @@ EOF
 
 ```Dockerfile
 # 安装最新版本的 clangd
-RUN CLANGD_VERSION=$(curl -s https://api.github.com/repos/clangd/clangd/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/') && \
+CLANGD_VERSION=$(curl -s https://api.github.com/repos/clangd/clangd/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/') && \
     curl -L -o /tmp/clangd-linux.zip "https://github.com/clangd/clangd/releases/download/${CLANGD_VERSION}/clangd-linux-${CLANGD_VERSION}.zip" && \
-    unzip /tmp/clangd-linux.zip -d /tmp/ && \
-    find /tmp -name "clangd" -type f -executable -exec cp {} /usr/local/bin/clangd \; && \
+    unzip /tmp/clangd-linux.zip -d /tmp/clangd-linux && \
+    cp -r /tmp/clangd-linux/*/{bin,lib} /usr/local && \
     chmod +x /usr/local/bin/clangd && \
-    rm -rf /tmp/clangd-linux.zip /tmp/clangd_*
+    rm -rf /tmp/clangd-linux.zip /tmp/clangd-linux
 ```
 
 ### cartographer
@@ -586,6 +586,7 @@ networks:
 - GPU 性能测试：
   - `apt install mesa-utils` 然后执行 `glxgears` 命令即可，显示的 FPS 目前好像在 60 左右，基本够用。
   - `apt install glmark2` 然后 `glmark2`
+  - [GpuTest](https://www.geeks3d.com/gputest/)：使用方法可参见：[Ubuntu 22.04 LTS RTX 2060 6G 显卡 GPU测试 甜甜圈 geeks3d GpuTest-CSDN博客](https://blog.csdn.net/hknaruto/article/details/131660042)
 - 付费版 xming（听说不错），但看了下价格，需要 97 元，太贵了，就放弃了。
 - 一个非常重要的问答，有个回答者还讲了相关原因：[How to troubleshoot OpenGL on Ubuntu under Windows 10 (WSL) - Super User](https://superuser.com/questions/1487555/how-to-troubleshoot-opengl-on-ubuntu-under-windows-10-wsl)
 - ROS RVIZ 问题常见解决方案（即“不要使用 vcxsrv 中 Native OpenGl 选项”），和我的问题不同，但相关：[xorg - how to check and confirm a right opengl version with vcxsrv (for using ros2 rviz2) - Ask Ubuntu](https://askubuntu.com/questions/1435037/how-to-check-and-confirm-a-right-opengl-version-with-vcxsrv-for-using-ros2-rviz)

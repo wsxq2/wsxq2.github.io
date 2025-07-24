@@ -648,7 +648,7 @@ vscode 引进了一个个人认为非常先进的（但也非常危险的）概�
 ```
 {: file="CMakePreset.json" }
 
-后续我想不依赖在线安装器安装 Qt 这一方式，改为使用 vcpkg 进行 Qt 的安装（`vcpkg.json` 中添加 qt 相关包，如`qtbase`等），但折腾一段时间后，能编译通过，但无法调试。调试时报错：
+后续我想不依赖在线安装器安装 Qt 这一方式，改为使用 vcpkg 进行 Qt 的安装（`vcpkg.json` 中添加 qt 相关包，如`qtbase`等），但折腾一段时间后，能编译通过了，但无法调试。调试时报错：
 
 ```
 qt.qpa.plugin: Could not find the Qt platform plugin "windows" in ""
@@ -669,6 +669,91 @@ This application failed to start because no Qt platform plugin could be initiali
 又结合 AI 的建议尝试了许多思路，发现依然没有解决。感觉太难了，回头再说吧。
 
 至少目前已经找出一个思路，即使用在线安装器安装 Qt 最新版本，然后可使用 vcpkg.json + CMakePreset 的方式进行开发，也可删除这两个文件，安装了前述插件的 vscode 会自动处理。
+
+### WSL2
+
+最近由于需要开发 ROS2 相关的 GUI，而在 Windows 11 中安装 ROS2 的最佳方法是使用 WSL2（VMware Pro、Docker方式都试过，感觉体验都不如 WSL2，直接在 Windows 上安装感觉会比较麻烦，就没试），因此尝试了在 WSL2 中进行 Qt 应用开发，发现体验出乎意料的好，得益于 [WSLg](https://github.com/microsoft/wslg) 的诞生，以及 WSL2 对   [GPU 支持](https://github.com/microsoft/wslg?tab=readme-ov-file#opengl-accelerated-rendering-in-wslg)的提升，现在跑 qt 应用时，对于 OpenGL 相关组件可以使用 GPU 硬件加速了（包括 NVIDIA 和 AMD GPU！包括笔记本和台式机！包括集成显卡和独立显卡！），从而大大降低 CPU 的占用，提高应用的运行效果。对于笔记本电脑而言，可以配置使用集成显卡还是独立显卡，详见 [GPU selection in WSLg · microsoft/wslg Wiki](https://github.com/microsoft/wslg/wiki/GPU-selection-in-WSLg)。
+
+WSLg 是一个 X11 Server，类似 VcXsrv 和 Xming 等，它不需要单独配置，执行`wsl`命令时就会默认启动 WSLg，进入 wsl 终端后，使用`echo $DISPLAY`命令会发现`DISPLAY`环境变量会被自动设置为`:0`，这时可以打开`xclock`测试下能否正常运行。当然，如果不喜欢 WSLg，或者遇到了问题，则可以使用 VcXsrv 等 X11 服务器代替之，只需正确设置 DISPLAY 环境变量即可（通常是`<ip>:0.0`）。关于 WSLg 的实现原理可参见 [DirectX ❤ Linux - DirectX Developer Blog](https://devblogs.microsoft.com/directx/directx-heart-linux/)
+
+此外，WSL2 还支持使用 [NVIDIA GPU](https://docs.nvidia.com/cuda/wsl-user-guide/index.html) 进行深度学习等。[部分 AMD GPU](https://rocm.docs.amd.com/projects/radeon/en/latest/docs/compatibility/wsl/wsl_compatibility.html) 也支持[在 WSL2 中进行深度学习](https://rocm.docs.amd.com/projects/radeon/en/latest/docs/install/wsl/install-radeon.html)。
+
+要在 VS Code 中使用 WSL2 开发 Qt GUI 应用，建议安装 `ms-vscode-remote.remote-wsl` 插件。安装好后，下面简单说一下使用步骤：
+
+1. 安装 Linux 发行版：
+   
+   ```ps1
+   wsl --update
+   wsl --install Ubuntu-22.04
+   ```
+
+2. 设置默认 WSL 发行版：
+
+   ```ps1
+   wsl --set-default Ubuntu-22.04
+   ```
+
+3. 在 VS Code 中点击左下角的远程连接图标，然后点击`Connect to WSL`并根据提示操作即可。
+4. 打开 WSL 中的 Qt 工程，如果没有，则从 github 等地方下载。
+5. 添加 vscode 相关配置：
+
+   1. 工程级配置：
+
+      ```json
+      {
+          "C_Cpp.intelliSenseEngine": "disabled",
+          "qt-core.qtInstallationRoot": "",
+          "extensions.ignoreRecommendations": false,
+          "clangd.arguments": [
+              "--header-insertion=iwyu",
+              "--fallback-style=google",
+          ],
+          "cmake.generator": "Unix Makefiles", //ninja has some issues for compile ui file
+          "cmake.preferredGenerators": [
+              "Unix Makefiles"
+          ],
+          "editor.formatOnSave": true,
+      }
+      ```
+      {: file=".vscode/settings.json" }
+   
+   1. 用户级配置：
+
+      ```json
+      {
+          "clangd.path": "/home/wsxq2/.vscode-server/data/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/20.1.0/clangd_20.1.0/bin/clangd",
+          "qtdoc.paths": [
+              "/usr/share/qt5/doc",
+          ],
+          "qt-ui.customWidgetsDesignerExePath": "/usr/bin/designer",
+          "qt-core.additionalQtPaths": [
+              "/usr/bin/qtpaths",
+          ],
+      }
+      ```
+      {: file="/home/wsxq2/.vscode-server/data/Machine/settings.json" }
+   
+1. 安装以下插件：
+
+   ```json
+   {
+       "recommendations": [
+           "ms-vscode.cmake-tools",
+           "ms-iot.vscode-ros",
+           "llvm-vs-code-extensions.vscode-clangd",
+           "theqtcompany.qt"
+       ],
+       "unwantedRecommendations": []
+   }
+   ```
+   {: file=".vscode/extensions.json" }
+   
+1. 其他操作和 Windows 中类似，就不再赘述。现在就可以优雅地在 vscode 中结合 WSL2 开发 QT GUI 应用了。
+     
+一些心得体会：
+- 同一 Qt 应用，同样使用 X11 访问，在 WSL2 中运行明显比 VMware Pro 虚拟机中的流畅。
+- [常见问题与解决方案](#常见问题与解决方案)
+
 
 ## GitHub Pages 博客
 
@@ -892,3 +977,152 @@ make 的特点是历史悠久，应用广泛，较为复杂，但兼容性强，
 可以看到，我对开发环境和测试环境的折腾非常之多，网络上也有非常多的志同道合之人。为什么大家热衷于此呢？原因很简单——**工欲善其事，必先利其器**，优秀的开发环境和测试环境可以大大提高开发效率和开发质量，举个例子，STM32 开发时使用 Keil 和 vscode 的对比，使用 Keil 写代码时无法流畅地使用自动补全，以致面对长单词时非常痛苦，敲了半天还非常容易敲错，最重要的是，它将程序员的注意力转移到了打字上，而非编码细节上，这会大大降低开发效率和质量，其他类似的例子还有很多。
 
 因此，真的非常感谢那些“爱折腾”的人，他们常常深入细节，刻苦钻研，从而打造出一个比一个优秀的开发环境和测试环境，并且乐于分享。我们通常只需要站在巨人的肩膀上，学会使用即可，而无需深入实现细节。但如若遇到有需要的时候，我也乐于贡献出一份力量。
+
+## 常见问题与解决方案
+
+在使用 VSCode 进行多平台多语言开发的过程中，我遇到了一些问题，以下是解决方案总结：
+
+### Clangd 插件问题排查
+
+在使用 clangd 插件时，日志中可能会遇到 `failed to compile...` 的错误。经过排查发现，这通常是安装配置不正确导致的，我当时根据 AI 生成的脚本安装的最新版 clangd，但它只复制了 clangd 可执行文件到 `/usr/local/bin` 目录下，未复制 lib 目录。这是正确的安装脚本：
+
+```bash
+CLANGD_VERSION=$(curl -s https://api.github.com/repos/clangd/clangd/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/') && \
+    curl -L -o /tmp/clangd-linux.zip "https://github.com/clangd/clangd/releases/download/${CLANGD_VERSION}/clangd-linux-${CLANGD_VERSION}.zip" && \
+    unzip /tmp/clangd-linux.zip -d /tmp/clangd-linux && \
+    cp -r /tmp/clangd-linux/*/{bin,lib} /usr/local && \
+    chmod +x /usr/local/bin/clangd && \
+    rm -rf /tmp/clangd-linux.zip /tmp/clangd-linux
+```
+
+此次花费了大量时间解决该问题，最后发现解决方法却如此简单，由此得出以下经验教训：
+
+- **不要盲信 AI 生成的脚本**：AI 生成的安装脚本可能存在问题，需要仔细验证
+- **多查阅官方文档**：clangd 的配置问题一定要参考官方文档
+  - [clangd 索引说明](https://clangd.llvm.org/design/indexing)说明了 `.cache` 目录位于 `compile_commands.json` 同级目录下
+  - [clangd 配置指南](https://clangd.llvm.org/config)中陈述了 `.clangd` 配置文件可以指定 compile commands 的路径
+
+### Ubuntu 中 Qt 应用中文问题
+
+#### 中文显示为方块
+
+**原因：** 缺少中文字体  
+**解决方案：** 安装思源黑体：
+
+```bash
+sudo apt install fonts-noto-cjk
+```
+
+#### X11 环境下 Qt GUI 无法输入中文
+
+**解决方法：**
+
+```bash
+# 安装输入法（这里安装的是 rime 且使用了定义配置文件，可以替换为 pinyin 等输入法）
+sudo apt install ibus ibus-rime
+git clone git@github.com:wsxq2/im.git
+cd im && make linux
+
+# 配置环境变量及启动相关程序
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+ibus-daemon -drx && ibus engine rime
+```
+
+然后打开 Qt GUI 应用就可以输入中文了。
+
+为了方便使用，可以将部分命令写入到 `~/.bashrc`：
+
+```bash
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+
+# start ibus-daemon
+function sid() {
+    if ! pgrep -x ibus-daemon > /dev/null; then
+        (eval "$(dbus-launch --sh-syntax)" && ibus-daemon -drxR && sleep 10 && ibus engine rime) &
+    fi
+}
+```
+
+后续直接执行 sid 即可准备就绪。
+
+X11 远程场景说明：
+- 只能使用 Linux 端输入法，Windows 输入法无法直接作用于 Linux Qt 程序
+- 使用 VcXsrv/Xming 时，确保 Linux 端输入法可用，可通过 `Shift` 或 `Ctrl + Space` 切换
+
+#### “复”字显示异常
+
+- **原因**：Ubuntu 中默认情况下日文的优先级高于简体中文，所以“复”字以日文格式显示了。
+- **解决方法**：创建或修改字体配置文件 `/etc/fonts/conf.d/64-language-selector-prefer.conf`，将中文字体的优先度提高即可。详见 [Ubuntu 下 "门" 和 "复" 显示错误](https://bediverezero.github.io/ubuntu/2021/06/04/ubunt-fonts.html)。
+
+### CMake 开发优化
+
+#### 调试运行快捷键
+- **CMake Tools 插件（推荐）：** `Shift+F5`（调试）、`Ctrl+Shift+F5`（运行），不需要配置 launch.json
+- **内置调试：** `F5`（调试）、`Ctrl+F5`（运行），需要 launch.json
+
+#### Ninja 生成器的 UI 文件问题
+使用 Ninja 作为生成器时，修改 `.ui` 文件后需要编译两次才能生效。
+
+**解决方案：** 改用 Make 生成器。在 VSCode 的 `settings.json` 中配置：
+
+```json
+{
+    "cmake.preferredGenerators": ["Unix Makefiles"],
+    "cmake.generator": "Unix Makefiles"
+}
+```
+
+### 字体配置最佳实践
+
+#### 推荐字体搭配
+经过多次尝试，最终推荐的字体搭配：
+
+**中文：** 思源黑体（Noto Sans CJK）
+- Google 版本：Noto Sans CJK（Windows 内置，推荐），Ubuntu 中安装也非常简单，一行命令搞定：`sudo apt install fonts-noto-cjk`
+- Adobe 版本：Source Han Sans（需手动安装）
+
+**英文：** JetBrains Mono 系列
+- 基础版：JetBrains Mono
+- 图标支持：JetBrainsMono Nerd Font
+- GUI/演讲：JetBrainsMono Nerd Font Proto
+- 等宽要求：JetBrainsMono Nerd Font Mono
+
+#### 字体安装方法
+
+**Windows：** 双击 TTF 文件安装，字体名称可在设置中查看，在编辑中配置时通常不用全称，直接用普通名称即可。
+
+**Linux：** 部分字体可直接使用 apt 安装，例如：
+
+```bash
+# 安装 jetbrains mono
+sudo apt install fonts-jetbrains-mono
+# 安装思源黑体
+sudo apt install fonts-noto-cjk
+```
+
+可以使用`apt search fonts -n`搜索哪些字体可以直接使用 apt 安装。如果无法直接使用 apt 安装，则可以使用以下命令手动安装：
+
+```bash
+# 复制字体文件
+sudo cp font/* /usr/share/fonts/truetype/your-font-name/
+
+# 刷新字体缓存
+fc-cache -vf
+
+# 验证安装
+fc-list : family | grep -i font-name
+```
+
+在 QSS 中使用时：
+
+```css
+font-family: "Your Font Name";
+```
+
+### QSS 样式限制
+
+在 QSS 中遇到一个限制：设置 `* { font-size:12px }` 后，使用 `em` 作为 `QRadioButton::indicator` 的单位时，indicator 大小不会随字体大小变化。这是 QSS 的已知限制，类似问题也存在于 `QCheckBox`。
