@@ -6,6 +6,8 @@
   "customizations": {
     "vscode": {
       "settings": {
+        "http.proxy": "http://host.docker.internal:7890",
+        "http.proxyStrictSSL": false,
         "terminal.integrated.defaultProfile.linux": "zsh"
       },
       "extensions": [
