@@ -1051,7 +1051,7 @@ CLANGD_VERSION=$(curl -s https://api.github.com/repos/clangd/clangd/releases/lat
    ...
    ```
    
-   其中 `a.log` 就是 Linux 主机上的日志，`b.log` 是 WSL 中的日志。可以看到，Linux 主机的日志表明它试图从 gcc 12 的相关头文件目录中去找，这样自然找不到 C++ 的 `<memory>` 等头文件，所以原因和前面网络搜索找到的相关链接是一致的。至此，终于明确原因。
+   其中 `a.log` 就是 Linux 主机上的日志，`b.log` 是 WSL 中的日志。可以看到，Linux 主机的日志表明它试图从 gcc 12 的相关头文件目录中去找，这样自然找不到 C++ 的 `<memory>` 等头文件，而 WSL 的日志中则有 C++ 标准库的正确目录 `/usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11`（即`/usr/include/c++/11`） 。所以原因和前面网络搜索找到的相关链接是一致的。至此，终于明确原因。
 
 7. 解决方法：直接参考 [Ubuntu 22.04 - C++ header file not found using Vim with YouCompleteMe · Issue #1394 · clangd/clangd](https://github.com/clangd/clangd/issues/1394#issuecomment-1328676884) 提供的解决方法即可。最终我使用的方法是给 clangd 添加参数 `--query-driver`。成功解决此问题。
 
