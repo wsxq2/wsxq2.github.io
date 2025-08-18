@@ -986,7 +986,7 @@ make 的特点是历史悠久，应用广泛，较为复杂，但兼容性强，
 
 #### 找不到头文件 stddef.h
 
-在使用 clangd 插件时，日志中可能会遇到 `failed to compile...` 的错误，然后 vscode 正方的 PROBLEMS 中提示各种奇怪的错误信息，例如“找不到头文件 stddef.h”。经过排查发现，该问题是安装步骤不正确导致的：我当时根据 AI 生成的脚本安装的最新版 clangd，但它只复制了 clangd 可执行文件到 `/usr/local/bin` 目录下，未复制 lib 目录（该目录下有 clang 编译器内置的头文件，如 stddef.h 等）。这是正确的安装脚本：
+在使用 clangd 插件时，日志中可能会遇到 `failed to compile...` 的错误，然后 vscode 下方的 PROBLEMS 中提示各种奇怪的错误信息，例如“找不到头文件 stddef.h”。经过排查发现，该问题是安装步骤不正确导致的：我当时根据 AI 生成的脚本安装的最新版 clangd，但它只复制了 clangd 可执行文件到 `/usr/local/bin` 目录下，未复制 lib 目录（该目录下有 clang 编译器内置的头文件，如 stddef.h 等）。这是正确的安装脚本：
 
 ```bash
 CLANGD_VERSION=$(curl -s https://api.github.com/repos/clangd/clangd/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/') && \
@@ -1008,7 +1008,8 @@ CLANGD_VERSION=$(curl -s https://api.github.com/repos/clangd/clangd/releases/lat
 
 #### 找不到头文件 `<memory>`
 
-环境说明：装有 Ubuntu 22.04 的台式机，在 vscode 中通过 Remote SSH 连接到该主机，该主机上安装有 vscode server，并安装了 clangd 插件。
+> **环境说明**：clangd 运行于装有 Ubuntu 22.04 的台式机，Windows 开发机在 vscode 中通过 Remote SSH 连接到该主机，该主机上安装有 vscode server，并安装了 clangd 插件。
+{: .prompt-info }
 
 类似地，在 vscode 下方的 PROBLEMS 处，大量提示找不到 C++ 标准库，如 `<memory>`。检查 clangd 日志，发现也有大量的 `Failed to compile xxx` 的报错。我的排查步骤如下：
 1. 一开始我以为和前一个问题一样，是安装 clangd 不到位，但检查后发现 clangd 是正确安装了的。
@@ -1029,9 +1030,9 @@ CLANGD_VERSION=$(curl -s https://api.github.com/repos/clangd/clangd/releases/lat
    后者则详细说明 clangd 如何解析并查找头文件，还提供了解决“找不到系统头文件”这一问题的思路：
    1. 头文件压根就不在系统中，这时通常执行需要安装`libstdc++-dev`。如前所述，这一可能我已经排除。
    2. 你可以构建你的工程，但 clangd 说找不到系统头文件。这一步提供了排查思路：使用`clangd --check=/path/to/a/file/in/your/project.cc`命令检查输出中的 **Compile command from CDB**，然后手动执行该命令，看能否编译成功。我尝试后，先是执行失败，报错“c++ 不支持 --driver-mode 等参数”，然后我去除不支持的参数后发现能成功编译。（后续发现那个命令输出的 `internal (cc1) args are` 反而更重要，问题的原因在这里有所体现）
-   3. 前一步骤执行 CDB 命令后发现成功执行。此时有两个可能：使用了相对的编译器名称（driver name）、你的编译器（driver）有 clang 未知的启发方法。我先是排除了相对路径的可能，然后感觉后一种可能应该也不符合我的情况，所以没有细看。（其实这里采取其中提到的 `--query-driver` 参数就可以解决我的问题）
-4. 尝试在 WSL 中复现此问题，同样安装 Ubuntu 22.04，打开同一工程，执行同样步骤。最后复现失败（即 WSL 中能正常工作）。于是我更奇怪了，两者的环境几乎完全一样，因为都是 Ubuntu 22.04。但众所周知，看似一样并不代表真的一样，于是我开始找不同。
-   1. 首先我检查的是 clangd 版本。发现 Linux 主机上的 clangd 版本要新些（20.1.8），WSL 中的要旧些（20.1.0）。为了排除版本的影响，于是我在 Linux 主机上手动安装了 clangd 旧版（20.1.0），并在 vscode 的 settings.json 中正确设置 `clangd.path` 参数指向该路径。然后发现问题同样存在
+   3. 前一步骤执行 CDB 命令后发现成功执行。此时有两个可能：使用了相对的编译器名称（driver name）、你的编译器（driver）有 clang 未知的启发方法。我先是排除了相对路径的可能，然后感觉后一种也不符合我的情况，所以没有细看。（其实这里采取其中提到的 `--query-driver` 参数就可以解决我的问题）
+4. 尝试在 WSL 中复现此问题，同样安装 Ubuntu 22.04，打开同一工程，执行同样步骤。最后复现失败（即 WSL 中能正常工作）。于是我更奇怪了，两者的环境几乎完全一样。但众所周知，看似一样并不代表真的一样，于是我开始找不同。
+   1. 首先我检查的是 clangd 版本。发现 Linux 主机上的 clangd 版本要新些（20.1.8），WSL 中的要旧些（20.1.0）。为了排除版本的影响，我在 Linux 主机上手动安装了 clangd 旧版（20.1.0），并在 vscode 的 settings.json 中正确设置 `clangd.path` 参数指向该路径。然后发现问题同样存在
    2. 然后我检查编译器版本。通过在两边执行`c++ --version`，发现版本完全相同，均为 11.4.0。
    3. 检查 `~/.bashrc`，看是否是某些环境变量导致了此种现象。我在 Linux 主机中直接使用了和 WSL 中相同的 bashrc，发现问题同样存在。
    4. 检查 `compile_commands.json`。类似地，我在 Linux 主机中使用和 WSL 相同的此文件，发现问题同样存在。
@@ -1050,7 +1051,7 @@ CLANGD_VERSION=$(curl -s https://api.github.com/repos/clangd/clangd/releases/lat
    ...
    ```
    
-   其中可以看到，Linux 主机的日志表明它试图从 gcc 12 的相关头文件目录中去找，这样自然找不到 C++ 的 `<memory>` 等头文件，所以原因和前面网络搜索找到的相关链接是一致的。至此，终于明确原因。
+   其中 `a.log` 就是 Linux 主机上的日志，`b.log` 是 WSL 中的日志。可以看到，Linux 主机的日志表明它试图从 gcc 12 的相关头文件目录中去找，这样自然找不到 C++ 的 `<memory>` 等头文件，所以原因和前面网络搜索找到的相关链接是一致的。至此，终于明确原因。
 
 7. 解决方法：直接参考 [Ubuntu 22.04 - C++ header file not found using Vim with YouCompleteMe · Issue #1394 · clangd/clangd](https://github.com/clangd/clangd/issues/1394#issuecomment-1328676884) 提供的解决方法即可。最终我使用的方法是给 clangd 添加参数 `--query-driver`。成功解决此问题。
 
