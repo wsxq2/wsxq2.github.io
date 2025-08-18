@@ -984,7 +984,9 @@ make 的特点是历史悠久，应用广泛，较为复杂，但兼容性强，
 
 ### Clangd 插件问题排查
 
-在使用 clangd 插件时，日志中可能会遇到 `failed to compile...` 的错误。经过排查发现，这通常是安装配置不正确导致的，我当时根据 AI 生成的脚本安装的最新版 clangd，但它只复制了 clangd 可执行文件到 `/usr/local/bin` 目录下，未复制 lib 目录。这是正确的安装脚本：
+#### 找不到头文件 stddef.h
+
+在使用 clangd 插件时，日志中可能会遇到 `failed to compile...` 的错误，然后 vscode 正方的 PROBLEMS 中提示各种奇怪的错误信息，例如“找不到头文件 stddef.h”。经过排查发现，该问题是安装步骤不正确导致的：我当时根据 AI 生成的脚本安装的最新版 clangd，但它只复制了 clangd 可执行文件到 `/usr/local/bin` 目录下，未复制 lib 目录（该目录下有 clang 编译器内置的头文件，如 stddef.h 等）。这是正确的安装脚本：
 
 ```bash
 CLANGD_VERSION=$(curl -s https://api.github.com/repos/clangd/clangd/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/') && \
@@ -1001,6 +1003,58 @@ CLANGD_VERSION=$(curl -s https://api.github.com/repos/clangd/clangd/releases/lat
 - **多查阅官方文档**：clangd 的配置问题一定要参考官方文档
   - [clangd 索引说明](https://clangd.llvm.org/design/indexing)说明了 `.cache` 目录位于 `compile_commands.json` 同级目录下
   - [clangd 配置指南](https://clangd.llvm.org/config)中陈述了 `.clangd` 配置文件可以指定 compile commands 的路径
+  
+相关官方文档：[Troubleshooting](https://clangd.llvm.org/troubleshooting#cant-find-compiler-built-in-headers-stddefh-etc)
+
+#### 找不到头文件 `<memory>`
+
+环境说明：装有 Ubuntu 22.04 的台式机，在 vscode 中通过 Remote SSH 连接到该主机，该主机上安装有 vscode server，并安装了 clangd 插件。
+
+类似地，在 vscode 下方的 PROBLEMS 处，大量提示找不到 C++ 标准库，如 `<memory>`。检查 clangd 日志，发现也有大量的 `Failed to compile xxx` 的报错。我的排查步骤如下：
+1. 一开始我以为和前一个问题一样，是安装 clangd 不到位，但检查后发现 clangd 是正确安装了的。
+2. 然后我检查了系统中是否存在`memory`文件，通过使用如下命令：
+   
+   ```bash
+   find /usr/include -name memory
+   ```
+
+   结果找到了许多个，其中一个是`/usr/include/c++/11/memory`。这说明系统中是有 memory 文件的。到这里我就非常困惑了，明明系统中能轻易找到 memory 文件，为何 clangd 却找不到呢？
+
+3. 吸取了上一问题的教训，我首先查阅官方文档的相应内容，主要包括 [Troubleshooting](https://clangd.llvm.org/troubleshooting#cant-find-standard-library-headers-map-stdioh-etc) 和 [System headers](https://clangd.llvm.org/guides/system-headers)。前者提到了以下关键内容：
+   1. 要安装标准库，通常使用 `apt install libstdc++-11-dev`命令安装，执行此命令时发现已经安装了；
+   2. 在配置编译器时要使用绝对路径，不可使用相对路径，我检查了我的 `compile_commands.json` 文件，使用的就是绝对路径；
+   3. 可以使用`--log=verbose`参数看到具体的 cc1 命令，其中会列出使用的头文件路径，这个我当时没仔细看，只是大概看了一下，没有发现异常（后来仔细看后，结合网络搜索才发现这个命令确实是有异常的）；
+   4. 如果使用的是非常规的编译器，建议添加`--query-driver`参数（clangd 命令行参数）。由于我用的是标准的`c++`，所以认为不需要添加此参数。（后来发现添加此参数就能解决 :sob: ）。而且里面还提到，相比于使用 clangd 配置文件添加`-I`、`-isystem`等参数，更推荐使用`--query-driver`
+   
+   后者则详细说明 clangd 如何解析并查找头文件，还提供了解决“找不到系统头文件”这一问题的思路：
+   1. 头文件压根就不在系统中，这时通常执行需要安装`libstdc++-dev`。如前所述，这一可能我已经排除。
+   2. 你可以构建你的工程，但 clangd 说找不到系统头文件。这一步提供了排查思路：使用`clangd --check=/path/to/a/file/in/your/project.cc`命令检查输出中的 **Compile command from CDB**，然后手动执行该命令，看能否编译成功。我尝试后，先是执行失败，报错“c++ 不支持 --driver-mode 等参数”，然后我去除不支持的参数后发现能成功编译。（后续发现那个命令输出的 `internal (cc1) args are` 反而更重要，问题的原因在这里有所体现）
+   3. 前一步骤执行 CDB 命令后发现成功执行。此时有两个可能：使用了相对的编译器名称（driver name）、你的编译器（driver）有 clang 未知的启发方法。我先是排除了相对路径的可能，然后感觉后一种可能应该也不符合我的情况，所以没有细看。（其实这里采取其中提到的 `--query-driver` 参数就可以解决我的问题）
+4. 尝试在 WSL 中复现此问题，同样安装 Ubuntu 22.04，打开同一工程，执行同样步骤。最后复现失败（即 WSL 中能正常工作）。于是我更奇怪了，两者的环境几乎完全一样，因为都是 Ubuntu 22.04。但众所周知，看似一样并不代表真的一样，于是我开始找不同。
+   1. 首先我检查的是 clangd 版本。发现 Linux 主机上的 clangd 版本要新些（20.1.8），WSL 中的要旧些（20.1.0）。为了排除版本的影响，于是我在 Linux 主机上手动安装了 clangd 旧版（20.1.0），并在 vscode 的 settings.json 中正确设置 `clangd.path` 参数指向该路径。然后发现问题同样存在
+   2. 然后我检查编译器版本。通过在两边执行`c++ --version`，发现版本完全相同，均为 11.4.0。
+   3. 检查 `~/.bashrc`，看是否是某些环境变量导致了此种现象。我在 Linux 主机中直接使用了和 WSL 中相同的 bashrc，发现问题同样存在。
+   4. 检查 `compile_commands.json`。类似地，我在 Linux 主机中使用和 WSL 相同的此文件，发现问题同样存在。
+   5. 检查 clangd 配置和命令行参数。包括 `.clangd` 文件（包括工程级和用户级）和 vscode 各种设置（包括工程级和用户级），发现均是相同的。
+   6. 对比两边的 clangd 日志。对比的是普通版本（未加`--log=verbose`参数），没有找到可疑的地方。
+5. 网络搜索。由于自己能想到的招都试了，所以最后只能求助 Google。在一番查找后，终于找到了一个相关问答：[visual studio code - VSCode cannot detect C++ system files when clangd is enabled - Stack Overflow](https://stackoverflow.com/questions/77056437/vscode-cannot-detect-c-system-files-when-clangd-is-enabled)，其中被采纳的回答没有说明解决方式的理论依据，故不想尝试，以免影响当前环境，另一回答指出了相关依据：[Ubuntu 22.04 - C++ header file not found using Vim with YouCompleteMe · Issue #1394 · clangd/clangd](https://github.com/clangd/clangd/issues/1394#issuecomment-1328676884)。他的说法是系统中安装了 gcc-12 但没有安装 g++12，从而导致了此问题。于是我执行 `gcc --version` 检查了下我的 gcc 版本，发现同样是 11.4.0。于是就认为不是此问题引起的。（事实上，就是此问题引起的，我后续使用 `gcc` 然后按 Tab 触发补全，发现就有 gcc-12）
+6. 到这里，我似乎已经没招了。但我不甘心，我又想到 clangd 添加 `--log=verbose` 参数后对应的详细日志我还没和 WSL 中的对比过，于是我导出日志进行仔细对比，终于发现了问题所在：
+   
+   ```diff
+   --- a.log       2025-08-18 10:08:31.231699321 +0800
+   +++ b.log       2025-08-18 10:10:05.311164675 +0800
+   @@ -1,448 +1,302 @@
+   ...
+   -V[10:05:20.208] Driver produced command: cc1 -cc1 -triple x86_64-unknown-linux-gnu -fsyntax-only -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name rrbot.cpp -mrelocation-model pic -pic-level 2 -fhalf-no-semantic-interposition -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/wsxq2/ros2_ws/build/ros2_control_demo_example_1 -fcoverage-compilation-dir=/home/wsxq2/ros2_ws/build/ros2_control_demo_example_1 -resource-dir /usr/local/lib/clang/20 -isystem /opt/ros/humble/include/pluginlib -isystem /opt/ros/humble/include/rclcpp -isystem /opt/ros/humble/include/rclcpp_lifecycle -isystem /opt/ros/humble/include/control_msgs -isystem /opt/ros/humble/include/lifecycle_msgs -isystem /opt/ros/humble/include/rcpputils -isystem /opt/ros/humble/include/rcutils -isystem /opt/ros/humble/include/ament_index_cpp -isystem /opt/ros/humble/include/class_loader -isystem /opt/ros/humble/include/libstatistics_collector -isystem /opt/ros/humble/include/builtin_interfaces -isystem /opt/ros/humble/include/rosidl_runtime_c -isystem /opt/ros/humble/include/rosidl_typesupport_interface -isystem /opt/ros/humble/include/fastcdr -isystem /opt/ros/humble/include/rosidl_runtime_cpp -isystem /opt/ros/humble/include/rosidl_typesupport_fastrtps_cpp -isystem /opt/ros/humble/include/rmw -isystem /opt/ros/humble/include/rosidl_typesupport_fastrtps_c -isystem /opt/ros/humble/include/rosidl_typesupport_introspection_c -isystem /opt/ros/humble/include/rosidl_typesupport_introspection_cpp -isystem /opt/ros/humble/include/rcl -isystem /opt/ros/humble/include/rcl_interfaces -isystem /opt/ros/humble/include/rcl_logging_interface -isystem /opt/ros/humble/include/rcl_yaml_param_parser -isystem /opt/ros/humble/include/libyaml_vendor -isystem /opt/ros/humble/include/tracetools -isystem /opt/ros/humble/include/statistics_msgs -isystem /opt/ros/humble/include/rosgraph_msgs -isystem /opt/ros/humble/include/rosidl_typesupport_cpp -isystem /opt/ros/humble/include/rosidl_typesupport_c -isystem /opt/ros/humble/include/rcl_lifecycle -isystem /opt/ros/humble/include/action_msgs -isystem /opt/ros/humble/include/unique_identifier_msgs -isystem /opt/ros/humble/include/geometry_msgs -isystem /opt/ros/humble/include/std_msgs -isystem /opt/ros/humble/include/sensor_msgs -isystem /opt/ros/humble/include/trajectory_msgs -D DEFAULT_RMW_IMPLEMENTATION=rmw_fastrtps_cpp -D RCUTILS_ENABLE_FAULT_INJECTION -D ros2_control_demo_example_1_EXPORTS -I /home/wsxq2/ros2_ws/src/ros2_control_demos/example_1/hardware/include -I /opt/ros/humble/include -internal-isystem /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++ -internal-isystem /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/x86_64-linux-gnu -internal-isystem /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/backward -internal-isystem /usr/local/lib/clang/20/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -Wall -Wextra -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -no-round-trip-args -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -x c++ /home/wsxq2/ros2_ws/src/ros2_control_demos/example_1/hardware/rrbot.cpp
+   +V[10:09:14.638] Driver produced command: cc1 -cc1 -triple x86_64-unknown-linux-gnu -fsyntax-only -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name rrbot.cpp -mrelocation-model pic -pic-level 2 -fhalf-no-semantic-interposition -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/wsxq2/ros2_ws/build/ros2_control_demo_example_1 -fcoverage-compilation-dir=/home/wsxq2/ros2_ws/build/ros2_control_demo_example_1 -resource-dir /home/wsxq2/.vscode-server/data/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/20.1.0/clangd_20.1.0/lib/clang/20 -isystem /opt/ros/humble/include/pluginlib -isystem /opt/ros/humble/include/rclcpp -isystem /opt/ros/humble/include/rclcpp_lifecycle -isystem /opt/ros/humble/include/control_msgs -isystem /opt/ros/humble/include/lifecycle_msgs -isystem /opt/ros/humble/include/rcpputils -isystem /opt/ros/humble/include/rcutils -isystem /opt/ros/humble/include/ament_index_cpp -isystem /opt/ros/humble/include/class_loader -isystem /opt/ros/humble/include/libstatistics_collector -isystem /opt/ros/humble/include/builtin_interfaces -isystem /opt/ros/humble/include/rosidl_runtime_c -isystem /opt/ros/humble/include/rosidl_typesupport_interface -isystem /opt/ros/humble/include/fastcdr -isystem /opt/ros/humble/include/rosidl_runtime_cpp -isystem /opt/ros/humble/include/rosidl_typesupport_fastrtps_cpp -isystem /opt/ros/humble/include/rmw -isystem /opt/ros/humble/include/rosidl_typesupport_fastrtps_c -isystem /opt/ros/humble/include/rosidl_typesupport_introspection_c -isystem /opt/ros/humble/include/rosidl_typesupport_introspection_cpp -isystem /opt/ros/humble/include/rcl -isystem /opt/ros/humble/include/rcl_interfaces -isystem /opt/ros/humble/include/rcl_logging_interface -isystem /opt/ros/humble/include/rcl_yaml_param_parser -isystem /opt/ros/humble/include/libyaml_vendor -isystem /opt/ros/humble/include/tracetools -isystem /opt/ros/humble/include/statistics_msgs -isystem /opt/ros/humble/include/rosgraph_msgs -isystem /opt/ros/humble/include/rosidl_typesupport_cpp -isystem /opt/ros/humble/include/rosidl_typesupport_c -isystem /opt/ros/humble/include/rcl_lifecycle -isystem /opt/ros/humble/include/action_msgs -isystem /opt/ros/humble/include/unique_identifier_msgs -isystem /opt/ros/humble/include/geometry_msgs -isystem /opt/ros/humble/include/std_msgs -isystem /opt/ros/humble/include/sensor_msgs -isystem /opt/ros/humble/include/trajectory_msgs -D DEFAULT_RMW_IMPLEMENTATION=rmw_fastrtps_cpp -D RCUTILS_ENABLE_FAULT_INJECTION -D ros2_control_demo_example_1_EXPORTS -I /home/wsxq2/ros2_ws/src/ros2_control_demos/example_1/hardware/include -I /opt/ros/humble/include -internal-isystem /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11 -internal-isystem /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/x86_64-linux-gnu/c++/11 -internal-isystem /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/backward -internal-isystem /home/wsxq2/.vscode-server/data/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/20.1.0/clangd_20.1.0/lib/clang/20/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../x86_64-linux-gnu/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -Wall -Wextra -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -no-round-trip-args -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -x c++ /home/wsxq2/ros2_ws/src/ros2_control_demos/example_1/hardware/rrbot.cpp
+   ...
+   ```
+   
+   其中可以看到，Linux 主机的日志表明它试图从 gcc 12 的相关头文件目录中去找，这样自然找不到 C++ 的 `<memory>` 等头文件，所以原因和前面网络搜索找到的相关链接是一致的。至此，终于明确原因。
+
+7. 解决方法：直接参考 [Ubuntu 22.04 - C++ header file not found using Vim with YouCompleteMe · Issue #1394 · clangd/clangd](https://github.com/clangd/clangd/issues/1394#issuecomment-1328676884) 提供的解决方法即可。最终我使用的方法是给 clangd 添加参数 `--query-driver`。成功解决此问题。
+
+总结：这个问题我觉得还是比较难的，我前前后后至少花了 4 个小时, 但好在功夫不负有心人，总算是解决了，也收获颇多，至少以后再遇到 clangd 的问题就更加不怕了。
 
 ### Ubuntu 中 Qt 应用中文问题
 
