@@ -1070,6 +1070,10 @@ CLANGD_VERSION=$(curl -s https://api.github.com/repos/clangd/clangd/releases/lat
 
 总结：这个问题我觉得还是比较难的，我前前后后至少花了 4 个小时, 但好在功夫不负有心人，总算是解决了，也收获颇多，至少以后再遇到 clangd 的问题就更加不怕了。
 
+#### arm64 版本的 clangd 在哪里下载？
+
+首先需要明确的是 clangd 官方没有发布 arm64 的二进制版本（详见 <https://github.com/clangd/clangd/issues/514>）。但可去 llvm 官方 [release](https://github.com/llvm/llvm-project/releases/tag/llvmorg-21.1.0) 处下载`LLVM-21.1.0-Linux-ARM64.tar.xz`，然后提取 clangd 相关内容即可。手动编译的方式耗时太长，但也可参考：<https://github.com/llvm/llvm-project/tree/main/clang-tools-extra/clangd>
+
 ### Ubuntu 中 Qt 应用中文问题
 
 #### 中文显示为方块

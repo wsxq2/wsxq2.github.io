@@ -58,3 +58,35 @@ ros2 control 框架提供了大量组件，主要由以下几个包组成：
 - hardware：实现 ROS2 control 框架中的硬件驱动（也叫硬件组件）部分，实现和具体硬件通信，从而能够读取状态和写入命令。
 
 这样一来我们可以避免创建过多零散的包，但也不至于将所有功能揉成一团，在灵活性和简单性间取得了平衡。
+
+## 常用控制器
+
+### diff_drive_controller
+
+详见 [diff_drive_controller — ROS2_Control: Rolling Sep 2025 documentation](https://control.ros.org/rolling/doc/ros2_controllers/diff_drive_controller/doc/userdoc.html)
+
+### 4舵轮控制器
+
+- 在线仿真：[Forsyth Creations](https://www.forsythcreations.com/swerve_drive)。但疑似不正确
+- ROS1中相关 MR：[Add four wheels swerve drive to ROS controllers by gurbain · Pull Request #441 · ros-controls/ros_controllers](https://github.com/ros-controls/ros_controllers/pull/441)
+- ROS2中相关 MR：[Added Swerve Drive Controller Package by nitin2606 · Pull Request #1694 · ros-controls/ros2_controllers](https://github.com/ros-controls/ros2_controllers/pull/1694)。当前（2025-09-23）有多个 bug：
+  - `x_offset`、`y_offset`、`radius` 等参数未被使用
+  - 单元测试几乎完全不通过
+- humble 中的现有实现：[pvandervelde/zinger_swerve_controller: The swerve controller code for the zinger robot](https://github.com/pvandervelde/zinger_swerve_controller)、[Four wheel independent steering robot using Nav2 and ros2-control - Projects - Open Robotics Discourse](https://discourse.openrobotics.org/t/four-wheel-independent-steering-robot-using-nav2-and-ros2-control/34587)
+- galactic 中的现有实现：[RoboEagles4828/ros2-swerve-controller: ROS2 controller for FRC swerve robot](https://github.com/RoboEagles4828/ros2-swerve-controller/tree/main)
+- 打架问题：总体速度发生变化时是否存在轮子打架的可能？
+
+## 限速和限位
+
+关于 ros2 control 的限位限速的设计问题，可以尝试使用 URDF 中的 ros2_control 标签，然后 hardware component 中处理，这样相对简单些。其他方案包括：
+- YAML 文件定义上下限，然后解析为 ROS2 参数，传递给 controller manager（ros2_control_node），在 hardware component 中处理
+- 读取 URDF 中的 limit 标签，解析并处理。相关链接：[Will the joint limits in my URDF file limit the real components or just the simulation? (ROS2: Foxy) : r/ROS](https://www.reddit.com/r/ROS/comments/xpi234/will_the_joint_limits_in_my_urdf_file_limit_the/)
+
+## 心得体会
+
+- ros2 controller 中也可实现正逆解，如各种底盘控制器就是实现了正逆解，此外，机械臂的正逆解也可在控制器中实现（通过使用 orocos 的KDL库等，此外 ROS2 中本身也有个[ros-controls/kinematics_interface](https://github.com/ros-controls/kinematics_interface?tab=readme-ov-file)），例如 [Example 7: Full tutorial with a 6DOF robot — ROS2_Control: Rolling Sep 2025 documentation](https://control.ros.org/rolling/doc/ros2_control_demos/example_7/doc/userdoc.html)
+- 关于 ros2 control 中的传动接口，可以简单理解为减速比相关设置。另外链式控制器是一个伟大的思想，详见[roadmap/design_drafts/controller_chaining.md at master · ros-controls/roadmap](https://github.com/ros-controls/roadmap/blob/master/design_drafts/controller_chaining.md#example-2)
+- 关于 ros2 control 和 moveit 的关系：control 负责具体关节的控制，moveit 实现正逆解、防碰撞、路径规划等。control 也可自行实现正逆解，这样就不需要 moveit。详见 [ros2_control_robot_integration_with_moveit2.png (4415×2670)](https://control.ros.org/humble/_images/ros2_control_robot_integration_with_moveit2.png)
+- 关于`/cmd_vel`及其消息类型的理解：`/cmd_vel`表达一个速度主题，其消息类型为Twist，直译为“扭曲”，它由线速度和角速度组成，前者是笛卡尔坐标系中的三个轴上的线速度（XYZ），后者是绕这三个轴旋转的角速度，可以发现它类似于 Pose，甚至可以说是 Pose 相对于时间 t 的微分。Pose 和 TF 也非常相似，均由位置和旋转组成。相关链接：[ros2 - Is there a REP or standard for the /cmd_vel topic? - Robotics Stack Exchange](https://robotics.stackexchange.com/questions/96035/is-there-a-rep-or-standard-for-the-cmd-vel-topic)
+- 底盘运动控制的核心要点是找到 ICR（瞬时旋转中心），只要能推理出它，那么后续的计算就是水到渠成的事了。另外要注意向量法的运用，有时会大大降低复杂度。此外，还要注意三角函数及相关公式的推导，要做到从0推导出所有。差速小车是最简单的情形，4个舵轮也没想象中那么复杂。关于ICR可参考[Instant centre of rotation - Wikipedia](https://en.wikipedia.org/wiki/Instant_centre_of_rotation)，关于各个常见底盘控制器理论和实现可参见ros2 control相关文档：[ros2_controllers — ROS2_Control: Humble Sep 2025 documentation](https://control.ros.org/humble/doc/ros2_controllers/doc/controllers_index.html)。注意，关于 ICR，虽然 Twist 中的是绕 z 轴的角速度，但不一定就是机器人坐标系 base_link 中的 z 轴，可能是平行于该 z 轴的其他 z 轴（有无数个），即 ICR 的位置是不定的，和 vx,vy,w 均有关。相关链接：[四舵轮车辆中的舵轮角度计算_四舵轮运动模型-CSDN博客](https://blog.csdn.net/YiYeZhiNian/article/details/142679555)
+
