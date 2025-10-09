@@ -17,9 +17,30 @@
 - Prototype：通过克隆原型来创建新的对象。
 - Singleton：对于某个类，只允许创建一个实例对象，程序中可能随时引用此实例对象。常见的应用如配置、日志等。这应该是我最早接触到的设计模式。
 
+  关于单例模式，网上有大量深入的探讨，书中提到的实现方式存在两个主要的问题：指针未释放可能导致内存泄漏、多线程环境下可能出错。最终大家比较推荐的是 Meyers 提出的局部 static 的方式（在《Scott Meyers：Effective C++——55 Specific Ways to Improve Your Programs and Designs》中提出，但不是很明确地指出）：
+
+  ```c++
+  static Singleton& instance()
+  {
+       static Singleton s;
+       return s;
+  }
+   ```
+
+  相关链接：
+
+  - [c++ - Is Meyers' implementation of the Singleton pattern thread safe? - Stack Overflow](https://stackoverflow.com/questions/1661529/is-meyers-implementation-of-the-singleton-pattern-thread-safe)
+  - [What is the lifetime of a static variable in a C++ function? - Stack Overflow](https://stackoverflow.com/questions/246564/what-is-the-lifetime-of-a-static-variable-in-a-c-function)
+  - [C++ 单例模式总结与剖析 - 行者孙 - 博客园](https://www.cnblogs.com/sunchaothu/p/10389842.html)
+  
 ## 结构型设计模式
 
 - Adapter：两个功能类似但接口不同的库可以使用该设计模式进行桥接。比如我有一个写好的程序，其中设计了某个驱动接口，但某个厂商提供的驱动接口不符合此接口，就可使用此设计模式，创建一个子类继承自我设计的驱动接口，然后在其中创建一个厂商提供的类的实例（对象），调用它的接口去实现我想要的接口。如果调用它的接口无法实现我想要的接口呢？那么这时可以考虑多继承而非上述的组合方式，多继承即让子类同时继承自我设计的驱动接口和厂商提供的驱动接口，从而可以访问其中的私有成员等实现我想要的接口。理认上来说，我们希望继承厂商提供的接口时应采用私有继承，从而让它不被孙子类使用。
+
+  相关链接：
+  - [c++ - What is the difference between public, private, and protected inheritance? - Stack Overflow](https://stackoverflow.com/questions/860339/what-is-the-difference-between-public-private-and-protected-inheritance)
+  - [C++继承：公有，私有，保护 - csqlwy - 博客园](https://www.cnblogs.com/qlwy/archive/2011/08/25/2153584.html)
+  
 - Bridge：将接口和实现分离。比如设计 GUI 程序时，我定义了一个 Window 抽象类，其中完成窗口的基本操作，如绘制、移动、最大化、最小化等，该抽象类有多个子类，比如对话框（DialogWindow）、无边框窗口等。但不同的平台下实现窗口基本操作的方法是不一样的，比如 x11 有某个实现，windows 有另一个实现等。这时我就可以在 Window 抽象类中包含一个 WindowImpl 类，而 WindowImpl 类是个抽象类，有多个子类，比如 XWindowImpl 等。
 - Composite：实现递归组合。当一个对象可能包含自身时即可使用此设计模式。例如对于一个编辑器，其内容可以是字符、图片、形状，然后又有行和列的概念，且一行包括多个字符、图片、形状，一列又包括多行，一列即可表达一页或半页文档（如果文档有两列），这时可以定义一个抽象类“图元”，上述所有类均继承自该抽象类，该抽象类有“父亲”和“孩子”，父亲只有一个，孩子有多个，均可定义为图元指针，以表达前述的包含（组合）关系。
 - Decorator：可以将被装饰者作为参数传入。
