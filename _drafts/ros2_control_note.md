@@ -146,3 +146,62 @@ sw_urdf_exporter 插件用于从 solidworks 中导出三维模型，除了得到
 
 - 插件的 issue 中有许多宝藏，可以探索一番
 - vscode中开发插件的可行性？不可行，已经放弃。代码提示中很多错误
+
+## 遇到过的问题
+
+- `/controller_manager/list_controllers` service is taking too long to respond? 疑是 WSL2 的问题，详见 <https://github.com/ros-controls/ros2_control/issues/1185>
+- Mock hardware generic system bug:
+
+  ```diff
+  diff --git a/hardware_interface/src/mock_components/generic_system.cpp b/hardware_interface/src/mock_components/generic_system.cpp
+  index b216c708..959bc32f 100644
+  --- a/hardware_interface/src/mock_components/generic_system.cpp
+  +++ b/hardware_interface/src/mock_components/generic_system.cpp
+  @@ -491,14 +491,17 @@ return_type GenericSystem::perform_command_mode_switch(
+         if (key == info_.joints[joint_index].name + "/" + hardware_interface::HW_IF_POSITION)
+         {
+           joint_control_mode_[joint_index] = POSITION_INTERFACE_INDEX;
+  +        joint_commands_[POSITION_INTERFACE_INDEX][joint_index] = NAN;
+         }
+         if (key == info_.joints[joint_index].name + "/" + hardware_interface::HW_IF_VELOCITY)
+         {
+           joint_control_mode_[joint_index] = VELOCITY_INTERFACE_INDEX;
+  +        joint_commands_[VELOCITY_INTERFACE_INDEX][joint_index] = NAN;
+         }
+         if (key == info_.joints[joint_index].name + "/" + hardware_interface::HW_IF_ACCELERATION)
+         {
+           joint_control_mode_[joint_index] = ACCELERATION_INTERFACE_INDEX;
+  +        joint_commands_[ACCELERATION_INTERFACE_INDEX][joint_index] = NAN;
+         }
+       }
+     }
+  ```
+
+1. Ros2 control 中 Switch controllers 服务如果使用 STRICT 则对方已经是目标控制器时会 Response false。如果使用  BEST_EFFORT 就无此问题
+1. ros2 topic publish 需要要求时间间隔吗？比如我在某个函数中连续调用了两次发布函数，底层会合并这两次发送一个消息，还是发送两个消息呢？不需要，不会合并，通常会发送两个消息，但间隔很短。
+
+### 如何实现一个定距移动控制器？
+
+定距移动实现思路：开环式或闭环式，以及考虑使用位置控制模式还是速度控制模式。
+
+#### 开环式速度控制模式
+
+详见 [turtlesim/Tutorials/Moving in a Straight Line - ROS Wiki](https://wiki.ros.org/turtlesim/Tutorials/Moving%20in%20a%20Straight%20Line)
+
+#### 开环式位置控制模式
+
+下面以 4 舵轮（每个轮子既可转向又可驱动）为例，使用位置模式。
+
+为了实现全向移动机器人在坐标系下的高精度位移（dx, dy, dalpha），我设计并实现了一个基于 **ros2_control** 的定距控制器。该方案的核心在于将复杂的运动学逻辑与硬件控制分离，通过 **Action Server** 提供异步非阻塞的控制接口。
+
+**技术要点：**
+* **分阶段控制策略**：控制器采用独立运动学类处理舵轮逻辑，遵循“先旋转对齐、后平移执行”的策略，并结合最短路径与驱动反转算法优化转向动作。
+* **状态机管理**：内置 8 种状态（从 PLANNING 到 COMPLETED），严格管理从目标规划、实时对齐到执行反馈的全流程，支持异常处理与超时监控。
+* **硬件耦合优化**：利用 `switch_controller` 实现与 Swerve 控制器的互斥切换。针对 PLC 硬件，通过速度与位置接口的隐式切换逻辑，实现 ±1cm 级别的硬件级位置闭环。
+* **坐标闭环反馈**：通过里程计交叉验证，实时反馈移动进度与最终位移误差，确保运动过程的高可靠性。
+
+### 如何在 hardware 处获取原始 urdf 中的信息，比如每个关节的限位信息？
+
+HardwareInfo 结构体中有一个 original_xml 字段，该字段就是原始的 URDF 文件。
+
+详情参见 [Make URDF available to HW components on initialize #abi-breaking by bmagyar · Pull Request #709 · ros-controls/ros2_control](https://github.com/ros-controls/ros2_control/pull/709)

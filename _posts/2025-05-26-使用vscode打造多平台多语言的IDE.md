@@ -1206,3 +1206,17 @@ font-family: "Your Font Name";
 ### QSS 样式限制
 
 在 QSS 中遇到一个限制：设置 `* { font-size:12px }` 后，使用 `em` 作为 `QRadioButton::indicator` 的单位时，indicator 大小不会随字体大小变化。这是 QSS 的已知限制，类似问题也存在于 `QCheckBox`。
+
+### 其他
+- vscode 中打开新终端报错：`pyenv shell 3.13.5  Command 'pyenv' not found, did you mean...`。
+
+  这是因为 vscode 会自动加载 pyenv 环境（如果有的话），解决方法非常简单，直接在 vscode 配置中添加： `"python.terminal.activateEnvironment": false` 即可
+
+- [ros2 - Is there a clang-format file for ROS 2? - Robotics Stack Exchange](https://robotics.stackexchange.com/questions/91947/is-there-a-clang-format-file-for-ros-2)
+- vscode 中点击图标同步 git 时报错：
+
+  ```
+  fatal: unable to access 'https://github.com/wsxq2/liftbot.git/': Failed to connect to 192.168.3.107 port 7890 after 0 ms: Network is unreachable
+  ```
+  
+  使用命令行无此问题，检查了几乎所有的代理相关设置，都没有找到相关设置可能导致此问题。后续又没出现了
